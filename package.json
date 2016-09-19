@@ -1,0 +1,23 @@
+{
+  "name": "time-tracker",
+  "version": "1.0.0",
+  "description": "An app for keeping track of how long tasks take",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "test": "NODE_ENV=testing mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjaminj6/time-tracker.git"
+  },
+  "author": "Benjamin Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjaminj6/time-tracker/issues"
+  },
+  "homepage": "https://github.com/benjaminj6/time-tracker#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
