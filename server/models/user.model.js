@@ -4,21 +4,17 @@ let Joi = require('joi');
 let taskSchema = new mongoose.Schema({
 	title: {
 		type: String,
+		required: true,
+		// Use Joi to generate a default value BEFORE task is added
+		// in the server endpoint
+
+		// Use Joi to validate before it reaches the db
 	},
 	date: {
 		type: Date,
 		required: true,
-		validate: function(value, respond) {
-			let schema = Joi.date().default(Date.now, 'Date that the task was saved');
 
-			return Joi.validate(value, schema, function(err, value) {
-				if (err) {
-					respond(false, err);
-				} else {
-					respond(true);
-				}
-			});
-		},
+		// Joi validation on API endpoint
 	},
 	time: {
 		type: Number,

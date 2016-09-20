@@ -19,7 +19,7 @@ describe('User Schema', function() {
 
 	describe('Username validation', require('./username.test.block')(should));
 	describe('Password validation', require('./password.test.block')(should));
-	describe('Task validation', require('./tasks/_task.test.block')(should));
+	describe('Task validation', require('./task.test.block')(should));
 });
 
 
