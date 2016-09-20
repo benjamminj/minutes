@@ -7,18 +7,22 @@ let should = chai.should();
 let User = require('./user.model');
 
 let mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE_URL);
 
-beforeEach(function(done) {
-	User.remove({}).exec();
-	User.create({ username: 'jonathan', password: 'password' }, 
-		{ username: 'george', password: 'password' });
-	done();
+before(function(done) {
+	let db = mongoose.createConnection(process.env.DATABASE_URL);
+	db.once('open', function() {
+		User.remove({}).exec();
+		User.create({ username: 'jonathan', password: 'password'}, function() {
+			console.log('Created George');
+			done();
+		});
+	});
 });
 
 describe('User Schema', function() {
 
 	describe('User.create()', function() {
+
 		it('Valid user created', function(done) {
 			let goodUser = {
 				username: 'benjamin',
@@ -65,16 +69,15 @@ describe('User Schema', function() {
 
 		it('Invalid username -- not unique', function(done) {
 			User.create({ username: 'jonathan', password: 'password' }, function(err, user) {
-				let usernameError = err.errors.username;
-				console.log(err);
+				err.name.should.equal('MongoError');
+				err.code.should.equal(11000);
+				err.message.should.equal('E11000 duplicate key error collection: time-tracker-testing.users index: username_1 dup key: { : "jonathan" }');
 				done();
 			});
 		});
-
-
 	});
-});
 
+});
 
 
 

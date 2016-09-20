@@ -5,7 +5,8 @@ let should = chai.should();
 
 let app = require('./server');
 
-describe('Test of initial set up', function() {
+describe('Server/server.js', function() {
+
 	it('Log in page html served on root endpoint', function(done) {
 		chai.request(app)
 			.get('/')
@@ -16,5 +17,6 @@ describe('Test of initial set up', function() {
 				done();
 			});
 	});
-	
+
+
 });

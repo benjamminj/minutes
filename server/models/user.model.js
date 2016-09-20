@@ -36,7 +36,7 @@ let UserSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 		validate: function(value, respond) {
-			let schema = Joi.string().required().alphanum();
+			let schema = Joi.string().alphanum();
 
 			Joi.validate(value, schema, function(err, value) {
 				if (err) {
@@ -50,6 +50,9 @@ let UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
+		// validation of password contents will happen before password reaches
+		// schema. Password will be hashed before being persisted to db.
+
 	},
 	tasks: [taskSchema],
 });
