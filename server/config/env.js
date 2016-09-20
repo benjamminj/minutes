@@ -1,7 +1,7 @@
 module.exports = function(env) {
 	switch (env.NODE_ENV) {
 		case 'production': {
-			env.DATABASE_URL = 'INSERT PRODUCTION DB URL HERE';
+			env.DATABASE_URL = env.PROD_DATABASE_URL;
 			break;
 		}
 		case 'testing': {
