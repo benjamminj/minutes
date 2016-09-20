@@ -47,7 +47,6 @@ module.exports = function(should) {
 			User.create({ username: 'jonathan', password: 'password' }, function(err, user) {
 				err.name.should.equal('MongoError');
 				err.code.should.equal(11000);
-				err.message.should.equal('E11000 duplicate key error collection: time-tracker-testing.users index: username_1 dup key: { : "jonathan" }');
 				done();
 			});
 		});
