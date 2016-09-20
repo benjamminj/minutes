@@ -4,19 +4,21 @@ let Joi = require('joi');
 let taskSchema = new mongoose.Schema({
 	title: {
 		type: String,
-		required: true,
-		minLength: 3,
 	},
 	date: {
 		type: Date,
 		required: true,
-		validate: {
-			validator: function(value) {
-				let schema = Joi.date().default(Date.now, 'Date that the task was saved');
+		validate: function(value, respond) {
+			let schema = Joi.date().default(Date.now, 'Date that the task was saved');
 
-				return Joi.validate(value, schema, function(err, value) {});
-			}, 
-		}
+			return Joi.validate(value, schema, function(err, value) {
+				if (err) {
+					respond(false, err);
+				} else {
+					respond(true, value);
+				}
+			});
+		},
 	},
 	time: {
 		type: Number,
@@ -40,15 +42,15 @@ let UserSchema = new mongoose.Schema({
 	tasks: [taskSchema],
 });
 
-UserSchema.methods.joiValidate = function(object) {
-	let JoiSchema = {
-		title: Joi.string().default('Task created at ' + Date.now, 'Default title').required(),
-		date: Joi.date().default(Date.now, 'Date the task was saved'),
-		time: Joi.number().required(),
-		description: Joi.string()
-	};
+// UserSchema.methods.joiValidate = function(object) {
+// 	let JoiSchema = {
+// 		title: Joi.string().default('Task created at ' + Date.now, 'Default title').required(),
+// 		date: Joi.date().default(Date.now, 'Date the task was saved'),
+// 		time: Joi.number().required(),
+// 		description: Joi.string()
+// 	};
 
-	return Joi.validate(object, JoiSchema);
-};
+// 	return Joi.validate(object, JoiSchema);
+// };
 
 let User = mongoose.model(UserSchema)
