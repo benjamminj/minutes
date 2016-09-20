@@ -5,7 +5,7 @@ let taskSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true,
-		// Use Joi to generate a default value BEFORE task is added
+		// TODO -- Use Joi to generate a default value BEFORE task is added
 		// in the server endpoint
 
 		// Use Joi to validate before it reaches the db
@@ -14,7 +14,7 @@ let taskSchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 
-		// Joi validation on API endpoint
+		// TODO -- Joi validation on API endpoint
 	},
 	time: {
 		type: Number,
