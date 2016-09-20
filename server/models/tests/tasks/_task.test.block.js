@@ -13,14 +13,12 @@ module.exports = function(should) {
 			});
 		});
 
-
-		
 		it('Valid task', function(done) {
 			findUser('benjamin', function(err, user) {
-				console.log(user);
+				should.equal(err, null);
+				done();
 			});
 
-			done();
 		});	
 
 		describe('Title validation', function() {
