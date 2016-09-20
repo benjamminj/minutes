@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon server/server.js",
-    "test": "NODE_ENV=testing mocha server/**/*.test.js"
+    "test": "NODE_ENV=testing mocha \"server/**/*.test.js\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,8 @@
   "homepage": "https://github.com/benjaminj6/time-tracker#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "joi": "^9.0.4",
+    "mongoose": "^4.6.0",
     "nodemon": "^1.10.2"
   },
   "devDependencies": {
