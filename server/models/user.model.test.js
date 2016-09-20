@@ -10,7 +10,7 @@ let mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL);
 
 beforeEach(function(done) {
-	User.remove({});
+	User.remove({}).exec();
 	done();
 });
 
@@ -34,9 +34,24 @@ describe('User Schema', function() {
 
 		it('Invalid input -- no username', function(done) {
 			User.create({ username: undefined, password: 'password'}, function(err, user) {
-				console.log(err);
+				err.name.should.equal('ValidationError');
+				err.message.should.equal('User validation failed');
 				done();
 			});
 		});
+
+		it('Invalid input -- ')
+
+
 	});
 });
+
+
+
+
+
+
+
+
+
+

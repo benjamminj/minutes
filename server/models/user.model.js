@@ -15,7 +15,7 @@ let taskSchema = new mongoose.Schema({
 				if (err) {
 					respond(false, err);
 				} else {
-					respond(true, value);
+					respond(true);
 				}
 			});
 		},
@@ -34,6 +34,18 @@ let UserSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		required: true,
+		unique: true,
+		validate: function(value, respond) {
+			let schema = Joi.string().required().alphanum();
+
+			Joi.validate(value, schema, function(err, value) {
+				if (err) {
+					respond(false, err);
+				} else {
+					respond(true);
+				}
+			});
+		},
 	},
 	password: {
 		type: String,
@@ -41,17 +53,6 @@ let UserSchema = new mongoose.Schema({
 	},
 	tasks: [taskSchema],
 });
-
-// UserSchema.methods.joiValidate = function(object) {
-// 	let JoiSchema = {
-// 		title: Joi.string().default('Task created at ' + Date.now, 'Default title').required(),
-// 		date: Joi.date().default(Date.now, 'Date the task was saved'),
-// 		time: Joi.number().required(),
-// 		description: Joi.string()
-// 	};
-
-// 	return Joi.validate(object, JoiSchema);
-// };
 
 let User = mongoose.model('User', UserSchema);
 
