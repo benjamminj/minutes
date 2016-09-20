@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/benjaminj6/time-tracker#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "nodemon": "^1.10.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
