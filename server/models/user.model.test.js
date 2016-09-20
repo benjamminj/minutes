@@ -7,32 +7,36 @@ let should = chai.should();
 let User = require('./user.model');
 
 let mongoose = require('mongoose');
+mongoose.connect(process.env.DATABASE_URL);
 
 beforeEach(function(done) {
-	mongoose.connect(process.env.DATABASE_URL, function(err, connect) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log('Connected to MongoDB on ' + process.env.DATABASE_URL);
-		}
-	});
+	User.remove({});
+	done();
 });
 
 describe('User Schema', function() {
 
-
 	describe('User.create()', function() {
-		it('Valid object created', function(done) {
-			let goodObject = {
+		it('Valid user created', function(done) {
+			let goodUser = {
 				username: 'benjamin',
 				password: 'password'
 			};
 
-			User.create(goodObject, function(err, obj) {
+			User.create(goodUser, function(err, User) {
 				should.equal(err, null);
+				User.should.be.a('Object');
+				User.username.should.equal('benjamin');
+				User.password.should.equal('password');
 				done();
 			});
+		});
 
+		it('Invalid input -- no username', function(done) {
+			User.create({ username: undefined, password: 'password'}, function(err, user) {
+				console.log(err);
+				done();
+			});
 		});
 	});
 });
