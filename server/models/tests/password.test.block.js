@@ -5,7 +5,8 @@ module.exports = function(should) {
 	return function() {
 		it('Valid password given for user creation', function(done) {
 			User.create({ username: 'benjamin', password: 'password' }, function(err, user) {
-				
+				should.equal(err, null);
+				done();
 			});
 		});
 		it('Invalid password -- non-string');
