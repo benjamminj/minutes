@@ -40,7 +40,7 @@ let UserSchema = new mongoose.Schema({
 
 			Joi.validate(value, schema, function(err, value) {
 				if (err) {
-					respond(false, err);
+					respond(false, err.details[0].message);
 				} else {
 					respond(true);
 				}
