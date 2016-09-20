@@ -11,6 +11,8 @@ mongoose.connect(process.env.DATABASE_URL);
 
 beforeEach(function(done) {
 	User.remove({}).exec();
+	User.create({ username: 'jonathan', password: 'password' }, 
+		{ username: 'george', password: 'password' });
 	done();
 });
 
@@ -55,9 +57,16 @@ describe('User Schema', function() {
 		it('Invalid input -- non-string username', function(done) {
 			User.create({ username: {}, password: 'password' }, function(err, user) {
 				let usernameError = err.errors.username;
-				console.log(err);
 				usernameError.name.should.equal('CastError');
 				usernameError.message.should.equal('Cast to String failed for value "{}" at path "username"');
+				done();
+			});
+		});
+
+		it('Invalid username -- not unique', function(done) {
+			User.create({ username: 'jonathan', password: 'password' }, function(err, user) {
+				let usernameError = err.errors.username;
+				console.log(err);
 				done();
 			});
 		});
