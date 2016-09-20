@@ -1,6 +1,6 @@
-var express = require('express');
+let express = require('express');
 
-var app = express();
+let app = express();
 
 require('./config/env')(process.env);
 require('./config/middleware.express')(app);
