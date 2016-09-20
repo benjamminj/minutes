@@ -53,4 +53,7 @@ let UserSchema = new mongoose.Schema({
 // 	return Joi.validate(object, JoiSchema);
 // };
 
-let User = mongoose.model(UserSchema)
+let User = mongoose.model('User', UserSchema);
+
+module.exports = User;
+

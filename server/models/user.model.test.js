@@ -1,20 +1,38 @@
+require('../config/env.js')(process.env);
+console.log(process.env.DATABASE_URL);
+
 let chai = require('chai');
 
 let should = chai.should();
+let User = require('./user.model');
 
-describe('Task Schema', function() {
-	describe('joiValidate Method', function() {
-		it('Valid object should return true boolean', function(done) {
-			let goodObj = {
-				title: 'My Super Awesome Task',
-				date: new Date(2016-09-19),
-				time: 4000 * 5,
-				description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, laboriosam.'
+let mongoose = require('mongoose');
+
+beforeEach(function(done) {
+	mongoose.connect(process.env.DATABASE_URL, function(err, connect) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log('Connected to MongoDB on ' + process.env.DATABASE_URL);
+		}
+	});
+});
+
+describe('User Schema', function() {
+
+
+	describe('User.create()', function() {
+		it('Valid object created', function(done) {
+			let goodObject = {
+				username: 'benjamin',
+				password: 'password'
 			};
 
-			let validation = taskSchema.methods.joiValidate(goodObj);
+			User.create(goodObject, function(err, obj) {
+				should.equal(err, null);
+				done();
+			});
 
-			validation.should.equal(true);
 		});
 	});
 });
