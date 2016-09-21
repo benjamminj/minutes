@@ -4,8 +4,8 @@ let createError = require('../../../utils/error.constructor');
 let Controller = {};
 
 Controller.getAllTasks = function(req, res, next) {
-	// ID will be eventually be passed as session data and be queried instead of username
-	User.findOne({username: req.params.username})
+	// ID will be eventually be passed as session data and be queried instead of in endpoint
+	User.findOne({_id: req.params.id})
 		.exec()
 		.then(function(user) {
 			if (!user) {
@@ -18,6 +18,11 @@ Controller.getAllTasks = function(req, res, next) {
 		.catch(function(err) {
 			next(err);
 		});
-}; 
+};
+
+Controller.deleteTask = function(req, res, next) {
+	// ID will eventually be passed as session data instead of endpoint
+	User.findOne({_id: req.params.id});
+};
 
 module.exports = Controller;

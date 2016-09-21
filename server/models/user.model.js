@@ -2,6 +2,9 @@ let mongoose = require('mongoose');
 let Joi = require('joi');
 
 let taskSchema = new mongoose.Schema({
+	_id: {
+		type: String,
+	},
 	title: {
 		type: String,
 		required: true,
@@ -27,6 +30,11 @@ let taskSchema = new mongoose.Schema({
 });
 
 let UserSchema = new mongoose.Schema({
+	
+	_id: {
+		// TO DO -- Remove when sessions are set up
+		type: String,
+	},
 	username: {
 		type: String,
 		required: true,

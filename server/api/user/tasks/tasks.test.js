@@ -10,16 +10,19 @@ describe('Tasks Endpoint', function() {
 	beforeEach(function(done) {
 		User.remove({}).exec();
 		User.create({
+			_id: 1,
 			username: 'benjamin',
 			password: 'password',
 			tasks: [
 				{
+					_id: '1',
 					title: 'My Super Awesome Task',
 					date: Date.now(),
 					time: (1000 * 40),
 					description: 'Lorem ipsum dolor sit.'
 				},
 				{
+					_id: '2',
 					title: 'My Second Super Awesome Task',
 					date: 2016-09-20,
 					time: (1000 * 100),
@@ -27,7 +30,6 @@ describe('Tasks Endpoint', function() {
 				}
 			]
 		}, function(err, users) {
-			// console.log(users);
 			done();
 		});
 	});
@@ -39,7 +41,7 @@ describe('Tasks Endpoint', function() {
 	describe('GET requests on /home/username/tasks', function() {
 		it('Valid -- returns 200 and user JSON', function(done) {
 			chai.request(app)
-				.get('/home/benjamin/tasks')
+				.get('/home/1/tasks')
 				.end(function(err, res) {
 					should.equal(err, null);
 					res.should.have.status(200);
@@ -53,7 +55,7 @@ describe('Tasks Endpoint', function() {
 
 		it('Invalid -- username not in db returns 404', function(done) {
 			chai.request(app)
-				.get('/home/jordan/tasks/')
+				.get('/home/20/tasks/')
 				.end(function(err, res) {
 					err.should.have.status(404);
 					res.body.name.should.equal('NotFound');
@@ -62,5 +64,4 @@ describe('Tasks Endpoint', function() {
 				});
 		});
 	});
-
 });
