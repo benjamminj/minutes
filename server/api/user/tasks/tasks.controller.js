@@ -11,10 +11,9 @@ Controller.getAllTasks = function(req, res, next) {
 			if (!user) {
 				let error = createError('NotFound', 'This user was not found in the database', 404);
 				throw error;
+			} else {
+				res.status(200).json(user.tasks);
 			}
-		})
-		.then(function(user) {
-			res.status(200).json(user);
 		})
 		.catch(function(err) {
 			next(err);

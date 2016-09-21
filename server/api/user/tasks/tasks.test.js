@@ -6,7 +6,7 @@ let should = chai.should();
 let app = require('../../../server');
 let User = require('../../../models/user.model');
 
-describe('Requests on /home/:username/tasks', function() {
+describe('Tasks Endpoint', function() {
 	beforeEach(function(done) {
 		User.remove({}).exec();
 		User.create({
@@ -20,7 +20,7 @@ describe('Requests on /home/:username/tasks', function() {
 					description: 'Lorem ipsum dolor sit.'
 				},
 				{
-					title: 'My Second Super Aweseom Task',
+					title: 'My Second Super Awesome Task',
 					date: 2016-09-20,
 					time: (1000 * 100),
 					description: 'Lorem ipsum dolor sit.'
@@ -36,8 +36,22 @@ describe('Requests on /home/:username/tasks', function() {
 		User.remove({}, done);
 	});
 
-	describe('GET request on /tasks', function() {
-		it('GET -- username not in db returns 404', function(done) {
+	describe('GET requests on /home/username/tasks', function() {
+		it('Valid -- returns 200 and user JSON', function(done) {
+			chai.request(app)
+				.get('/home/benjamin/tasks')
+				.end(function(err, res) {
+					should.equal(err, null);
+					res.should.have.status(200);
+					res.should.be.json;
+					res.body.should.be.a('Array');
+					res.body[0].title.should.equal('My Super Awesome Task');
+					res.body[1].time.should.equal(1000 * 100);
+					done();
+				});
+		});
+
+		it('Invalid -- username not in db returns 404', function(done) {
 			chai.request(app)
 				.get('/home/jordan/tasks/')
 				.end(function(err, res) {
