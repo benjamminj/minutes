@@ -5,5 +5,6 @@ let controller = require('./tasks.controller');
 
 // TO DO -- Eventually, remove :id from endpoint. Pass User ID through session data.
 router.get('/:id/tasks', controller.getAllTasks);
+router.delete('/:id/tasks/delete-:taskID', controller.deleteTask);
 
 module.exports = router;
