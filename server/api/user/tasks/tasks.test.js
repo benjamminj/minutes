@@ -27,7 +27,7 @@ describe('Requests on /:user/tasks', function() {
 				}
 			]
 		}, function(err, users) {
-			console.log(users);
+			// console.log(users);
 			done();
 		});
 	});
@@ -35,12 +35,16 @@ describe('Requests on /:user/tasks', function() {
 	afterEach(function(done) {
 		User.remove({}, done);
 	});
+
 	describe('/', function() {
 		it('GET -- username not in db returns 404', function(done) {
 			chai.request(app)
-				.get('/benjamin/tasks/')
+				.get('/home/jordan/tasks/')
 				.end(function(err, res) {
-					res.should.have.status(404);
+					// console.log(res);
+					err.should.have.status(404);
+					res.body.name.should.equal('NotFound');
+					res.body.message.should.equal('This user was not found in the database');
 					done();
 				});
 		});
