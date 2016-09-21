@@ -7,7 +7,7 @@ let app = require('../../../server');
 let User = require('../../../models/user.model');
 
 describe('Requests on /:user/tasks', function() {
-	before(function(done) {
+	beforeEach(function(done) {
 		User.remove({}).exec();
 		User.create({
 			username: 'benjamin',
@@ -32,6 +32,9 @@ describe('Requests on /:user/tasks', function() {
 		});
 	});
 
+	afterEach(function(done) {
+		User.remove({}, done);
+	});
 	describe('/', function() {
 		it('GET -- username not in db returns 404', function(done) {
 			chai.request(app)
@@ -43,7 +46,4 @@ describe('Requests on /:user/tasks', function() {
 		});
 	});
 
-	after(function(done) {
-		User.remove({}, done);
-	});
 });
