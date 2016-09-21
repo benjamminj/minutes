@@ -36,7 +36,7 @@ describe('Requests on /home/:username/tasks', function() {
 		User.remove({}, done);
 	});
 
-	describe('/tasks', function() {
+	describe('GET request on /tasks', function() {
 		it('GET -- username not in db returns 404', function(done) {
 			chai.request(app)
 				.get('/home/jordan/tasks/')
