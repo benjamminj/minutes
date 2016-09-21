@@ -7,6 +7,7 @@ let app = express();
 require('./config/env')(process.env);
 require('./config/middleware.express')(app);
 require('./config/routes.express.js')(app);
+require('./config/error.handling.js')(app);
 
 mongoose.connect(process.env.DATABASE_URL)
 	.then(function() {

@@ -6,7 +6,7 @@ let should = chai.should();
 let app = require('../../../server');
 let User = require('../../../models/user.model');
 
-describe('Requests on /:user/tasks', function() {
+describe('Requests on /home/:username/tasks', function() {
 	beforeEach(function(done) {
 		User.remove({}).exec();
 		User.create({
@@ -36,12 +36,11 @@ describe('Requests on /:user/tasks', function() {
 		User.remove({}, done);
 	});
 
-	describe('/', function() {
+	describe('/tasks', function() {
 		it('GET -- username not in db returns 404', function(done) {
 			chai.request(app)
 				.get('/home/jordan/tasks/')
 				.end(function(err, res) {
-					// console.log(res);
 					err.should.have.status(404);
 					res.body.name.should.equal('NotFound');
 					res.body.message.should.equal('This user was not found in the database');

@@ -4,8 +4,7 @@ let createError = require('../../../utils/error.constructor');
 let Controller = {};
 
 Controller.getAllTasks = function(req, res, next) {
-	// Id will be eventually be passed as session data
-	console.log(req.params.username);
+	// ID will be eventually be passed as session data and be queried instead of username
 	User.findOne({username: req.params.username})
 		.exec()
 		.then(function(user) {
@@ -18,7 +17,7 @@ Controller.getAllTasks = function(req, res, next) {
 			res.status(200).json(user);
 		})
 		.catch(function(err) {
-			res.status(err.status).json({name: err.name, message: err.message});
+			next(err);
 		});
 }; 
 
