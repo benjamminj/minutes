@@ -5,6 +5,7 @@ let should = chai.should();
 
 let app = require('../../../server');
 let User = require('../../../models/user.model');
+let createTask = require('../../../utils/task.constructor');
 
 describe('Tasks Endpoint', function() {
 	beforeEach(function(done) {
@@ -30,6 +31,7 @@ describe('Tasks Endpoint', function() {
 				}
 			]
 		}, function(err, users) {
+			console.log(users)
 			done();
 		});
 	});
@@ -38,10 +40,10 @@ describe('Tasks Endpoint', function() {
 		User.remove({}, done);
 	});
 
-	describe('GET requests on /home/username/tasks', function() {
+	describe('GET requests on /api/username/tasks', function() {
 		it('Valid -- returns 200 and user JSON', function(done) {
 			chai.request(app)
-				.get('/home/1/tasks')
+				.get('/api/1/tasks')
 				.end(function(err, res) {
 					should.equal(err, null);
 					res.should.have.status(200);
@@ -55,7 +57,7 @@ describe('Tasks Endpoint', function() {
 
 		it('Invalid -- username not in db returns 400', function(done) {
 			chai.request(app)
-				.get('/home/20/tasks/')
+				.get('/api/20/tasks/')
 				.end(function(err, res) {
 					err.should.have.status(404);
 					res.body.name.should.equal('NotFound');
@@ -65,10 +67,10 @@ describe('Tasks Endpoint', function() {
 		});
 	});
 
-	describe('DELETE requests on /home/username/tasks/delete-:taskID', function() {
-		it('Valid -- returns 200 and updated user', function(done) {
+	describe('DELETE requests on /api/id/tasks/delete-:taskID', function() {
+		it('Valid: 200 -- returns updated user', function(done) {
 			chai.request(app)
-				.delete('/home/1/tasks/delete-1')
+				.delete('/api/1/tasks/delete-1')
 				.end(function(err, res) {
 					should.equal(err, null);
 					res.should.have.status(200);
@@ -82,11 +84,11 @@ describe('Tasks Endpoint', function() {
 
 		function chaiDelete(endpoint) {
 			return chai.request(app)
-				.delete(endpoint)
+				.delete(endpoint);
 		}
 
 		it('Invalid: 404 -- wrong user id', function(done) {
-			chaiDelete('/home/20/tasks/delete-1')
+			chaiDelete('/api/20/tasks/delete-1')
 				.end(function(err, res) {
 					err.should.have.status(404);
 					res.should.be.json;
@@ -97,7 +99,7 @@ describe('Tasks Endpoint', function() {
 		});
 
 		it('Invalid: 404 -- wrong task id', function(done) {
-			chaiDelete('/home/1/tasks/delete-20')
+			chaiDelete('/api/1/tasks/delete-20')
 				.end(function(err, res) {
 					err.should.have.status(404);
 					res.should.be.json;
@@ -106,5 +108,24 @@ describe('Tasks Endpoint', function() {
 					done();
 				});
 		});
+	});
+
+	describe('POST requests on /api/id/tasks/create', function() {
+		it('Valid: 201 -- returns created task', function(done) {
+			let newTask = createTask(3, 'My Third Super Awesome Task', Date.now(), 300000, 'A brief description');
+
+			chaiPost('/api/1/tasks/create', newTask)
+				.end(function(err, res) {
+					console.log(newTask);
+					console.log(err);
+					done();
+				});
+		});
+
+		function chaiPost(endpoint, request) {
+			return chai.request(app)
+				.post(endpoint)
+				.send(request);
+		}
 	});
 });

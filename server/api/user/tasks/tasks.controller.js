@@ -1,7 +1,10 @@
+let Controller = {};
 let User = require('../../../models/user.model');
+
+let Joi = require('joi');
+let validate = require('../../../utils/joi.validate.promise');
 let createError = require('../../../utils/error.constructor');
 
-let Controller = {};
 
 Controller.getAllTasks = function(req, res, next) {
 	// ID will be eventually be passed as session data and be queried instead of in endpoint
@@ -49,6 +52,16 @@ Controller.deleteTask = function(req, res, next) {
 		.catch(function(err) {
 			next(err);
 		});
+};
+
+Controller.createTask = function(req, res, next) {	
+	let validInputSchema = {
+		_id: Joi.string(),
+		title: Joi.string().required().default('My Task'),
+		date: Joi.date().format('MM/DD/YYYY').default('now')
+	};
+
+	// Then need to findByIdAndUpdate the User document
 };
 
 module.exports = Controller;
