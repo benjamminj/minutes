@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon server/server.js",
-    "test": "NODE_ENV=testing mocha \"server/**/*.test.js\""
+    "test": "NODE_ENV=testing mocha \"server/**/*.test.js\"",
+    "coverage": "NODE_ENV=testing istanbul cover _mocha \"server/**/*.test.js\" -- -R spec"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.0.2"
   },
   "engines": {
