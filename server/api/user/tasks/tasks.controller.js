@@ -2,7 +2,7 @@ let Controller = {};
 let User = require('../../../models/user.model');
 
 let Joi = require('joi');
-let validate = require('../../../utils/joi.validate.promise');
+let joiValidate = require('../../../utils/joi.validate.promise');
 let createError = require('../../../utils/error.constructor');
 
 
@@ -11,9 +11,9 @@ Controller.getAllTasks = function(req, res, next) {
 	User.findById(req.params.id)
 		.exec()
 		.then(function(user) {
-			if (!user) {
-				let error = createError('NotFound', 'This user id was not found in the database', 404);
-				throw error;
+			// TODO -- refactor into a function
+			if (!user) { 
+				throw createError('NotFound', 'This user id was not found in the database', 404);
 			} else {
 				res.status(200).json(user.tasks);
 			}
@@ -29,8 +29,7 @@ Controller.deleteTask = function(req, res, next) {
 		.exec()
 		.then(function(user) {
 			if (!user) {
-				let error = createError('NotFound', 'This user id was not found in the database', 404);
-				throw error;
+				throw createError('NotFound', 'This user id was not found in the database', 404);
 			} else {
 				return user;
 			}
@@ -39,8 +38,7 @@ Controller.deleteTask = function(req, res, next) {
 			let taskToRemove = user.tasks.id(req.params.taskID);
 
 			if (!taskToRemove) {
-				let error = createError('NotFound', 'This task was not found in the database', 404);
-				throw error;
+				throw createError('NotFound', 'This task was not found in the database', 404);
 			} else {
 				taskToRemove.remove();			
 				return user.save();	
@@ -55,11 +53,30 @@ Controller.deleteTask = function(req, res, next) {
 };
 
 Controller.createTask = function(req, res, next) {	
-	let validInputSchema = {
+	const validInputSchema = {
 		_id: Joi.string(),
-		title: Joi.string().required().default('My Task'),
-		date: Joi.date().format('MM/DD/YYYY').default('now')
+		title: Joi.string().default('My Task on ' + new Date(Date.now())),
+		date: Joi.date().max('now').required(),
+		time: Joi.number().required().positive(),
+		description: Joi.string()
 	};
+
+
+	joiValidate(req.body, validInputSchema)
+		.then(function(task) {
+			return User.findByIdAndUpdate(req.params.id, { $push: { tasks: task } }, { new: true, runValidators: true });
+		})
+		.then(function(user) {
+			// TODO -- refactor into a function
+			if (!user) {
+				throw createError('NotFound', 'This user id was not found in the database', 404);
+			} else {
+				res.status(201).json(user.tasks);
+			}
+		})
+		.catch(function(err) {
+			next(err);
+		});
 
 	// Then need to findByIdAndUpdate the User document
 };

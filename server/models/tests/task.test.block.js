@@ -7,7 +7,6 @@ module.exports = function(should) {
 			User.create({ 
 				username: 'benjamin', 
 				password: 'password', 
-				// Remove when SEssion data is implemented
 				_id: '12345'
 			}, function() {
 				done();

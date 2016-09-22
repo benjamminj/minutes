@@ -2,7 +2,7 @@ module.exports = function(id, title, date, time, description) {
 	let newTask = {
 		_id: id,
 		title: title,
-		date: date,
+		date: new Date(date),
 		time: time,
 		description: description
 	};
