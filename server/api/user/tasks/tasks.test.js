@@ -31,7 +31,6 @@ describe('Tasks Endpoint', function() {
 				}
 			]
 		}, function(err, users) {
-			console.log(users)
 			done();
 		});
 	});
@@ -110,22 +109,22 @@ describe('Tasks Endpoint', function() {
 		});
 	});
 
-	describe('POST requests on /api/id/tasks/create', function() {
-		it('Valid: 201 -- returns created task', function(done) {
-			let newTask = createTask(3, 'My Third Super Awesome Task', Date.now(), 300000, 'A brief description');
+	// describe('POST requests on /api/id/tasks/create', function() {
+	// 	it('Valid: 201 -- returns created task', function(done) {
+	// 		let newTask = createTask(3, 'My Third Super Awesome Task', Date.now(), 300000, 'A brief description');
 
-			chaiPost('/api/1/tasks/create', newTask)
-				.end(function(err, res) {
-					console.log(newTask);
-					console.log(err);
-					done();
-				});
-		});
+	// 		chaiPost('/api/1/tasks/create', newTask)
+	// 			.end(function(err, res) {
+	// 				console.log(newTask);
+	// 				console.log(err);
+	// 				done();
+	// 			});
+	// 	});
 
-		function chaiPost(endpoint, request) {
-			return chai.request(app)
-				.post(endpoint)
-				.send(request);
-		}
-	});
+	// 	function chaiPost(endpoint, request) {
+	// 		return chai.request(app)
+	// 			.post(endpoint)
+	// 			.send(request);
+	// 	}
+	// });
 });
