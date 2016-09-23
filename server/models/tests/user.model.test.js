@@ -1,4 +1,4 @@
-require('../../config/env.js')(process.env);
+require(__baseURL + 'config/env.js')(process.env);
 console.log(process.env.DATABASE_URL);
 
 let chai = require('chai');

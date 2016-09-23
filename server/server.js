@@ -1,5 +1,5 @@
+global.__baseURL = __dirname + '/';
 let express = require('express');
-
 let app = express();
 
 require('./config/env')(process.env);
