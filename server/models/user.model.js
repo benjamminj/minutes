@@ -2,19 +2,18 @@ let mongoose = require('mongoose');
 let Joi = require('joi');
 
 let taskSchema = new mongoose.Schema({
+	_id: {
+		type: String,
+		unique: true,
+		default: new mongoose.Types.ObjectId(),
+	},
 	title: {
 		type: String,
 		required: true,
-		// TODO -- Use Joi to generate a default value BEFORE task is added
-		// in the server endpoint
-
-		// Use Joi to validate before it reaches the db
 	},
 	date: {
 		type: Date,
 		required: true,
-
-		// TODO -- Joi validation on API endpoint
 	},
 	time: {
 		type: Number,
@@ -27,6 +26,11 @@ let taskSchema = new mongoose.Schema({
 });
 
 let UserSchema = new mongoose.Schema({
+	
+	_id: {
+		// TO DO -- Remove when sessions are set up
+		type: String,
+	},
 	username: {
 		type: String,
 		required: true,

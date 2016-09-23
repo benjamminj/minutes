@@ -4,7 +4,11 @@ module.exports = function(should) {
 	return function() {
 		beforeEach(function(done) {
 			User.remove({}).exec();
-			User.create({ username: 'benjamin', password: 'password'}, function() {
+			User.create({ 
+				username: 'benjamin', 
+				password: 'password', 
+				_id: '12345'
+			}, function() {
 				done();
 			});
 		});
@@ -14,6 +18,8 @@ module.exports = function(should) {
 
 		it('Valid task', function(done) {
 			let task = {
+				// Remove when Session data is implemented
+				_id: '12345',
 				title: 'My Super Awesome Task',
 				date: new Date(2016-09-21),
 				time: 40000,

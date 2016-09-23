@@ -8,7 +8,7 @@ module.exports = function(should) {
 		});
 
 		it('Valid password given for user creation', function(done) {
-			User.create({ username: 'benjamin', password: 'password' }, function(err, user) {
+			User.create({ username: 'benjamin', password: 'password', _id: '12345' }, function(err, user) {
 				should.equal(err, null);
 				user.password.should.equal('password');
 				done();
@@ -16,7 +16,7 @@ module.exports = function(should) {
 		});
 
 		it('Invalid password -- non-string', function(done) {
-			User.create({ username: 'benjamin', password: {} }, function(err, user) {
+			User.create({ username: 'benjamin', password: {}, _id: '12345' }, function(err, user) {
 				err.errors.password.name.should.equal('CastError');
 				err.errors.password.message.should.equal('Cast to String failed for value "{}" at path "password"');
 				done();
@@ -24,7 +24,7 @@ module.exports = function(should) {
 		});
 		
 		it('Invalid password -- no password', function(done) {
-			User.create({ username: 'benjamin', password: undefined }, function(err, user) {
+			User.create({ username: 'benjamin', password: undefined, _id: '12345' }, function(err, user) {
 				err.errors.password.name.should.equal('ValidatorError');
 				err.errors.password.message.should.equal('Path `password` is required.');
 				done();
