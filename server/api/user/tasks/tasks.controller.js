@@ -61,7 +61,6 @@ Controller.createTask = function(req, res, next) {
 		description: Joi.string()
 	};
 
-
 	joiValidate(req.body, validInputSchema)
 		.then(function(task) {
 			return User.findByIdAndUpdate(req.params.id, { $push: { tasks: task } }, { new: true, runValidators: true });
@@ -77,8 +76,37 @@ Controller.createTask = function(req, res, next) {
 		.catch(function(err) {
 			next(err);
 		});
+};
 
-	// Then need to findByIdAndUpdate the User document
+Controller.editTask = function(req, res, next) {
+	// write some sort of validation for editable properties
+	const editableItemsSchema = {
+		key: Joi.string().required().valid('title', 'description'),
+		value: Joi.string().required(),
+	};
+
+	joiValidate(req.body, editableItemsSchema)
+		.then(function(edits) {
+			return User.findById(req.params.id);
+		})
+		.then(function(user) {
+			let taskID = req.params.taskID;
+			if (!user) {
+				throw createError('NotFound', 'This user id was not found in the database', 404);
+			} else if (!user.tasks.id(taskID)) {
+				throw createError('NotFound', 'This task id was not found in the database', 404);
+			} else {
+				user.tasks.id(taskID)[req.body.key] = req.body.value;
+
+				return user.save();
+			}
+		})
+		.then(function(editedUser) {
+			res.status(200).json(editedUser.tasks.id(req.params.taskID));
+		})
+		.catch(function(err) {
+			next(err);
+		});
 };
 
 module.exports = Controller;
