@@ -76,7 +76,7 @@ UserSchema.methods.validatePassword = function(password) {
 	let promise = new Promise(function(resolve, reject) {
 		bcrypt.compare(password, correctPassword, function(err, isValid) {
 			if (err) {
-				let error = createError('ValidationError', 'Password must be string', 400);
+				let error = createError('ValidationError', err.message, 400);
 				reject(error);
 			}
 
