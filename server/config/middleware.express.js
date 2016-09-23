@@ -6,8 +6,8 @@ let session = require('express-session');
 module.exports = function(app) {
 
 	app.use(express.static('public/login'));
-	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));
+	app.use(bodyParser.json());
 	
 	let sessionOptions = {
 		secret: 'Task junkie',

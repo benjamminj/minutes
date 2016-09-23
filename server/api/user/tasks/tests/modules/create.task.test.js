@@ -61,7 +61,7 @@ module.exports = function(chai, app) {
 					err.should.have.status(400);
 					res.should.be.json;
 					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('Cast to String failed for value "{}" at path "_id"');
+					res.body.errors['tasks.2._id'].message.should.equal('Cast to String failed for value "{}" at path "_id"');
 					done();
 				});
 		});
@@ -89,7 +89,7 @@ module.exports = function(chai, app) {
 					err.status.should.equal(400);
 					res.should.be.json;
 					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('Cast to String failed for value "{}" at path "title"');
+					res.body.errors['tasks.2.title'].message.should.equal('Cast to String failed for value "{}" at path "title"');
 					done();
 				});
 		});
@@ -102,7 +102,7 @@ module.exports = function(chai, app) {
 					err.should.have.status(400);
 					res.should.be.json;
 					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('Path `date` is required.');
+					res.body.errors['tasks.2.date'].message.should.equal('Path `date` is required.');
 					done();
 				});
 		});
@@ -115,7 +115,7 @@ module.exports = function(chai, app) {
 					err.should.have.status(400);
 					res.should.be.json;
 					res.body.name.should.equal('ValidationError');
-					should.equal(res.body.message.includes('"value" must be less than or equal to'), true);
+					should.equal(res.body.errors['tasks.2.date'].message.includes('"value" must be less than or equal to'), true);
 					done();
 				});
 		});
@@ -142,7 +142,7 @@ module.exports = function(chai, app) {
 					err.should.have.status(400);
 					res.should.be.json;
 					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('Cast to String failed for value "{}" at path "description"');
+					res.body.errors['tasks.2.description'].message.should.equal('Cast to String failed for value "{}" at path "description"');
 					done();
 				});
 		});

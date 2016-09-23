@@ -5,7 +5,6 @@ let Joi = require('joi');
 let joiValidate = require(__baseURL + 'utils/joi.validate.promise');
 let createError = require(__baseURL + 'utils/error.constructor');
 
-
 Controller.getAllTasks = function(req, res, next) {
 	// ID will be eventually be passed as session data and be queried instead of in endpoint
 	User.findById(req.params.id)
@@ -71,25 +70,19 @@ Controller.createTask = function(req, res, next) {
 };
 
 Controller.editTask = function(req, res, next) {
-	// TO DO -- move validation to user.model
-	const editableItemsSchema = {
-		key: Joi.string().required().valid('title', 'description'),
-		value: Joi.string().required(),
-	};
+	let keyToChange = Object.keys(req.body)[0];
 
-	joiValidate(req.body, editableItemsSchema)
-		.then(function(edits) {
-			return User.findById(req.params.id);
-		})
+	return User.findById(req.params.id)
 		.then(function(user) {
 			let taskID = req.params.taskID;
 			if (!user) {
 				throw createError('NotFound', 'This user id was not found in the database', 404);
 			} else if (!user.tasks.id(taskID)) {
 				throw createError('NotFound', 'This task id was not found in the database', 404);
+			} else if (!user.tasks.id(taskID)[keyToChange]) {
+				throw createError('InvalidInput', `"${keyToChange}" must be either "title" or "description"`, 400);
 			} else {
-				user.tasks.id(taskID)[req.body.key] = req.body.value;
-
+				user.tasks.id(taskID)[keyToChange] = req.body[keyToChange];
 				return user.save();
 			}
 		})
