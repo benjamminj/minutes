@@ -1,13 +1,11 @@
-let User = require('../user.model');
-
-module.exports = function(should) {
+module.exports = function(should, User) {
 
 	return function() {
 		beforeEach(function(done) {
 			User.remove({}, done);
 		});
 
-		it('Valid password given for user creation', function(done) {
+		it('Valid password -- user created', function(done) {
 			User.create({ username: 'benjamin', password: 'password', _id: '12345' }, function(err, user) {
 				should.equal(err, null);
 				user.password.should.equal('password');

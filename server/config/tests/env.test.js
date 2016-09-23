@@ -1,8 +1,8 @@
 let configureEnvironment = require('../env');
 let chai = require('chai');
 
-describe('Switch statement for environment', function() {
-	describe('Production', function() {
+describe('Environment', function() {
+	describe('Production Mode', function() {
 		it('Should return production vars', function(done) {
 			let env = {
 				NODE_ENV: 'production',

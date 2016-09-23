@@ -1,6 +1,4 @@
-let User = require('../user.model');
-
-module.exports = function(should) {
+module.exports = function(should, User) {
 	return function() {
 		beforeEach(function(done) {
 			User.remove({}).exec();
@@ -16,7 +14,7 @@ module.exports = function(should) {
 		let query = { username: 'benjamin' };
 		let options = { new: true, runValidators: true};
 
-		it('Valid task', function(done) {
+		it('Valid task -- task added to tasks array', function(done) {
 			let task = {
 				// Remove when Session data is implemented
 				_id: '12345',
@@ -47,7 +45,7 @@ module.exports = function(should) {
 			};
 		}
 
-		it('Invalid -- non-string for title', function(done) {
+		it('Invalid task -- non-string for title', function(done) {
 			let task = createTask({}, Date.now(), 500000, 'Brief description');
 
 			User.findOneAndUpdate(query, update(task), function(err, user) {
@@ -57,7 +55,7 @@ module.exports = function(should) {
 			});
 		});		
 	
-		it('Invalid -- non-date for date', function(done) {
+		it('Invalid task -- non-date for date', function(done) {
 			let task = createTask('Task', 'this is a string', 500000, 'Description');
 
 			User.findOneAndUpdate(query, update(task), options, function(err, user) {
@@ -67,7 +65,7 @@ module.exports = function(should) {
 			});
 		});
 
-		it('Invalid -- non-number for time', function(done) {
+		it('Invalid task -- non-number for time', function(done) {
 			let task = createTask('Task', Date.now(), 'String', 'Description');
 
 			User.findOneAndUpdate(query, update(task), options, function(err, user) {
@@ -77,7 +75,7 @@ module.exports = function(should) {
 			});
 		});
 
-		it('Invalid -- non-string from description', function(done) {
+		it('Invalid task -- non-string from description', function(done) {
 			let task = createTask('Title', Date.now(), 30000, {});
 
 			User.findOneAndUpdate(query, update(task), options, function(err, user) {

@@ -1,4 +1,4 @@
-require('../../config/env.js')(process.env);
+require(__baseURL + 'config/env.js')(process.env);
 console.log(process.env.DATABASE_URL);
 
 let chai = require('chai');
@@ -17,9 +17,9 @@ before(function(done) {
 
 describe('User Schema', function() {
 
-	describe('Username validation', require('./username.test.block')(should));
-	describe('Password validation', require('./password.test.block')(should));
-	describe('Task validation', require('./task.test.block')(should));
+	describe('Username validation', require('./modules/username.test')(should, User));
+	describe('Password validation', require('./modules/password.test')(should, User));
+	describe('Task validation', require('./modules/task.schema.test')(should, User));
 });
 
 

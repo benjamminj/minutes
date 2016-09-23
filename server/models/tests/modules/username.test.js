@@ -1,8 +1,6 @@
 // TO DO -- remove _id when session data implemented
 
-let User = require('../user.model');
-
-module.exports = function(should) {
+module.exports = function(should, User) {
 
 	return function() {
 		before(function(done) {
@@ -12,7 +10,7 @@ module.exports = function(should) {
 			});
 		});
 		
-		it('Valid user created', function(done) {
+		it('Valid username -- user created', function(done) {
 			User.create({ username: 'benjamin', password: 'password', _id: '12345' }, function(err, user) {
 				should.equal(err, null);
 				user.should.be.a('Object');
