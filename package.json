@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/benjaminj6/time-tracker#readme",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",

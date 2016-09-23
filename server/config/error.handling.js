@@ -9,9 +9,8 @@ module.exports = function(app) {
 	});
 
 	app.use(function(err, req, res, next) {
-
 		if (err.isJoi) {
 			res.status(400).json({ name: err.name, message: err.details[0].message});
-		}
+		} 
 	});
 };

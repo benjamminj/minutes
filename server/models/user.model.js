@@ -1,5 +1,7 @@
 let mongoose = require('mongoose');
 let Joi = require('joi');
+let createError = require(__baseURL + 'utils/error.constructor');
+let bcrypt= require('bcrypt');
 
 let taskSchema = new mongoose.Schema({
 	_id: {
@@ -58,25 +60,17 @@ UserSchema.methods.validatePassword = function(password) {
 	let correctPassword = this.password;
 	
 	let promise = new Promise(function(resolve, reject) {
-		if (correctPassword === password) {
-			resolve(true);
-		} else {
-			reject(false);
-		}
-	});
+		bcrypt.compare(password, correctPassword, function(err, isValid) {
+			if (err) {
+				let error = createError('ValidationError', 'Password must be string', 400);
+				reject(error);
+			}
 
-	return promise;
-};
-
-UserSchema.methods.hashPassword = function(password) {
-	let promise = new Promise(function(resolve, reject) {
-		let saltRounds = 10;
-
-		bcrypt.hash(password, saltRounds, function(err, hash) {
-			if (hash) {
-				resolve(hash);
+			if (isValid) {
+				resolve(true);
 			} else {
-				reject(err);
+				let error = createError('Unauthorized', 'The password was incorrect', 401);
+				reject(error);
 			}
 		});
 	});
