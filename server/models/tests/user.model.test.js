@@ -20,6 +20,7 @@ describe('User Schema', function() {
 	describe('Username validation', require('./modules/username.test')(should, User));
 	describe('Password validation', require('./modules/password.test')(should, User));
 	describe('Task validation', require('./modules/task.schema.test')(should, User));
+	describe('validatePassword method', require('./modules/validate.password.test')(should, User));
 });
 
 

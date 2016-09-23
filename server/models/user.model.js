@@ -50,12 +50,39 @@ let UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
-		// validation of password contents will happen before password reaches
-		// schema. Password will be hashed before being persisted to db.
-
 	},
 	tasks: [taskSchema],
 });
+
+UserSchema.methods.validatePassword = function(password) {
+	let correctPassword = this.password;
+	
+	let promise = new Promise(function(resolve, reject) {
+		if (correctPassword === password) {
+			resolve(true);
+		} else {
+			reject(false);
+		}
+	});
+
+	return promise;
+};
+
+UserSchema.methods.hashPassword = function(password) {
+	let promise = new Promise(function(resolve, reject) {
+		let saltRounds = 10;
+
+		bcrypt.hash(password, saltRounds, function(err, hash) {
+			if (hash) {
+				resolve(hash);
+			} else {
+				reject(err);
+			}
+		});
+	});
+
+	return promise;
+};
 
 let User = mongoose.model('User', UserSchema);
 

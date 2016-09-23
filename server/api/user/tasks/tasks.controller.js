@@ -1,9 +1,9 @@
 let Controller = {};
-let User = require('../../../models/user.model');
+let User = require(__baseURL + 'models/user.model');
 
 let Joi = require('joi');
-let joiValidate = require('../../../utils/joi.validate.promise');
-let createError = require('../../../utils/error.constructor');
+let joiValidate = require(__baseURL + 'utils/joi.validate.promise');
+let createError = require(__baseURL + 'utils/error.constructor');
 
 
 Controller.getAllTasks = function(req, res, next) {
