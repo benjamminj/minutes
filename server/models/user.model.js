@@ -12,14 +12,28 @@ let taskSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true,
+		default: 'My Task on ' + new Date(Date.now()),
 	},
 	date: {
 		type: Date,
 		required: true,
+		default: new Date(Date.now()),
+		validate: function(value, respond) {
+			let schema = Joi.date().max('now');
+
+			Joi.validate(value, schema, function(err, value) {
+				if(err) {
+					respond(false, err.details[0].message);
+				} else {
+					respond(true);
+				}
+			});
+		}
 	},
 	time: {
 		type: Number,
 		required: true,
+		min: 0,
 	},
 	description: {
 		type: String,

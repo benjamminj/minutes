@@ -6,7 +6,7 @@ let passport = require('passport');
 
 router.post('/', 
 	passport.authenticate('local', {
-		successRedirect: '/public/home',
+		successRedirect: '/login/success',
 		failureRedirect: '/login/unauthorized'
 	})
 );

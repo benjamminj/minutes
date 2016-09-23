@@ -53,25 +53,17 @@ Controller.deleteTask = function(req, res, next) {
 };
 
 Controller.createTask = function(req, res, next) {	
-	const validInputSchema = {
-		_id: Joi.string(),
-		title: Joi.string().default('My Task on ' + new Date(Date.now())),
-		date: Joi.date().max('now').required(),
-		time: Joi.number().required().positive(),
-		description: Joi.string()
-	};
-
-	joiValidate(req.body, validInputSchema)
-		.then(function(task) {
-			return User.findByIdAndUpdate(req.params.id, { $push: { tasks: task } }, { new: true, runValidators: true });
-		})
+	User.findById(req.params.id)
 		.then(function(user) {
-			// TODO -- refactor into a function
 			if (!user) {
 				throw createError('NotFound', 'This user id was not found in the database', 404);
 			} else {
-				res.status(201).json(user.tasks);
+				user.tasks.push(req.body);
+				return user.save();				
 			}
+		})
+		.then(function(editedUser) {
+				res.status(201).json(editedUser.tasks);
 		})
 		.catch(function(err) {
 			next(err);
@@ -79,7 +71,7 @@ Controller.createTask = function(req, res, next) {
 };
 
 Controller.editTask = function(req, res, next) {
-	// write some sort of validation for editable properties
+	// TO DO -- move validation to user.model
 	const editableItemsSchema = {
 		key: Joi.string().required().valid('title', 'description'),
 		value: Joi.string().required(),

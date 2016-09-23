@@ -19,7 +19,7 @@ describe('Tasks Endpoint', function() {
 		require('./modules/create.task.test')(chai, app)
 	);
 
-	describe('Edit a Task', 
-		require('./modules/edit.task.test')(chai, app)
-	);
+	// describe('Edit a Task', 
+	// 	require('./modules/edit.task.test')(chai, app)
+	// );
 });
