@@ -6,7 +6,7 @@ let bcrypt= require('bcrypt');
 let taskSchema = new mongoose.Schema({
 	_id: {
 		type: String,
-		unique: true,
+		// unique: true,
 		default: new mongoose.Types.ObjectId(),
 	},
 	title: {
@@ -46,6 +46,7 @@ let UserSchema = new mongoose.Schema({
 	_id: {
 		// TO DO -- Remove when sessions are set up
 		type: String,
+		default: new mongoose.Types.ObjectId(),
 	},
 	username: {
 		type: String,
