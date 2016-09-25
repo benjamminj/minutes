@@ -17,6 +17,8 @@ function chaiFailureRedirect(username, password, done) {
 	return chaiLogin(username, password)
 		.end(function(err, res) {
 			err.should.have.status(401);
+			res.should.be.json;
+			res.body.message.should.equal('Wrong username or password');
 			done();
 		});
 }
@@ -49,23 +51,23 @@ describe('Login', function() {
 			});
 	});
 
-	it('Invalid: 401 -- wrong username should return unauthorized message', function(done) {
-		chaiLogin('george', 'password')
-			.end(function(err, res) {
-				err.should.have.status(401);
-				res.should.be.json;
-				res.body.message.should.equal('Wrong username or password');
-				done();
-			});
+	it('Invalid: 401 -- wrong username', function(done) {
+			chaiFailureRedirect('george', 'password', done);
 	});
 
-	it('Invalid: 401 -- wrong password should return unauthorized message', function(done) {
+	it('Invalid: 401 -- wrong password', function(done) {
 		chaiFailureRedirect('benjamin', 'wrongPassword', done);
 	});
 
-	it('Invalid: 401 -- no username in request', function(done) {
+	it('Invalid: 401 -- no username', function(done) {
 		chaiFailureRedirect(undefined, 'password', done);
 	});
+
+	it('Invalid: 401 -- no password', function(done) {
+		chaiFailureRedirect('benjamin', undefined, done);
+	});
+
+	it('Invalid: ??? --- not connected to db should return ???');
 });
 
 
