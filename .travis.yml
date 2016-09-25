@@ -4,6 +4,8 @@ after_success:
 - npm run coverage 
 services:
 - mongodb
+env: 
+  - CXX=g++-4.8
 addons:
   apt:
     sources:
