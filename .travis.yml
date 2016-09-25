@@ -10,8 +10,11 @@ addons:
   apt:
     sources:
     - mongodb-3.2-precise
+    - ubuntu-toolchain-r-test
     packages:
     - mongodb-org-server
+    - g++-4.8
+
 # deploy:
 #   provider: heroku
 #   api_key:
