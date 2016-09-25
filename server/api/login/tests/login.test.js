@@ -27,15 +27,9 @@ describe('Login', function() {
 	beforeEach(function(done) {
 		hashPassword('password')
 			.then(function(hash) {
-				console.log(hash);
 				return User.create({ username: 'benjamin', password: hash});
 			})
 			.then(function(user) {
-				console.log(user);
-				done();
-			})
-			.catch(function(err) {
-				console.log(err);
 				done();
 			});
 	});
