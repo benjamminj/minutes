@@ -27,18 +27,16 @@ module.exports = function(should, User) {
 
 		it('Valid password -- returns true', function(done) {
 			checkValidation('1', 'password')	
-				.then(function(isValid) {
-					isValid.should.equal(true);
+				.then(function(validUser) {
+					validUser.username.should.equal('benjamin');
 					done();
 				});
 		});
 
 		it('Invalid password throw error -- wrong password', function(done) {
 			checkValidation('1', 'somethingWrong')
-				.catch(function(err) {
-					err.name.should.equal('Unauthorized');
-					err.status.should.equal(401);
-					err.message.should.equal('The password was incorrect');
+				.then(function(validUser) {
+					should.equal(validUser, null);
 					done();
 				});
 		});

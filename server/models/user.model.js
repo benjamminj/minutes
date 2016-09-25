@@ -19,6 +19,7 @@ let taskSchema = new mongoose.Schema({
 		required: true,
 		default: new Date(Date.now()),
 		validate: function(value, respond) {
+			// TO DO -- refactor validation so that don't need Joi as depedency
 			let schema = Joi.date().max('now');
 
 			Joi.validate(value, schema, function(err, value) {
@@ -73,7 +74,8 @@ let UserSchema = new mongoose.Schema({
 
 UserSchema.methods.validatePassword = function(password) {
 	let correctPassword = this.password;
-	
+	let user = this;
+
 	let promise = new Promise(function(resolve, reject) {
 		bcrypt.compare(password, correctPassword, function(err, isValid) {
 			if (err) {
@@ -82,10 +84,9 @@ UserSchema.methods.validatePassword = function(password) {
 			}
 
 			if (isValid) {
-				resolve(true);
+				resolve(user);
 			} else {
-				let error = createError('Unauthorized', 'The password was incorrect', 401);
-				reject(error);
+				resolve(null);
 			}
 		});
 	});

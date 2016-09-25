@@ -6,9 +6,12 @@ let passport = require('passport');
 
 router.post('/', 
 	passport.authenticate('local', {
-		successRedirect: '/login/success',
-		failureRedirect: '/login/unauthorized'
+		successRedirect: '/login/me',
+		failureRedirect: '/login/unauthorized',
 	})
 );
+
+router.get('/unauthorized', controller.unauthorized);
+router.get('/me', controller.me);
 
 module.exports = router;

@@ -2,6 +2,7 @@ let bcrypt = require('bcrypt');
 let createError = require('./error.constructor');
 
 module.exports = function(string) {
+	
 	let promise = new Promise(function(resolve, reject) {
 		let saltRounds = 10;
 
