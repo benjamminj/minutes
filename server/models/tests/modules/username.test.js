@@ -5,13 +5,13 @@ module.exports = function(should, User) {
 	return function() {
 		before(function(done) {
 			User.remove({}).exec();
-			User.create({ username: 'jonathan', password: 'password'}, function() {
+			User.create({ username: 'jonathan', password: 'password', _id: '12345'}, function() {
 				done();
 			});
 		});
 		
 		it('Valid username -- user created', function(done) {
-			User.create({ username: 'benjamin', password: 'password', _id: '12345' }, function(err, user) {
+			User.create({ username: 'benjamin', password: 'password' }, function(err, user) {
 				should.equal(err, null);
 				user.should.be.a('Object');
 				user.username.should.equal('benjamin');

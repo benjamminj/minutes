@@ -1,10 +1,8 @@
 let Controller = {};
-let User = require('../../../models/user.model');
+let User = require(__baseURL + 'models/user.model');
 
 let Joi = require('joi');
-let joiValidate = require('../../../utils/joi.validate.promise');
-let createError = require('../../../utils/error.constructor');
-
+let createError = require(__baseURL + 'utils/error.constructor');
 
 Controller.getAllTasks = function(req, res, next) {
 	// ID will be eventually be passed as session data and be queried instead of in endpoint
@@ -53,25 +51,17 @@ Controller.deleteTask = function(req, res, next) {
 };
 
 Controller.createTask = function(req, res, next) {	
-	const validInputSchema = {
-		_id: Joi.string(),
-		title: Joi.string().default('My Task on ' + new Date(Date.now())),
-		date: Joi.date().max('now').required(),
-		time: Joi.number().required().positive(),
-		description: Joi.string()
-	};
-
-	joiValidate(req.body, validInputSchema)
-		.then(function(task) {
-			return User.findByIdAndUpdate(req.params.id, { $push: { tasks: task } }, { new: true, runValidators: true });
-		})
+	User.findById(req.params.id)
 		.then(function(user) {
-			// TODO -- refactor into a function
 			if (!user) {
 				throw createError('NotFound', 'This user id was not found in the database', 404);
 			} else {
-				res.status(201).json(user.tasks);
+				user.tasks.push(req.body);
+				return user.save();				
 			}
+		})
+		.then(function(editedUser) {
+				res.status(201).json(editedUser.tasks);
 		})
 		.catch(function(err) {
 			next(err);
@@ -79,25 +69,19 @@ Controller.createTask = function(req, res, next) {
 };
 
 Controller.editTask = function(req, res, next) {
-	// write some sort of validation for editable properties
-	const editableItemsSchema = {
-		key: Joi.string().required().valid('title', 'description'),
-		value: Joi.string().required(),
-	};
+	let keyToChange = Object.keys(req.body)[0];
 
-	joiValidate(req.body, editableItemsSchema)
-		.then(function(edits) {
-			return User.findById(req.params.id);
-		})
+	return User.findById(req.params.id)
 		.then(function(user) {
 			let taskID = req.params.taskID;
 			if (!user) {
 				throw createError('NotFound', 'This user id was not found in the database', 404);
 			} else if (!user.tasks.id(taskID)) {
 				throw createError('NotFound', 'This task id was not found in the database', 404);
+			} else if (!user.tasks.id(taskID)[keyToChange]) {
+				throw createError('InvalidInput', `"${keyToChange}" must be either "title" or "description"`, 400);
 			} else {
-				user.tasks.id(taskID)[req.body.key] = req.body.value;
-
+				user.tasks.id(taskID)[keyToChange] = req.body[keyToChange];
 				return user.save();
 			}
 		})

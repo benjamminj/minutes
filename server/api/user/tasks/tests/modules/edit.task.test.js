@@ -9,7 +9,7 @@ module.exports = function(chai, app) {
 
 	return function() {
 		it('Valid: 200 -- change title', function(done) {
-			let newTitle = { key: 'title', value: 'My New Title'};
+			let newTitle = { title: 'My New Title'};
 
 			chaiEdit(newTitle)
 				.end(function(err, res) {
@@ -23,7 +23,7 @@ module.exports = function(chai, app) {
 		});
 
 		it('Valid: 200 -- change description', function(done) {
-			let newDescription = {key: 'description', value: 'My New Description'};
+			let newDescription = {description: 'My New Description'};
 
 			chaiEdit(newDescription)
 				.end(function(err, res) {
@@ -36,67 +36,55 @@ module.exports = function(chai, app) {
 				});
 		});
 
-		it('Invalid: 400 -- input "time" as "key"', function(done) {
-			let invalidKey = {key: 'time', value: 'My New Time'};
+		it('Invalid: 400 -- input "time" as key', function(done) {
+			let invalidKey = {time: 'My New Time'};
 			
 			chaiEdit(invalidKey)
 				.end(function(err, res) {
 					err.should.have.status(400);
 					res.should.be.json;
 					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('"key" must be one of [title, description]');
+					res.body.errors['tasks.0.time'].message.should.equal('Cast to Number failed for value "My New Time" at path "time"');
 					done();
 				});
 		});
 
-		it('Invalid: 400 -- no "key" input', function(done) {
-			let noKey = {value: 'My Description -- for what???'};
+// FIX ME
+		it('Invalid: 400 -- invalid JSON', function(done) {
+			let invalidJSON = function(){};
 
-			chaiEdit(noKey)
+			chaiEdit(invalidJSON)
 				.end(function(err, res) {
 					err.should.have.status(400);
 					res.should.be.json;
-					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('"key" is required');
+					res.body.name.should.equal('InvalidInput');
+					res.body.message.should.equal('"undefined" must be either "title" or "description"');
 					done(); 
 				});
 		});
 
-		it('Invalid: 400 -- non-String as "value"', function(done) {
-			let nonStringValue = {key: 'title', value: {}};
+		it('Invalid: 400 -- non-String as value', function(done) {
+			let nonStringValue = {title: {}};
 
 			chaiEdit(nonStringValue)
 				.end(function(err, res) {
 					err.should.have.status(400);
 					res.should.be.json;
 					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('"value" must be a string');
-					done();
-				});
-		});
-
-		it('Invalid: 400 -- non-String as "key"', function(done) {
-			let nonStringKey = {key: {}, value: 'My Fancy String'};
-
-			chaiEdit(nonStringKey)
-				.end(function(err, res) {
-					err.should.have.status(400);
-					res.should.be.json;
-					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('"key" must be a string');
+					res.body.errors['tasks.0.title'].message.should.equal('Cast to String failed for value "{}" at path "title"');
 					done();
 				});
 		});
 
 		it('Invalid: 400 -- no "value" input', function(done) {
-			let noValue = {key: 'title'};
+			let noValue = {key: undefined};
 
 			chaiEdit(noValue)
 				.end(function(err, res) {
 					err.should.have.status(400);
 					res.should.be.json;
-					res.body.name.should.equal('ValidationError');
-					res.body.message.should.equal('"value" is required');
+					res.body.name.should.equal('InvalidInput');
+					res.body.message.should.equal('"undefined" must be either "title" or "description"');
 					done();
 				});
 		});
