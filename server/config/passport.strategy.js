@@ -1,6 +1,6 @@
 let localStrategy = require('passport-local').Strategy;
-let User = require(__baseURL + '/models/user.model');
-let createError = require(__baseURL + 'utils/error.constructor');
+let User = require('../api/users/user.model');
+let createError = require('../utils/create.error');
 
 module.exports = function(passport) {
 	passport.use(new localStrategy(function(username, password, done) {

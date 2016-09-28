@@ -3,7 +3,7 @@ let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 let session = require('express-session');
 let passport = require('passport');
-let User = require(__baseURL + 'models/user.model');
+let User = require('../api/users/user.model');
 
 module.exports = function(app) {
 

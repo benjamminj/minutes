@@ -1,9 +1,9 @@
 let bcrypt = require('bcrypt');
-let createError = require('./error.constructor');
+let createError = require('./create.error');
 
 module.exports = function(string) {
 	
-	let promise = new Promise(function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		let saltRounds = 10;
 
 		bcrypt.hash(string, saltRounds, function(err, hash) {
@@ -15,6 +15,4 @@ module.exports = function(string) {
 			}
 		});
 	});
-
-	return promise;
 };
