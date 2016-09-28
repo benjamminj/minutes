@@ -24,7 +24,6 @@ module.exports = function(passport) {
 				if (err.name === 'Invalid') {
 					done(null, false, { message: err.message });
 				} else {
-					console.log('err', err);
 					done(err);
 				}
 			});

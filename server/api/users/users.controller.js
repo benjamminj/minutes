@@ -5,21 +5,14 @@ let Controller = {};
 
 // Do I need to include this step or do I jsut redirect straight to the dashboard???
 Controller.me = function(req, res, next) {
-	// console.log('At controller.me', req.user);
 	res.status(200).end();
 };
 
-// Same -- can I redirect to login with a failure flash or something like that?
 Controller.unauthorized = function(req, res, next) {
-	// Or can I create an error and send that??
-	// Is there a way that I can isolate the message from the passport strategy?
-	// console.log(req.flash());
-	res.status(401).json(req.flash(	));
+	res.status(401).json({ name: 'Unauthorized', message: req.flash().error[0]});
 };
 
 Controller.signup = function(req, res, next) {
-	console.log('Here');
-
 	hashPassword(req.body.password)
 		.then(function(hashedPassword) {
 			return User.create({ username: req.body.username, password: hashedPassword});
@@ -32,4 +25,8 @@ Controller.signup = function(req, res, next) {
 		});	
 };
 
+Controller.logout = function(req, res, next) {
+	req.logout();
+	res.redirect('/users/login');
+};
 module.exports = Controller;

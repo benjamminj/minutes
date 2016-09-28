@@ -16,5 +16,6 @@ router.post('/login',
 router.get('/login/unauthorized', controller.unauthorized);
 router.get('/login/me', controller.me);
 router.post('/signup', controller.signup);
+router.get('/logout', controller.logout);
 
 module.exports = router;

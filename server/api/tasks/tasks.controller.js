@@ -6,10 +6,8 @@ let validateLogin = require('../../utils/validate.login');
 let Controller = {};
 
 Controller.getAllTasks = function(req, res, next) {
-	validateLogin(req)
-		.then(function() {
-			return Task.find({ _owner: req.user.id }).exec();
-		})
+	// req.user
+	Task.find({ _owner: req.user.id })
 		.then(function(tasks) {
 			res.status(200).json(tasks);
 		})
@@ -19,10 +17,8 @@ Controller.getAllTasks = function(req, res, next) {
 };
 
 Controller.deleteTask = function(req, res, next) {	
-	validateLogin(req)
-		.then(function() {
-			return Task.findByIdAndRemove(req.params.taskID)
-		}).then(function(task) {
+	Task.findByIdAndRemove(req.params.taskID)
+		.then(function(task) {
 			if (!task) {
 				throw createError('NotFound', 'This task does not exist in the database!', 404);
 			} else {
@@ -34,14 +30,11 @@ Controller.deleteTask = function(req, res, next) {
 };
 
 Controller.createTask = function(req, res, next) {		
-	validateLogin(req)
-		.then(function() {			
-			return Task.create({
-				_owner: req.user.id,
-				title: req.body.title,
-				time: req.body.time,
-				description: req.body.description
-			});
+		Task.create({
+			_owner: req.user.id,
+			title: req.body.title,
+			time: req.body.time,
+			description: req.body.description
 		}).then(function(task) {
 			res.status(201).json(task);
 		}).catch(function(err) {

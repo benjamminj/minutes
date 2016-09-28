@@ -8,7 +8,7 @@ function generateTaskHTML(task) {
 }
 
 function loadTasks() {
-	var url = rootURL + 'api/tasks';
+	var url = rootURL + 'tasks/';
 	$.getJSON(url)
 	.done(function(tasks) {
 		tasks.forEach(function(task) {
@@ -23,7 +23,7 @@ function loadTasks() {
 }
 
 function deleteTask(id) {
-	var url = rootURL + 'api/tasks/delete/' + id;
+	var url = rootURL + 'tasks/delete/' + id;
 
 	$.ajax({
 		url: url,
@@ -37,7 +37,7 @@ function deleteTask(id) {
 }
 
 function createNewTask() {
-	var url = rootURL + 'api/tasks/create';
+	var url = rootURL + 'tasks/create';
 	// If title is empty, make it undefined so as to auto generate new title
 	var title = $('#new-task #title').val();
 	var description = $('#new-task #description').val();

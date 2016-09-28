@@ -45,9 +45,6 @@ UserSchema.methods.validatePassword = function(password) {
 			}
 		});
 	});
-
-	// TO DO -- see if I can return the promise directly
-	// return promise;
 };
 
 module.exports = mongoose.model('User', UserSchema);
