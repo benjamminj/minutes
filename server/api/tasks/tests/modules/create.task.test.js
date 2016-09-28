@@ -67,8 +67,6 @@ module.exports = function(chai, app, testData) {
 			});
 		});
 
-		it('Valid: 201 (x2) -- multiple tasks should have unique _ids & same owner');
-
 		it('Invalid: 401 -- owner not signed in', function(done) {
 			chai.request(app)
 				.post('/tasks/create')

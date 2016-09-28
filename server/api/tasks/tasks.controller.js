@@ -19,16 +19,16 @@ Controller.getAllTasks = function(req, res, next) {
 };
 
 Controller.deleteTask = function(req, res, next) {	
-	Task.findByIdAndRemove(req.params.taskID)
-		.then(function(task) {
+	validateLogin(req)
+		.then(function() {
+			return Task.findByIdAndRemove(req.params.taskID)
+		}).then(function(task) {
 			if (!task) {
-				throw createError('Bad Request', 'This task does not exist in the database!', 400);
+				throw createError('NotFound', 'This task does not exist in the database!', 404);
 			} else {
 				res.status(200).end();
 			}
-		})
-		.catch(function(err) {
-			console.log(err);
+		}).catch(function(err) {
 			next(err);
 		});
 };
@@ -44,7 +44,7 @@ Controller.createTask = function(req, res, next) {
 			});
 		}).then(function(task) {
 			if (!task) {
-				throw createError('ValidationError', 'The task was not created', 500);
+				throw createError('ValidationError', 'The task was not created', 400);
 			} else {
 				res.status(201).json(task);
 			}
@@ -54,28 +54,26 @@ Controller.createTask = function(req, res, next) {
 };
 
 Controller.editTask = function(req, res, next) {
-	let edits = {};
+	validateLogin(req)
+		.then(function() {
+			let edits = {};
 
-	if (req.body.title) {
-		edits.title = req.body.title;
-	}
+			if (req.body.title) {
+				edits.title = req.body.title;
+			}
 
-	if (req.body.description) {
-		edits.description = req.body.description;
-	}
+			if (req.body.description) {
+				edits.description = req.body.description;
+			}
 
-	let options = { runValidators: true, new: true };
-
-	Task.findByIdAndUpdate(req.params.taskID, edits, options)
-		.then(function(task) {
+			return Task.findByIdAndUpdate(req.params.taskID, edits, { runValidators: true, new: true });
+		}).then(function(task) {
 			if (!task) {
-				throw createError('ValidationError', 'The task does not exist in the database!', 400);
+				throw createError('NotFound', 'This task does not exist in the database!', 404);
 			} else {
 				res.status(200).json(task);
 			}
-		})
-		.catch(function(err) {
-			console.log(err);
+		}).catch(function(err) {
 			next(err);
 		});
 };

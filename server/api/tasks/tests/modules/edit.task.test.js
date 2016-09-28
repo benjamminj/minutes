@@ -1,16 +1,20 @@
 module.exports = function(chai, app, testData) {
 	let should = chai.should();
 
-	function loginAndEdit(edits, fn) {
+	function loginAndPutRequest(id, edits, fn) {
 		let agent = chai.request.agent(app);
 
 		agent.post('/users/login')
 			.send({ username: 'benjamin', password: 'password'})
 			.end(function() {
-				return agent.put('/tasks/edit/' + testData.taskIDs[1])
+				return agent.put('/tasks/edit/' + id)
 					.send(edits)
 					.end(fn);
 			});
+	}
+
+	function loginAndEdit(edits, fn) {
+		return loginAndPutRequest(testData.taskIDs[1], edits, fn);
 	}
 
 	function testSuccessfulEdit(err, res) {
@@ -21,10 +25,14 @@ module.exports = function(chai, app, testData) {
 		res.body._owner.should.equal(testData.userID);
 	}
 
-	function testFailedEdit(err, res) {
-		err.should.have.status(400);
+	function testFailedEdit(err, res, status, errName) {
+		err.should.have.status(status);
 		res.should.be.json;
-		res.body.name.should.equal('CastError');
+		res.body.name.should.equal(errName);
+	}
+
+	function testCastError(err, res) {
+		return testFailedEdit(err, res, 400, 'CastError');
 	}
 
 	return function() {
@@ -62,19 +70,69 @@ module.exports = function(chai, app, testData) {
 			});
 		});
 
-		it('Invalid: ??? -- edit title with non-String', function(done) {
+		it('Invalid: 400 -- edit title with non-String', function(done) {
 			loginAndEdit({
 				title: {}
 			}, function(err, res) {
-				testFailedEdit(err, res);
+				testCastError(err, res);
 				res.body.message.should.equal('Cast to string failed for value "{}" at path "title"');
-				// console.log(res.body.errors);
 				done();
 			});
 		});
-		it('Invalid: ??? -- edit description with non-String');
-		it('Invalid: ??? -- try to edit time');
-		it('Invalid: 401 -- try to edit without login');
 
+		it('Invalid: 400 -- edit description with non-String', function(done) {
+			loginAndEdit({
+				description: {}
+			}, function(err, res) {
+				testCastError(err, res);
+				res.body.message.should.equal('Cast to string failed for value "{}" at path "description"');
+				done();
+			});
+		});
+
+		it('Valid: 200 -- try to edit = no changes', function(done) {
+			loginAndEdit({
+				time: 50000
+			}, function(err, res) {
+				testSuccessfulEdit(err, res);
+				res.body.title.should.equal('My Second Super Awesome Task');
+				res.body.description.should.equal('short description');
+				res.body.time.should.equal(200);
+				done();
+			});
+		});
+
+		it('Valid: 200 --- empty request', function(done) {
+			loginAndEdit({}, function(err, res) {
+				testSuccessfulEdit(err, res);
+				res.body.title.should.equal('My Second Super Awesome Task');
+				res.body.description.should.equal('short description');
+				res.body.time.should.equal(200);
+				done();			
+			});
+		});
+
+		it('Invalid: 401 -- try to edit without login', function(done) {
+			chai.request(app)
+				.put('/tasks/edit/' + testData.taskIDs[1])
+				.send({
+					title: 'My New Title'
+				})
+				.end(function(err, res) {
+					testFailedEdit(err, res, 401, 'Unauthorized');
+					res.body.message.should.equal('You are not logged in');
+					done();
+				});
+		});
+
+		it('Invalid: 404 -- taskID doesn\'t exist in db', function(done) {
+			loginAndPutRequest('000000000000000000000000', {
+				title: 'My new title'
+			}, function(err, res) {
+				testFailedEdit(err, res, 404, 'NotFound');
+				res.body.message.should.equal('This task does not exist in the database!');
+				done();
+			});
+		});
 	};
 };
