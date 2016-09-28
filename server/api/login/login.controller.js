@@ -1,6 +1,7 @@
 let Controller = {};
 
 Controller.me = function(req, res, next) {
+	console.log('At controller.me', req.user);
 	res.status(200).json(req.user);
 };
 

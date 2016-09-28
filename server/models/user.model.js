@@ -4,11 +4,6 @@ let createError = require(__baseURL + 'utils/error.constructor');
 let bcrypt= require('bcrypt');
 
 let taskSchema = new mongoose.Schema({
-	_id: {
-		type: String,
-		// unique: true,
-		default: new mongoose.Types.ObjectId(),
-	},
 	title: {
 		type: String,
 		required: true,
@@ -68,14 +63,13 @@ let UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
-	},
-	tasks: [taskSchema],
+	}
 });
 
 UserSchema.methods.validatePassword = function(password) {
 	let correctPassword = this.password;
 	let user = this;
-
+	
 	let promise = new Promise(function(resolve, reject) {
 		bcrypt.compare(password, correctPassword, function(err, isValid) {
 			if (err) {

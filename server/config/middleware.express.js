@@ -7,6 +7,7 @@ let User = require(__baseURL + 'models/user.model');
 
 module.exports = function(app) {
 
+	// app.use(express.static('public/dashboard'));
 	app.use(express.static('public/login'));
 	app.use(cookieParser());
 	app.use(bodyParser.json());
