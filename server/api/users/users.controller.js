@@ -13,7 +13,8 @@ Controller.me = function(req, res, next) {
 Controller.unauthorized = function(req, res, next) {
 	// Or can I create an error and send that??
 	// Is there a way that I can isolate the message from the passport strategy?
-	res.status(401).json({ message: 'Wrong username or password' });
+	// console.log(req.flash());
+	res.status(401).json(req.flash(	));
 };
 
 Controller.signup = function(req, res, next) {

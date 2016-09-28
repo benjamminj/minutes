@@ -43,11 +43,7 @@ Controller.createTask = function(req, res, next) {
 				description: req.body.description
 			});
 		}).then(function(task) {
-			if (!task) {
-				throw createError('ValidationError', 'The task was not created', 400);
-			} else {
-				res.status(201).json(task);
-			}
+			res.status(201).json(task);
 		}).catch(function(err) {
 			next(err);
 		});

@@ -1,6 +1,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
+let flash = require('connect-flash');
 let session = require('express-session');
 let passport = require('passport');
 let User = require('../api/users/user.model');
@@ -27,6 +28,7 @@ module.exports = function(app) {
 	app.use(session(sessionOptions));
 	app.use(passport.initialize());
 	app.use(passport.session());
+	app.use(flash());
 
 	require('./passport.strategy')(passport);
 

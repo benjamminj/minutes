@@ -9,6 +9,7 @@ router.post('/login',
 		// TO DO -- figure out WHERE  to redirect
 		successRedirect: '/users/login/me',
 		failureRedirect: '/users/login/unauthorized',
+		failureFlash: true
 	})
 );
 
