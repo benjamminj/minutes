@@ -31,7 +31,7 @@ describe('Encrypt function', function() {
 	it('Invalid -- non-String input', function(done) {
 		encrypt({})
 			.catch(function(err) {
-				err.should.have.status(500);
+				err.status.should.equal(500);
 				err.name.should.equal('EncryptionError');
 				err.message.should.equal('data must be a string and salt must either be a salt string or a number of rounds');
 				done();
