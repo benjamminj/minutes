@@ -1,5 +1,5 @@
 let Task = require('../../task.model');
-let User = require('../../../users/user.model');
+let User = require('../../../user/user.model');
 let hashPassword = require('../../../../utils/encrypt');
 
 module.exports = function(testData) {

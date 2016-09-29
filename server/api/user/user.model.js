@@ -8,21 +8,12 @@ let UserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true,
-		// TO DO -- write validation function to make sure that username doesn't contain certain characters
-
-		// validate: function(value, respond) {
-		// 	let schema = Joi.string().alphanum();
-
-		// 	// TO DO -- refactor so that I don't have to rely on Joi
-		// 	// using Regex
-		// 	Joi.validate(value, schema, function(err, value) {
-		// 		if (err) {
-		// 			respond(false, err.details[0].message);
-		// 		} else {
-		// 			respond(true);
-		// 		}
-		// 	});
-		// },
+		validate: {
+			validator: function(value) {
+				return !/[\W]/g.test(value);
+			},
+			message: 'Value "{VALUE}" must be alphanumeric at path "{PATH}"'
+		}
 	},
 	password: {
 		type: String,

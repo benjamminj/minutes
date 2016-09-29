@@ -4,7 +4,7 @@ let cookieParser = require('cookie-parser');
 let flash = require('connect-flash');
 let session = require('express-session');
 let passport = require('passport');
-let User = require('../api/users/user.model');
+let User = require('../api/user/user.model');
 
 module.exports = function(app) {
 

@@ -6,7 +6,7 @@ module.exports = function(chai, app, testData) {
 	function loginAndDelete(id, fn) {
 		let agent = chai.request.agent(app);
 
-		agent.post('/users/login')
+		agent.post('/user/login')
 			.send({ username: 'benjamin', password: 'password' })
 			.end(function(err, res) {
 				return agent.delete('/tasks/delete/' + id)

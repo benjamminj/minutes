@@ -8,8 +8,7 @@ module.exports = function(string) {
 
 		bcrypt.hash(string, saltRounds, function(err, hash) {
 			if (err) {
-				let error = createError('EncryptionError', err.message, 500);
-				reject(error);
+				reject(createError('EncryptionError', err.message, 500));
 			} else {
 				resolve(hash);
 			}

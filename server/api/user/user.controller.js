@@ -1,9 +1,8 @@
 let hashPassword = require('../../utils/encrypt');
-let User = require('../users/user.model');
+let User = require('../user/user.model');
 
 let Controller = {};
 
-// Do I need to include this step or do I jsut redirect straight to the dashboard???
 Controller.me = function(req, res, next) {
 	res.status(200).end();
 };
@@ -18,7 +17,7 @@ Controller.signup = function(req, res, next) {
 			return User.create({ username: req.body.username, password: hashedPassword});
 		})
 		.then(function(user) {
-			res.status(201).end();
+			res.sendStatus(201);
 		})
 		.catch(function(err) {
 			next(err);
@@ -29,4 +28,5 @@ Controller.logout = function(req, res, next) {
 	req.logout();
 	res.redirect('/users/login');
 };
+
 module.exports = Controller;

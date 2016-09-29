@@ -4,7 +4,7 @@ module.exports = function(chai, app, testData) {
 	function loginAndPutRequest(id, edits, fn) {
 		let agent = chai.request.agent(app);
 
-		agent.post('/users/login')
+		agent.post('/user/login')
 			.send({ username: 'benjamin', password: 'password'})
 			.end(function() {
 				return agent.put('/tasks/edit/' + id)

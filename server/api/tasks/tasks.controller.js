@@ -6,7 +6,6 @@ let validateLogin = require('../../utils/validate.login');
 let Controller = {};
 
 Controller.getAllTasks = function(req, res, next) {
-	// req.user
 	Task.find({ _owner: req.user.id })
 		.then(function(tasks) {
 			res.status(200).json(tasks);

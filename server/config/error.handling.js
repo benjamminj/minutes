@@ -11,6 +11,14 @@ module.exports = function(app) {
 	});
 
 	app.use(function(err, req, res, next) {
+		if (err.name === 'MongoError' && err.code === 11000) {
+			res.status(400).json({ name: err.name, message: err.message });
+		} else {
+			next(err);
+		}
+	});
+
+	app.use(function(err, req, res, next) {
 		if (err) {
 			res.status(err.status).json({name: err.name, message: err.message});
 		}

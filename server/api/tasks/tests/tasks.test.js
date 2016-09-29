@@ -6,7 +6,6 @@ let app = require('../../../server');
 
 
 describe('Tasks', function() {
-	this.timeout(3000);
 	let testData = {};
 	require('./modules/hooks')(testData);
 
