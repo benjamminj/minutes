@@ -39,5 +39,42 @@ module.exports = function(chai, app) {
 				done();
 			});
 		});
+
+		it('Invalid: 401 -- no username', function(done) {
+			login(undefined, 'password', function(err, res) {
+				err.should.have.status(401);
+				res.should.be.json;
+				res.body.name.should.equal('Unauthorized');
+				res.body.message.should.equal('Missing credentials');
+				done();
+			});
+		});
+
+		it('Invalid: 401 -- non-String username', function(done) {
+			login({}, 'password', function(err, res) {
+				err.should.have.status(401);
+				res.body.name.should.equal('Unauthorized');
+				res.body.message.should.equal('Missing credentials');
+				done();
+			});
+		});
+
+		it('Invalid: 401 -- no password', function(done) {
+			login('benjamin', undefined, function(err, res) {
+				err.should.have.status(401);
+				res.body.name.should.equal('Unauthorized');
+				res.body.message.should.equal('Missing credentials');
+				done();
+			});
+		});
+
+		it('Invalid: 401 -- non-String password', function(done) {
+			login('benjamin', {}, function(err, res) {
+				err.should.have.status(401);
+				res.body.name.should.equal('Unauthorized');
+				res.body.message.should.equal('Missing credentials');
+				done();
+			});
+		})
 	};
 };

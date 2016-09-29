@@ -1,7 +1,6 @@
 let Task = require('./task.model');
 let createError = require('../../utils/create.error');
 let bcrypt = require('bcrypt');
-let validateLogin = require('../../utils/validate.login');
 
 let Controller = {};
 
@@ -42,20 +41,18 @@ Controller.createTask = function(req, res, next) {
 };
 
 Controller.editTask = function(req, res, next) {
-	validateLogin(req)
-		.then(function() {
-			let edits = {};
+	let edits = {};
 
-			if (req.body.title) {
-				edits.title = req.body.title;
-			}
+	if (req.body.title) {
+		edits.title = req.body.title;
+	}
 
-			if (req.body.description) {
-				edits.description = req.body.description;
-			}
+	if (req.body.description) {
+		edits.description = req.body.description;
+	}
 
-			return Task.findByIdAndUpdate(req.params.taskID, edits, { runValidators: true, new: true });
-		}).then(function(task) {
+	Task.findByIdAndUpdate(req.params.taskID, edits, { runValidators: true, new: true })
+		.then(function(task) {
 			if (!task) {
 				throw createError('NotFound', 'This task does not exist in the database!', 404);
 			} else {

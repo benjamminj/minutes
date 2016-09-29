@@ -26,7 +26,7 @@ Controller.signup = function(req, res, next) {
 
 Controller.logout = function(req, res, next) {
 	req.logout();
-	res.redirect('/users/login');
+	res.redirect('/user/login');
 };
 
 module.exports = Controller;
