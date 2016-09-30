@@ -3,10 +3,14 @@ let User = require('../../../user/user.model');
 let hashPassword = require('../../../../utils/encrypt');
 
 module.exports = function(testData) {
+	before(function(done) {
+		User.remove({})
+			.then(function() {
+				Task.remove({}, done);
+			})
+	});
 
 	beforeEach(function(done) {
-		User.remove({});
-		Task.remove({});
 		hashPassword('password')
 			.then(function(hashedPassword) {
 				return User.create({ username: 'benjamin', password: hashedPassword });
