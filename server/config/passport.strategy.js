@@ -1,6 +1,6 @@
 let localStrategy = require('passport-local').Strategy;
-let User = require(__baseURL + '/models/user.model');
-let createError = require(__baseURL + 'utils/error.constructor');
+let User = require('../api/user/user.model');
+let createError = require('../utils/create.error');
 
 module.exports = function(passport) {
 	passport.use(new localStrategy(function(username, password, done) {
@@ -24,7 +24,6 @@ module.exports = function(passport) {
 				if (err.name === 'Invalid') {
 					done(null, false, { message: err.message });
 				} else {
-					console.log('err', err);
 					done(err);
 				}
 			});
