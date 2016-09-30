@@ -36,7 +36,8 @@ module.exports = function(chai, app) {
 				err.should.have.status(400);
 				res.should.be.json;
 				res.body.name.should.equal('MongoError');
-				res.body.message.should.equal('E11000 duplicate key error collection: time-tracker-testing.users index: username_1 dup key: { : "benjamin" }')
+				should.equal(res.body.message.includes('E11000 duplicate key error collection:'), true);
+				should.equal(res.body.message.includes('dup key: { : "benjamin" }'), true);
 				done();
 			});
 		});

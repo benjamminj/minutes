@@ -18,6 +18,7 @@ module.exports = function(testData) {
 				return Task.create([task1, task2]);
 			})
 			.then(function(tasks) {
+				// console.log(tasks);
 				testData.taskIDs = [tasks[0]._id.toString(), tasks[1]._id.toString()];
 				done();
 			})

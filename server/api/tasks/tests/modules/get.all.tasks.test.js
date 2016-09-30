@@ -17,6 +17,7 @@ module.exports = function(chai, app, testData) {
 	return function() {
 		it('Valid: 200 -- tasks returns as an array', function(done) {
 			loginAndGet(function(err, res) {
+				console.log(testData);
 				should.equal(err, null);
 				res.should.have.status(200);
 				res.should.be.json;
