@@ -19,6 +19,14 @@ module.exports = function(app) {
 	});
 
 	app.use(function(err, req, res, next) {
+		if (err.status === 401) {
+			res.status(401).redirect('/users/login');
+		} else {
+			next(err);
+		}
+	});
+
+	app.use(function(err, req, res, next) {
 		if (err) {
 			res.status(err.status).json({name: err.name, message: err.message});
 		}
