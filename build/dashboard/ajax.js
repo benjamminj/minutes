@@ -1,21 +1,22 @@
-let generateTaskHTML = require('./html.generator');
+let generateHTML = require('./html.generator');
 
-module.exports = function(rootURL) {
-  let utils = require('./utils')(rootURL);
+module.exports = function(apiURL) {
+  let utils = require('./utils')(apiURL);
 
   return {
     loadTasks() {
-      let url = rootURL + 'tasks/';
+      let url = apiURL + 'tasks/';
       $.getJSON(url)
         .done(function(tasks) {
           if (!tasks.length) {
             // Put some sort of prompt to create something if the user doesn't have anything
             // Put in its own html section
-            $('#tasks-list').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
+            $('#tasks-container').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
           }
           tasks.forEach(function(task) {
+            console.log(task);
             // Change html to be a ul
-            $('#tasks-list').append(generateTaskHTML(task));
+            $('#tasks-container').append(generateHTML.taskHTML(task));
           });
         })
         .fail(function(err) {
@@ -26,7 +27,7 @@ module.exports = function(rootURL) {
     },
 
     createNewTask() {
-      let url = rootURL + 'tasks/create';
+      let url = apiURL + 'tasks/create';
       let title = utils.getValue('#new-task #title') || undefined;
       let description = utils.getValue('#new-task #description');
       let time = utils.getValue('#new-task #time');
@@ -35,7 +36,7 @@ module.exports = function(rootURL) {
       utils.emptyForm(['#new-task #title', '#new-task #time', '#new-task #description']);
       $.post(url, data)
         .done(function(task) {
-          $('#tasks-list').append(generateTaskHTML(task));
+          $('#tasks-container').append(generateHTML.taskHTML(task));
         })
         .fail(function(err) {
           console.log(err);
@@ -43,7 +44,7 @@ module.exports = function(rootURL) {
     },
 
     deleteTask(id) {
-      var url = rootURL + 'tasks/delete/' + id;
+      var url = apiURL + 'tasks/delete/' + id;
 
       $.ajax({
         url: url,

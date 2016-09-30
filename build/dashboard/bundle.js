@@ -1,7 +1,7 @@
 var rootURL = '//localhost:5000/';
 
 let timer = require('./timer');
-let generateTaskHTML = require('./html.generator');
+let generateHTML = require('./html.generator');
 let ajax = require('./ajax')(rootURL);
 
 
@@ -11,10 +11,8 @@ let ajax = require('./ajax')(rootURL);
 $(document).ready(function() {
   ajax.loadTasks();
 
-  $('#new-task').submit(function(event) {
-    event.preventDefault();
-    ajax.createNewTask();
-  });
+
+  require('./event.handlers.js')();
 
   $('#tasks-list').on('click', 'button.delete', function() {
     ajax.deleteTask($(this).parent().attr('id'));

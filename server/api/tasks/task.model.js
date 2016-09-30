@@ -9,7 +9,7 @@ let taskSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true,
-		default: 'My Task on ' + new Date(Date.now()),
+		default: 'My Task',
 	},
 	date: {
 		type: Date,

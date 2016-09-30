@@ -4,7 +4,7 @@ let User = require('../user/user.model');
 let Controller = {};
 
 Controller.me = function(req, res, next) {
-	res.status(200).end();
+	res.status(200).json(req.user.username);
 };
 
 Controller.unauthorized = function(req, res, next) {

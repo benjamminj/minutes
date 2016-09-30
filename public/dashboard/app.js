@@ -49,16 +49,13 @@
 	var rootURL = '//localhost:5000/';
 	
 	var timer = __webpack_require__(1);
-	var generateTaskHTML = __webpack_require__(2);
+	var generateHTML = __webpack_require__(2);
 	var ajax = __webpack_require__(3)(rootURL);
 	
 	$(document).ready(function () {
 	  ajax.loadTasks();
 	
-	  $('#new-task').submit(function (event) {
-	    event.preventDefault();
-	    ajax.createNewTask();
-	  });
+	  __webpack_require__(5)();
 	
 	  $('#tasks-list').on('click', 'button.delete', function () {
 	    ajax.deleteTask($(this).parent().attr('id'));
@@ -121,11 +118,30 @@
 
 	'use strict';
 	
-	module.exports = function (task) {
+	module.exports = {
+	  taskHTML: function taskHTML(task) {
+	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task) + '\n      </div>\n    ';
+	  },
+	  innerTaskHTML: function innerTaskHTML(task) {
+	    return '\n      <h3 class="title">' + task.title + '</h3>\n      <h4 class="date">' + task.date + '</h4>\n      <h4 class="time">' + task.time + '</h4>\n      <p class="description">' + task.description + '</p>\n      <button class="edit">Edit</button>\n      <button class="delete">Delete</button>\n    ';
+	  },
+	  editTaskHTML: function editTaskHTML(task) {
+	    var currentTitle = task.children('.title').html();
+	    var currentDescription = task.children('.description').html();
+	    var time = task.children('.time').html();
+	    var date = task.children('.date').html();
 	
-	  return '<div class="task" id="' + task._id + '"><h3>' + task.title + '</h3><button class="edit-title">Edit Title</button><h4>' + task.date + '</h4><h4>' + task.time + '</h4><p>' + task.description + '</p><button class="edit-desc">Edit Description</button><button class="delete">Delete</button></div>';
-	
-	  return '\n  <div class="task" id="' + task.id + '">\n  \t<h3>' + task.title + '</h3>\n  \t<button class="edit-title">Edit Title</button>\n  \t<h4>' + task.date + '</h4>\n  \t<h4>' + task.time + '</h4>\n  \t<p>task.description</p>\n  \t<button class="edit-description">Edit Description</button>\n  \t<button class="delete">Delete</button>\n\t</div>\n\t';
+	    return '\n      <input type="text" class="title" value="' + currentTitle + '">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <input type="text" class="description" value="' + currentDescription + '">\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
+	  },
+	  timerHTML: function timerHTML() {
+	    return '\n      <div class="timer">\n        <h2>\n          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n        </h2>\n        <button>Start</button>\n        <button>Stop</button>\n      </div>\n    ';
+	  },
+	  timerClosePromptHTML: function timerClosePromptHTML() {
+	    return '\n      <div class="timer-close-prompt">\n        <h2>Are you sure you want to end the timer? You will lose any time currently on the clock</h2>\n        <button class="yes">Yes, I would like to cancel this timer</button>\n        <button class="no">No, I want to keep running the timer</button>\n      </div>\n    ';
+	  },
+	  timerSaveHTML: function timerSaveHTML() {
+	    return '\n      <div class="timer-save">\n        <form action="">\n          <input type="text" value="Title">\n          <h4 class="time">\n            <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n          </h4>\n          <input type="text" value="Description">\n        </form>\n      </div>\n    ';
+	  }
 	};
 
 /***/ },
@@ -134,23 +150,24 @@
 
 	'use strict';
 	
-	var generateTaskHTML = __webpack_require__(2);
+	var generateHTML = __webpack_require__(2);
 	
-	module.exports = function (rootURL) {
-	  var utils = __webpack_require__(4)(rootURL);
+	module.exports = function (apiURL) {
+	  var utils = __webpack_require__(4)(apiURL);
 	
 	  return {
 	    loadTasks: function loadTasks() {
-	      var url = rootURL + 'tasks/';
+	      var url = apiURL + 'tasks/';
 	      $.getJSON(url).done(function (tasks) {
 	        if (!tasks.length) {
 	          // Put some sort of prompt to create something if the user doesn't have anything
 	          // Put in its own html section
-	          $('#tasks-list').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
+	          $('#tasks-container').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
 	        }
 	        tasks.forEach(function (task) {
+	          console.log(task);
 	          // Change html to be a ul
-	          $('#tasks-list').append(generateTaskHTML(task));
+	          $('#tasks-container').append(generateHTML.taskHTML(task));
 	        });
 	      }).fail(function (err) {
 	        // Eventually need to do something to handle this on the frontend?
@@ -159,7 +176,7 @@
 	      });
 	    },
 	    createNewTask: function createNewTask() {
-	      var url = rootURL + 'tasks/create';
+	      var url = apiURL + 'tasks/create';
 	      var title = utils.getValue('#new-task #title') || undefined;
 	      var description = utils.getValue('#new-task #description');
 	      var time = utils.getValue('#new-task #time');
@@ -167,13 +184,13 @@
 	
 	      utils.emptyForm(['#new-task #title', '#new-task #time', '#new-task #description']);
 	      $.post(url, data).done(function (task) {
-	        $('#tasks-list').append(generateTaskHTML(task));
+	        $('#tasks-container').append(generateHTML.taskHTML(task));
 	      }).fail(function (err) {
 	        console.log(err);
 	      });
 	    },
 	    deleteTask: function deleteTask(id) {
-	      var url = rootURL + 'tasks/delete/' + id;
+	      var url = apiURL + 'tasks/delete/' + id;
 	
 	      $.ajax({
 	        url: url,
@@ -207,6 +224,41 @@
 				window.location = rootURL;
 			}
 		};
+	};
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var ajax = __webpack_require__(3);
+	var generateHTML = __webpack_require__(2);
+	
+	module.exports = function () {
+		$('#nav-buttons .my-tasks').click(function () {
+			$('#timer-container').hide().siblings('#tasks-container').show();
+		});
+	
+		$('#nav-buttons .new-task').click(function () {
+			$('#tasks-container').hide();
+			$('#timer-container').show().html(generateHTML.timerHTML());
+		});
+	
+		$('#tasks-container').on('click', '.task .edit', function (event) {
+			var task = $(this).parent();
+			var html = generateHTML.editTaskHTML(task);
+			$(task).html(html);
+		});
+	
+		$('#tasks-container').on('click', '.task .save-changes', function () {
+			console.log('changes!');
+		});
+	
+		$('#tasks-container').on('click', '.cancel-changes', function () {
+			console.log('cancelled');
+			$(task).html();
+		});
 	};
 
 /***/ }
