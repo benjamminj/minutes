@@ -5,6 +5,8 @@ let hashPassword = require('../../../../utils/encrypt');
 module.exports = function(testData) {
 
 	beforeEach(function(done) {
+		User.remove({});
+		Task.remove({});
 		hashPassword('password')
 			.then(function(hashedPassword) {
 				return User.create({ username: 'benjamin', password: hashedPassword });
