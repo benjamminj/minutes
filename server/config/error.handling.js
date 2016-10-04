@@ -25,7 +25,7 @@ module.exports = function(app) {
 
   app.use(function(err, req, res, next) {
     if (err.status === 401) {
-      winston.warn(err);
+      winston.info(err);
       res.status(401).redirect('/users/login');
     } else {
       next(err);

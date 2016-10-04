@@ -50,7 +50,7 @@
 	
 	var timer = __webpack_require__(1);
 	var generateHTML = __webpack_require__(2);
-	var ajax = __webpack_require__(3)(apiURL);
+	var ajax = __webpack_require__(4)(apiURL);
 	
 	$(document).ready(function () {
 	  ajax.getTasks();
@@ -65,39 +65,41 @@
 	"use strict";
 	
 	module.exports = {
-		timeInSeconds: 0,
-		isRunning: false,
-		reset: function reset() {
-			this.timeInSeconds = 0;
-			this.isRunning = false;
-		},
-		start: function start(callback) {
-			if (!this.isRunning) {
-				this.isRunning = true;
-				this.intervalID = setInterval(function () {
-					this.timeInSeconds += 1;
-					callback(this.timeInSeconds);
-				}.bind(this), 1000);
-			}
-		},
-		pause: function pause() {
-			this.isRunning = false;
-			clearInterval(this.intervalID);
-		},
-		stop: function stop() {
-			this.pause();
-			var finalTime = this.timeInSeconds;
+	  timeInSeconds: 0,
+	  isRunning: false,
+	  reset: function reset() {
+	    this.timeInSeconds = 0;
+	    this.isRunning = false;
+	  },
+	  start: function start(callback) {
+	    if (!this.isRunning) {
+	      this.isRunning = true;
+	      this.intervalID = setInterval(function () {
+	        this.timeInSeconds += 1;
+	        callback(this.timeInSeconds);
+	      }.bind(this), 1000);
+	    }
+	  },
+	  pause: function pause() {
+	    this.isRunning = false;
+	    clearInterval(this.intervalID);
+	  },
+	  stop: function stop() {
+	    this.pause();
+	    var finalTime = this.timeInSeconds;
 	
-			this.reset();
-			return finalTime;
-		}
+	    this.reset();
+	    return finalTime;
+	  }
 	};
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var utils = __webpack_require__(3)();
 	
 	module.exports = {
 	  taskHTML: function taskHTML(task) {
@@ -108,7 +110,7 @@
 	      description = '';
 	    }
 	
-	    return '\n      <h3 class="title">' + title + '</h3>\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <p class="description">' + description + '</p>\n      <button class="edit">Edit</button>\n      <button class="delete">Delete</button>\n    ';
+	    return '\n      <h3 class="title">' + title + '</h3>\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + this.displayTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n      <button class="edit">Edit</button>\n      <button class="delete">Delete</button>\n    ';
 	  },
 	  editTaskHTML: function editTaskHTML(task) {
 	    var currentTitle = task.children('.title').html();
@@ -124,13 +126,54 @@
 	  timerClosePromptHTML: function timerClosePromptHTML() {
 	    return '\n      <div class="timer-close-prompt">\n        <h2>Are you sure you want to end the timer? You will lose any time currently on the clock</h2>\n        <button class="yes">Yes, I would like to cancel this timer</button>\n        <button class="no">No, I want to keep running the timer</button>\n      </div>\n    ';
 	  },
-	  timerSaveHTML: function timerSaveHTML() {
-	    return '\n      <div class="timer-save">\n        <form action="">\n          <input type="text" value="Title">\n          <h4 class="time">\n            <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n          </h4>\n          <input type="text" value="Description">\n        </form>\n      </div>\n    ';
+	
+	
+	  // TO DO -- add a time as function argument. generate the html for the time into HH:MM:SS
+	  timerSaveHTML: function timerSaveHTML(seconds) {
+	    return '\n      <div class="timer-save">\n        <form action="">\n          <input type="text" value="Title">\n          <h4 class="time">\n            ' + this.displayTimeHTML(seconds) + '\n          </h4>\n          <input type="text" value="Description">\n        </form>\n      </div>\n    ';
+	  },
+	  displayTimeHTML: function displayTimeHTML(time) {
+	    var hours = divideTime(time, 360);
+	    var minutes = divideTime(time - hours * 360, 60);
+	    var seconds = divideTime(time - hours * 360 - minutes * 60);
+	
+	    function divideTime(initialTime) {
+	      var division = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+	
+	      return Math.floor(initialTime / division);
+	    }
+	
+	    return '<span class="hours">' + hours + '</span>:<span class="minutes">' + minutes + '</span>:<span class="seconds">' + seconds + '</span>';
 	  }
 	};
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (rootURL) {
+	  return {
+	    getValue: function getValue(selector) {
+	      return $(selector).val();
+	    },
+	    emptyForm: function emptyForm(formElements) {
+	      formElements.forEach(function (element) {
+	        $(element).val('');
+	      });
+	    },
+	    redirectToLogin: function redirectToLogin() {
+	      window.location = rootURL;
+	    },
+	    addLeadingZeroes: function addLeadingZeroes(number) {
+	      return ('0' + number).slice(-2);
+	    }
+	  };
+	};
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -138,7 +181,7 @@
 	var generateHTML = __webpack_require__(2);
 	
 	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(4)(apiURL);
+	  var utils = __webpack_require__(3)(apiURL);
 	
 	  return {
 	    getTasks: function getTasks() {
@@ -217,28 +260,6 @@
 	};
 
 /***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function (rootURL) {
-		return {
-			getValue: function getValue(selector) {
-				return $(selector).val();
-			},
-			emptyForm: function emptyForm(formElements) {
-				formElements.forEach(function (element) {
-					$(element).val('');
-				});
-			},
-			redirectToLogin: function redirectToLogin() {
-				window.location = rootURL;
-			}
-		};
-	};
-
-/***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -246,6 +267,7 @@
 	
 	var generateHTML = __webpack_require__(2);
 	var timer = __webpack_require__(1);
+	var utils = __webpack_require__(3)();
 	
 	module.exports = function (ajax) {
 	
@@ -291,26 +313,23 @@
 	
 	  $('#timer-container').on('click', '.timer .start', function () {
 	
+	    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
+	
 	    timer.start(function (currentTime) {
+	
 	      if (currentTime % 360 === 0) {
-	        increaseTimerHTML('.hours');
+	        increaseTimerHTML('.timer .hours');
 	      } else if (currentTime % 60 === 0) {
-	        increaseTimerHTML('.minutes');
+	        increaseTimerHTML('.timer .minutes');
 	      } else {
-	        increaseTimerHTML('.seconds');
+	        increaseTimerHTML('.timer .seconds');
 	      }
 	
 	      function increaseTimerHTML(selector) {
 	        var selectorValuePlusOne = parseInt($(selector).html()) + 1;
-	        $(selector).html(addLeadingZeroes(selectorValuePlusOne));
-	      }
-	
-	      function addLeadingZeroes(number) {
-	        return ('0' + number).slice(-2);
+	        $(selector).html(utils.addLeadingZeroes(selectorValuePlusOne));
 	      }
 	    });
-	
-	    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
 	  });
 	
 	  $('#timer-container').on('click', '.timer .pause', function () {
@@ -320,6 +339,8 @@
 	
 	  $('#timer-container').on('click', '.timer .stop', function () {
 	    var seconds = timer.stop();
+	
+	    $('#timer-container h2').html('<span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>');
 	    console.log('End', seconds);
 	  });
 	};

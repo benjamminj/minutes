@@ -1,5 +1,6 @@
 let generateHTML = require('./html.generator');
 let timer = require('./timer');
+let utils = require('./utils')();
 
 module.exports = function(ajax) {
 
@@ -46,27 +47,23 @@ module.exports = function(ajax) {
 
   $('#timer-container').on('click', '.timer .start', function() {
 
+    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
+    
     timer.start(function(currentTime) {
+
       if (currentTime % 360 === 0) {
-        increaseTimerHTML('.hours');
+        increaseTimerHTML('.timer .hours');
       } else if (currentTime % 60 === 0) {
-        increaseTimerHTML('.minutes');
+        increaseTimerHTML('.timer .minutes');
       } else {
-        increaseTimerHTML('.seconds');
+        increaseTimerHTML('.timer .seconds');
       }
 
       function increaseTimerHTML(selector) {
         let selectorValuePlusOne = parseInt($(selector).html()) + 1;
-        $(selector).html(addLeadingZeroes(selectorValuePlusOne));
-      }
-
-      function addLeadingZeroes(number) {
-        return ('0' + number).slice(-2);
-      }
+        $(selector).html(utils.addLeadingZeroes(selectorValuePlusOne));
+      } 
     });
-
-    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
-
   });
 
   $('#timer-container').on('click', '.timer .pause', function() {

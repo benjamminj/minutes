@@ -1,3 +1,5 @@
+let utils = require('./utils')();
+
 module.exports = {
   taskHTML(task) {
     return `
@@ -15,7 +17,7 @@ module.exports = {
     return `
       <h3 class="title">${title}</h3>
       <h4 class="date">${date}</h4>
-      <h4 class="time">${time}</h4>
+      <h4 class="time">${this.displayTimeHTML(time)}</h4>
       <p class="description">${description}</p>
       <button class="edit">Edit</button>
       <button class="delete">Delete</button>
@@ -35,7 +37,7 @@ module.exports = {
       <input type="text" class="description" value="${currentDescription}" placeholder="Add a Description">
       <button class="cancel-changes">Cancel Changes</button>
       <button class="save-changes">Save Changes</button>
-    `
+    `;
   },
 
   timerHTML() {
@@ -61,24 +63,34 @@ module.exports = {
   },
 
   // TO DO -- add a time as function argument. generate the html for the time into HH:MM:SS
-  timerSaveHTML() {
+  timerSaveHTML(seconds) {
     return `
       <div class="timer-save">
         <form action="">
           <input type="text" value="Title">
           <h4 class="time">
-            <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
+            ${this.displayTimeHTML(seconds)}
           </h4>
           <input type="text" value="Description">
         </form>
       </div>
     `;
-  }
+  },
 
-  // TO DO -- Add function that generates the time html
-  // function(seconds) {
-    // seconds % 360 --> HH
-    // seconds % 60 --> MM
-    // else --> SS
-    //}
+  displayTimeHTML(time) {
+    let hours = divideTime(time, 360);
+    let minutes = divideTime(time - (hours * 360), 60);
+    let seconds = divideTime(time - (hours * 360) - (minutes * 60));
+
+    function divideTime(initialTime, division = 1) {
+      return Math.floor(initialTime / division);
+    }
+
+    return `<span class="hours">${hours}</span>:<span class="minutes">${minutes}</span>:<span class="seconds">${seconds}</span>`;
+  }
 };
+
+
+
+
+
