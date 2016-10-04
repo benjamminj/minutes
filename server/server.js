@@ -4,7 +4,7 @@ let app = express();
 const winston = require('winston');
 
 require('./config/env')(process.env);
-require('./config/winston.config')(winston);
+require('./config/winston.logging')(winston);
 require('./config/middleware.express')(app);
 require('./config/routes.express.js')(app);
 

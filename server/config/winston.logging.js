@@ -4,8 +4,8 @@ module.exports = (winston) => {
 
   winston.add(winston.transports.File, {
     level: 'warn',
+    json: false,
     filename: 'logs/errors.log',
-    json: true,
     handleExceptions: true,
     humanReadableUnhandledException: true
   });
