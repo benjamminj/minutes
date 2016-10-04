@@ -36,7 +36,6 @@ module.exports = function(chai, app) {
 				err.should.have.status(400);
 				res.should.be.json;
 				res.body.name.should.equal('MongoError');
-				console.log(res.body.message);
 				should.equal(res.body.message.includes('E11000 duplicate key error'), true);
 				should.equal(res.body.message.includes('dup key: { : "benjamin" }'), true);
 				done();

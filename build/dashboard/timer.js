@@ -5,12 +5,12 @@ module.exports = {
 	    this.timeInSeconds = 0;
 	    this.isRunning = false;
 	  },
-	  start(fn) {
+	  start(callback) {
 	    if (!this.isRunning) {
 	      this.isRunning = true;
 	      this.intervalID = setInterval(function() {
 	        this.timeInSeconds += 1;
-	        fn(this.timeInSeconds);
+	        callback(this.timeInSeconds);
 	      }.bind(this), 1000);
 	    }
 	  },

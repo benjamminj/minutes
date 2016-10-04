@@ -18,5 +18,7 @@ describe('Server/server.js', function() {
 			});
 	});
 
+	it('Mongoose Connection Error');
+
 
 });

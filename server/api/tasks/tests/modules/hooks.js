@@ -7,7 +7,7 @@ module.exports = function(testData) {
 		User.remove({})
 			.then(function() {
 				Task.remove({}, done);
-			})
+			});
 	});
 
 	beforeEach(function(done) {
@@ -17,17 +17,13 @@ module.exports = function(testData) {
 			})
 			.then(function(user) {
 				testData.userID = user._id.toString();
-				task1 = { title: 'My Super Awesome Task', time: 100, _owner: user._id };
-				task2 = { title: 'My Second Super Awesome Task', time: 200, _owner: user._id, description: 'short description'};
+				let task1 = { title: 'My Super Awesome Task', time: 100, _owner: user._id };
+				let task2 = { title: 'My Second Super Awesome Task', time: 200, _owner: user._id, description: 'short description'};
 				return Task.create([task1, task2]);
 			})
 			.then(function(tasks) {
-				// console.log(tasks);
 				testData.taskIDs = [tasks[0]._id.toString(), tasks[1]._id.toString()];
 				done();
-			})
-			.catch(function(err) {
-				console.log(err);
 			});
 	});
 

@@ -1,4 +1,5 @@
 node_modules
-.jshintrc
+.eslintrc.js
 .notepad
 /coverage
+/logs

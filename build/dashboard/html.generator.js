@@ -2,17 +2,21 @@ module.exports = {
   taskHTML(task) {
     return `
       <div class="task" id="${task._id}">
-        ${this.innerTaskHTML(task)}
+        ${this.innerTaskHTML(task.title, task.date, task.time, task.description)}
       </div>
     `;  
   },
 
-  innerTaskHTML(task) {
+  innerTaskHTML(title, date, time, description) {
+    if (!description) {
+      description = '';
+    }
+
     return `
-      <h3 class="title">${task.title}</h3>
-      <h4 class="date">${task.date}</h4>
-      <h4 class="time">${task.time}</h4>
-      <p class="description">${task.description}</p>
+      <h3 class="title">${title}</h3>
+      <h4 class="date">${date}</h4>
+      <h4 class="time">${time}</h4>
+      <p class="description">${description}</p>
       <button class="edit">Edit</button>
       <button class="delete">Delete</button>
     `;
@@ -25,10 +29,10 @@ module.exports = {
     let date = task.children('.date').html();
 
     return `
-      <input type="text" class="title" value="${currentTitle}">
+      <input type="text" class="title" value="${currentTitle}"" placeholder="Title">
       <h4 class="date">${date}</h4>
       <h4 class="time">${time}</h4>
-      <input type="text" class="description" value="${currentDescription}">
+      <input type="text" class="description" value="${currentDescription}" placeholder="Add a Description">
       <button class="cancel-changes">Cancel Changes</button>
       <button class="save-changes">Save Changes</button>
     `
@@ -40,8 +44,8 @@ module.exports = {
         <h2>
           <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
         </h2>
-        <button>Start</button>
-        <button>Stop</button>
+        <button class="start">Start</button>
+        <button class="stop">Stop</button>
       </div>
     `;
   },
@@ -56,6 +60,7 @@ module.exports = {
     `;
   },
 
+  // TO DO -- add a time as function argument. generate the html for the time into HH:MM:SS
   timerSaveHTML() {
     return `
       <div class="timer-save">
@@ -69,4 +74,11 @@ module.exports = {
       </div>
     `;
   }
+
+  // TO DO -- Add function that generates the time html
+  // function(seconds) {
+    // seconds % 360 --> HH
+    // seconds % 60 --> MM
+    // else --> SS
+    //}
 };
