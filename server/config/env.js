@@ -3,6 +3,7 @@ module.exports = function(env) {
     case 'production': {
       env.DATABASE_URL = env.PROD_DATABASE_URL;
       env.LOG_LEVEL = 'warn';
+      env.API_URL = 'http://bjohnson-time-tracker.herokuapp.com/';
       break;
     }
     case 'testing': {
@@ -15,6 +16,7 @@ module.exports = function(env) {
       env.DATABASE_URL = 'mongodb://localhost/time-tracker-dev';
       env.PORT = 5000;
       env.LOG_LEVEL = 'info';
+      env.API_URL = '//localhost:5000/';
     }
   }
 };
