@@ -5,6 +5,7 @@ var apiURL = '//localhost:5000/';
 $(document).ready(function() {
   require('./header/header.events')(apiURL);
   require('./tasks/tasks.events')(apiURL);
+  require('./timer/timer.events')(apiURL);
   // require('./event.handlers.js')(ajax);
 
 
