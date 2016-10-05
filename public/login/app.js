@@ -61,9 +61,7 @@
 	    event.preventDefault();
 	    var request = { username: $('#create-username').val(), password: $('#create-password').val() };
 	
-	    $.post(apiURL + 'user/signup', request, function () {
-	      console.log('Yay');
-	    }).done(function (res) {
+	    $.post(apiURL + 'user/signup', request).done(function () {
 	      loginRequest(request);
 	    }).fail(function (err) {
 	      console.log(err);
@@ -72,9 +70,7 @@
 	
 	  function loginRequest(request) {
 	
-	    $.post(apiURL + 'user/login', request, function () {
-	      console.log('Yay!!!');
-	    }).done(function (user) {
+	    $.post(apiURL + 'user/login', request).done(function () {
 	      window.location = '//localhost:5000/dashboard';
 	    });
 	  }
