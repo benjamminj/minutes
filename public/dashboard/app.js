@@ -48,18 +48,72 @@
 	
 	var apiURL = '//localhost:5000/';
 	
-	var timer = __webpack_require__(1);
-	var generateHTML = __webpack_require__(2);
-	var ajax = __webpack_require__(4)(apiURL);
+	// let ajax = require('./ajax')(apiURL);
 	
 	$(document).ready(function () {
-	  ajax.getTasks();
+	  __webpack_require__(6)(apiURL);
+	  __webpack_require__(9)(apiURL);
+	  // require('./event.handlers.js')(ajax);
 	
-	  __webpack_require__(5)(ajax);
 	});
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */,
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (rootURL) {
+	  return {
+	    getValue: function getValue(selector) {
+	      return $(selector).val();
+	    },
+	    emptyForm: function emptyForm(formElements) {
+	      formElements.forEach(function (element) {
+	        $(element).val('');
+	      });
+	    },
+	    redirectToLogin: function redirectToLogin() {
+	      window.location = rootURL;
+	    },
+	    addLeadingZeroes: function addLeadingZeroes(number) {
+	      return ('0' + number).slice(-2);
+	    }
+	  };
+	};
+
+/***/ },
+/* 4 */,
+/* 5 */,
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var timer = __webpack_require__(7);
+	var generate = __webpack_require__(8);
+	
+	module.exports = function (apiURL) {
+	  var getTasks = __webpack_require__(11)(apiURL).getTasks;
+	  // header
+	  $('#nav-buttons .my-tasks').click(function () {
+	    // TO DO -- add the close prompt if the timer is running. Otherwise just load the page.
+	    timer.reset();
+	    getTasks();
+	    $('#timer-container').hide().siblings('#tasks-container').show();
+	  });
+	
+	  // header
+	  $('#nav-buttons .new-task').click(function () {
+	    $('#tasks-container').hide();
+	    $('#timer-container').show().html(generate.timerHTML());
+	  });
+	};
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -92,7 +146,7 @@
 	};
 
 /***/ },
-/* 2 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -100,37 +154,10 @@
 	var utils = __webpack_require__(3)();
 	
 	module.exports = {
-	  taskHTML: function taskHTML(task) {
-	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description) + '\n      </div>\n    ';
-	  },
-	  innerTaskHTML: function innerTaskHTML(title, date, time, description) {
-	    if (!description) {
-	      description = '';
-	    }
-	
-	    return '\n      <h3 class="title">' + title + '</h3>\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + this.displayTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n      <button class="edit">Edit</button>\n      <button class="delete">Delete</button>\n    ';
-	  },
-	  editTaskHTML: function editTaskHTML(task) {
-	    var currentTitle = task.children('.title').html();
-	    var currentDescription = task.children('.description').html();
-	    var time = task.children('.time').html();
-	    var date = task.children('.date').html();
-	
-	    return '\n      <input type="text" class="title" value="' + currentTitle + '"" placeholder="Title">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <input type="text" class="description" value="' + currentDescription + '" placeholder="Add a Description">\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
-	  },
 	  timerHTML: function timerHTML() {
 	    return '\n      <button class="cancel">\n        <i class="fa fa-times" aria-hidden="true"></i>\n      </button>\n      <div class="timer">\n        <h2>\n          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n        </h2>\n        <button class="start">Start</button>\n        <button class="stop">Stop</button>\n      </div>\n    ';
 	  },
-	  timerClosePromptHTML: function timerClosePromptHTML() {
-	    return '\n      <div class="timer-close-prompt">\n        <h2>Are you sure you want to end the timer? You will lose any time currently on the clock</h2>\n        <button class="yes">Yes, I would like to cancel this timer</button>\n        <button class="no">No, I want to keep running the timer</button>\n      </div>\n    ';
-	  },
-	
-	
-	  // TO DO -- add a time as function argument. generate the html for the time into HH:MM:SS
-	  timerSaveHTML: function timerSaveHTML(seconds) {
-	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <input type="text" placeholder="Choose a Title" class="title">\n          <h4 class="time">\n            ' + this.displayTimeHTML(seconds) + '\n          </h4>\n          <input type="text" placeholder="Add a Description" class="description">\n          <button class="cancel-save">Cancel</button>\n          <button type="submit">Save</button>\n        </form>\n      </div>\n    ';
-	  },
-	  displayTimeHTML: function displayTimeHTML(time) {
+	  divideTimeHTML: function divideTimeHTML(time) {
 	    var pad = utils.addLeadingZeroes;
 	
 	    var hours = pad(divideTime(time, 360));
@@ -148,37 +175,82 @@
 	};
 
 /***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function (rootURL) {
-	  return {
-	    getValue: function getValue(selector) {
-	      return $(selector).val();
-	    },
-	    emptyForm: function emptyForm(formElements) {
-	      formElements.forEach(function (element) {
-	        $(element).val('');
-	      });
-	    },
-	    redirectToLogin: function redirectToLogin() {
-	      window.location = rootURL;
-	    },
-	    addLeadingZeroes: function addLeadingZeroes(number) {
-	      return ('0' + number).slice(-2);
-	    }
-	  };
-	};
-
-/***/ },
-/* 4 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generateHTML = __webpack_require__(2);
+	var generate = __webpack_require__(10);
+	
+	module.exports = function (apiURL) {
+	  var ajax = __webpack_require__(11)(apiURL);
+	  ajax.getTasks();
+	
+	  $('#tasks-container').on('click', '.task .edit', function () {
+	    var task = $(this).parent();
+	    var html = generate.editTaskHTML(task);
+	    $(task).html(html);
+	  });
+	
+	  $('#tasks-container').on('click', '.task .save-changes', function () {
+	    var task = $(this).parent();
+	
+	    ajax.editTask(task, function (err, editedTask) {
+	      if (editedTask) {
+	        task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+	      }
+	    });
+	  });
+	
+	  $('#tasks-container').on('click', '.cancel-changes', function () {
+	    var task = $(this).parent();
+	
+	    // TODO -- update ajax.getOneTask to utilize full callback
+	    ajax.getTasks();
+	  });
+	
+	  $('#tasks-container').on('click', '.task .delete', function () {
+	    // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
+	    ajax.deleteTask($(this).parent().attr('id'));
+	  });
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var timeHTML = __webpack_require__(8);
+	
+	module.exports = {
+	  editTaskHTML: function editTaskHTML(task) {
+	    var currentTitle = task.children('.title').html();
+	    var currentDescription = task.children('.description').html() || 'Add a description';
+	    var time = task.children('.time').html();
+	    var date = task.children('.date').html();
+	
+	    return '\n      <input type="text" class="title" placeholder="' + currentTitle + '">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <input type="text" class="description" placeholder="' + currentDescription + '">\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
+	  },
+	  taskHTML: function taskHTML(task) {
+	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description) + '\n      </div>\n    ';
+	  },
+	  innerTaskHTML: function innerTaskHTML(title, date, time, description) {
+	    if (!description) {
+	      description = '';
+	    }
+	
+	    return '\n      <h3 class="title">' + title + '</h3>\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n      <button class="edit">Edit</button>\n      <button class="delete">Delete</button>\n    ';
+	  }
+	};
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var generate = __webpack_require__(10);
 	
 	module.exports = function (apiURL) {
 	  var utils = __webpack_require__(3)(apiURL);
@@ -188,43 +260,18 @@
 	      var url = apiURL + 'tasks/';
 	      $.getJSON(url).done(function (tasks) {
 	        if (!tasks.length) {
-	          // Put some sort of prompt to create something if the user doesn't have anything
-	          // Put in its own html section
 	          $('#tasks-container').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
 	        }
+	
+	        $('#tasks-container').html('');
 	        tasks.forEach(function (task) {
-	          console.log(task);
 	          // Change html to be a ul
-	          $('#tasks-container').append(generateHTML.taskHTML(task));
+	          $('#tasks-container').append(generate.taskHTML(task));
 	        });
 	      }).fail(function (err) {
 	        // Eventually need to do something to handle this on the frontend?
 	        console.log('Oh no!', err);
 	        utils.redirectToLogin();
-	      });
-	    },
-	    getOneTask: function getOneTask(id, callback) {
-	      var url = apiURL + 'tasks/id' + id;
-	
-	      $.getJSON(url).done(function (task) {
-	        console.log('done!');
-	        callback(task);
-	      }).fail(function (err) {
-	        console.log(err);
-	      });
-	    },
-	    createNewTask: function createNewTask(time, callback) {
-	      var url = apiURL + 'tasks/create';
-	      var title = utils.getValue('.timer-save .title') || undefined;
-	      var description = utils.getValue('.timer-save .description');
-	      var data = { title: title, date: new Date(Date.now()), time: time, description: description };
-	
-	      $.post(url, data).done(function (task) {
-	        // Create some sort of clalback system a la Node?
-	        callback(null, task);
-	        // $('#tasks-container').append(generateHTML.taskHTML(task));
-	      }).fail(function (err) {
-	        callback(err);
 	      });
 	    },
 	    editTask: function editTask(task, callback) {
@@ -253,129 +300,6 @@
 	      });
 	    }
 	  };
-	};
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var generateHTML = __webpack_require__(2);
-	var timer = __webpack_require__(1);
-	var utils = __webpack_require__(3)();
-	
-	module.exports = function (ajax) {
-	
-	  $('#nav-buttons .my-tasks').click(function () {
-	    // TO DO -- add the close prompt if the timer is running. Otherwise just load the page.
-	    timer.reset();
-	    $('#timer-container').hide().siblings('#tasks-container').show();
-	  });
-	
-	  $('#nav-buttons .new-task').click(function () {
-	    $('#tasks-container').hide();
-	    $('#timer-container').show().html(generateHTML.timerHTML());
-	  });
-	
-	  $('#tasks-container').on('click', '.task .edit', function () {
-	    var task = $(this).parent();
-	    var html = generateHTML.editTaskHTML(task);
-	    $(task).html(html);
-	  });
-	
-	  $('#tasks-container').on('click', '.task .save-changes', function () {
-	    var task = $(this).parent();
-	
-	    ajax.editTask(task, function (err, editedTask) {
-	      if (editedTask) {
-	        task.html(generateHTML.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
-	      }
-	    });
-	  });
-	
-	  $('#tasks-container').on('click', '.cancel-changes', function () {
-	    var task = $(this).parent();
-	
-	    // TODO -- update ajax.getOneTask to utilize full callback
-	    ajax.getOneTask(task.attr('id'), function (data) {
-	      var html = generateHTML.innerTaskHTML(data.title, data.date, data.time, data.description);
-	      task.html(html);
-	    });
-	  });
-	
-	  $('#tasks-container').on('click', '.task .delete', function () {
-	    // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
-	    ajax.deleteTask($(this).parent().attr('id'));
-	  });
-	
-	  // Timer
-	  $('#timer-container').on('click', '.timer .start', function () {
-	
-	    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
-	
-	    timer.start(function (currentTime) {
-	
-	      if (currentTime % 360 === 0) {
-	        increaseTimerHTML('.timer .hours');
-	      } else if (currentTime % 60 === 0) {
-	        increaseTimerHTML('.timer .minutes');
-	      } else {
-	        increaseTimerHTML('.timer .seconds');
-	      }
-	
-	      function increaseTimerHTML(selector) {
-	        var selectorValuePlusOne = parseInt($(selector).html()) + 1;
-	        $(selector).html(utils.addLeadingZeroes(selectorValuePlusOne));
-	      }
-	    });
-	  });
-	
-	  $('#timer-container').on('click', '.timer .pause', function () {
-	    timer.pause();
-	    $('#timer-container .pause').addClass('start').removeClass('pause').html('Start');
-	  });
-	
-	  $('#timer-container').on('click', '.timer .stop', function () {
-	    var seconds = timer.stop();
-	
-	    $('#timer-container').html(generateHTML.timerSaveHTML(seconds));
-	  });
-	
-	  $('#timer-container').on('submit', '#save-task', function (event) {
-	    var timeInSeconds = timer.stop();
-	    timer.reset();
-	    event.preventDefault();
-	
-	    ajax.createNewTask(timeInSeconds, function (err, task) {
-	      $('#timer-container').hide().siblings('#tasks-container').show();
-	
-	      ajax.getOneTask(task._id, function (err, task) {
-	        // TO DO -- add error handler
-	        $('#tasks-container').prepend(generateHTML.taskHTML(task));
-	      });
-	    });
-	  });
-	
-	  $('#timer-container').on('click', '.cancel-save', function (event) {
-	    event.preventDefault();
-	    timer.reset();
-	    $('#timer-container').hide().siblings('#tasks-container').show();
-	  });
-	
-	  // Timer close prompt
-	  $('#timer-container').on('click', '.cancel', function () {
-	    $('#timer-container').append(generateHTML.timerClosePromptHTML());
-	  });
-	
-	  $('#timer-container').on('click', '.timer-close-prompt .yes', function () {
-	    timer.reset();
-	    $('#timer-container').hide().siblings('#tasks-container').show();
-	  });
-	
-	  $('#timer-container').on('click', '.timer-close-prompt .no', function () {
-	    $('#timer-container .timer-close-prompt').hide();
-	  });
 	};
 
 /***/ }

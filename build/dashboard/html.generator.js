@@ -1,60 +1,6 @@
 let utils = require('./utils')();
 
-module.exports = {
-  taskHTML(task) {
-    return `
-      <div class="task" id="${task._id}">
-        ${this.innerTaskHTML(task.title, task.date, task.time, task.description)}
-      </div>
-    `;
-  },
-
-  innerTaskHTML(title, date, time, description) {
-    if (!description) {
-      description = '';
-    }
-
-    return `
-      <h3 class="title">${title}</h3>
-      <h4 class="date">${date}</h4>
-      <h4 class="time">${this.displayTimeHTML(time)}</h4>
-      <p class="description">${description}</p>
-      <button class="edit">Edit</button>
-      <button class="delete">Delete</button>
-    `;
-  },
-
-  editTaskHTML(task) {
-    let currentTitle = task.children('.title').html();
-    let currentDescription = task.children('.description').html();
-    let time = task.children('.time').html();
-    let date = task.children('.date').html();
-
-    return `
-      <input type="text" class="title" value="${currentTitle}"" placeholder="Title">
-      <h4 class="date">${date}</h4>
-      <h4 class="time">${time}</h4>
-      <input type="text" class="description" value="${currentDescription}" placeholder="Add a Description">
-      <button class="cancel-changes">Cancel Changes</button>
-      <button class="save-changes">Save Changes</button>
-    `;
-  },
-
-  timerHTML() {
-    return `
-      <button class="cancel">
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </button>
-      <div class="timer">
-        <h2>
-          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
-        </h2>
-        <button class="start">Start</button>
-        <button class="stop">Stop</button>
-      </div>
-    `;
-  },
-
+module.exports = {  
   timerClosePromptHTML() {
     return `
       <div class="timer-close-prompt">
@@ -81,18 +27,4 @@ module.exports = {
       </div>
     `;
   },
-
-  displayTimeHTML(time) {
-    let pad = utils.addLeadingZeroes;
-
-    let hours = pad(divideTime(time, 360));
-    let minutes = pad(divideTime(time - (hours * 360), 60));
-    let seconds = pad(divideTime(time - (hours * 360) - (minutes * 60)));
-
-    function divideTime(initialTime, division = 1) {
-      return Math.floor(initialTime / division);
-    }
-
-    return `<span class="hours">${hours}</span>:<span class="minutes">${minutes}</span>:<span class="seconds">${seconds}</span>`;
-  }
 };
