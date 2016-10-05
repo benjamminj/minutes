@@ -6,7 +6,7 @@ module.exports = {
       <div class="task" id="${task._id}">
         ${this.innerTaskHTML(task.title, task.date, task.time, task.description)}
       </div>
-    `;  
+    `;
   },
 
   innerTaskHTML(title, date, time, description) {
@@ -42,6 +42,9 @@ module.exports = {
 
   timerHTML() {
     return `
+      <button class="cancel">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
       <div class="timer">
         <h2>
           <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
@@ -66,21 +69,25 @@ module.exports = {
   timerSaveHTML(seconds) {
     return `
       <div class="timer-save">
-        <form action="">
-          <input type="text" value="Title">
+        <form action="" id="save-task">
+          <input type="text" placeholder="Choose a Title" class="title">
           <h4 class="time">
             ${this.displayTimeHTML(seconds)}
           </h4>
-          <input type="text" value="Description">
+          <input type="text" placeholder="Add a Description" class="description">
+          <button class="cancel-save">Cancel</button>
+          <button type="submit">Save</button>
         </form>
       </div>
     `;
   },
 
   displayTimeHTML(time) {
-    let hours = divideTime(time, 360);
-    let minutes = divideTime(time - (hours * 360), 60);
-    let seconds = divideTime(time - (hours * 360) - (minutes * 60));
+    let pad = utils.addLeadingZeroes;
+
+    let hours = pad(divideTime(time, 360));
+    let minutes = pad(divideTime(time - (hours * 360), 60));
+    let seconds = pad(divideTime(time - (hours * 360) - (minutes * 60)));
 
     function divideTime(initialTime, division = 1) {
       return Math.floor(initialTime / division);
@@ -89,8 +96,3 @@ module.exports = {
     return `<span class="hours">${hours}</span>:<span class="minutes">${minutes}</span>:<span class="seconds">${seconds}</span>`;
   }
 };
-
-
-
-
-

@@ -6,7 +6,7 @@ module.exports = function(chai, app, testData) {
 
     agent.post('/user/login')
       .send({ username: 'benjamin', password: 'password' })
-      .end(function(err, res) {
+      .end(function() {
         return agent.post('/tasks/create')
           .send(task)
           .end(fn);
@@ -100,7 +100,7 @@ module.exports = function(chai, app, testData) {
         err.should.have.status(400);
         res.should.be.json;
         res.body.name.should.equal('ValidationError');
-        res.body.errors.time.message.should.equal('Path `time` (-300) is less than minimum allowed value (0).');
+        res.body.errors.time.message.should.equal('Path `time` (-300) is less than minimum allowed value (1).');
         done();
       });
     });

@@ -70,6 +70,7 @@
 	  reset: function reset() {
 	    this.timeInSeconds = 0;
 	    this.isRunning = false;
+	    this.stop();
 	  },
 	  start: function start(callback) {
 	    if (!this.isRunning) {
@@ -86,10 +87,7 @@
 	  },
 	  stop: function stop() {
 	    this.pause();
-	    var finalTime = this.timeInSeconds;
-	
-	    this.reset();
-	    return finalTime;
+	    return this.timeInSeconds;
 	  }
 	};
 
@@ -121,7 +119,7 @@
 	    return '\n      <input type="text" class="title" value="' + currentTitle + '"" placeholder="Title">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <input type="text" class="description" value="' + currentDescription + '" placeholder="Add a Description">\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
 	  },
 	  timerHTML: function timerHTML() {
-	    return '\n      <div class="timer">\n        <h2>\n          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n        </h2>\n        <button class="start">Start</button>\n        <button class="stop">Stop</button>\n      </div>\n    ';
+	    return '\n      <button class="cancel">\n        <i class="fa fa-times" aria-hidden="true"></i>\n      </button>\n      <div class="timer">\n        <h2>\n          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n        </h2>\n        <button class="start">Start</button>\n        <button class="stop">Stop</button>\n      </div>\n    ';
 	  },
 	  timerClosePromptHTML: function timerClosePromptHTML() {
 	    return '\n      <div class="timer-close-prompt">\n        <h2>Are you sure you want to end the timer? You will lose any time currently on the clock</h2>\n        <button class="yes">Yes, I would like to cancel this timer</button>\n        <button class="no">No, I want to keep running the timer</button>\n      </div>\n    ';
@@ -130,12 +128,14 @@
 	
 	  // TO DO -- add a time as function argument. generate the html for the time into HH:MM:SS
 	  timerSaveHTML: function timerSaveHTML(seconds) {
-	    return '\n      <div class="timer-save">\n        <form action="">\n          <input type="text" value="Title">\n          <h4 class="time">\n            ' + this.displayTimeHTML(seconds) + '\n          </h4>\n          <input type="text" value="Description">\n        </form>\n      </div>\n    ';
+	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <input type="text" placeholder="Choose a Title" class="title">\n          <h4 class="time">\n            ' + this.displayTimeHTML(seconds) + '\n          </h4>\n          <input type="text" placeholder="Add a Description" class="description">\n          <button class="cancel-save">Cancel</button>\n          <button type="submit">Save</button>\n        </form>\n      </div>\n    ';
 	  },
 	  displayTimeHTML: function displayTimeHTML(time) {
-	    var hours = divideTime(time, 360);
-	    var minutes = divideTime(time - hours * 360, 60);
-	    var seconds = divideTime(time - hours * 360 - minutes * 60);
+	    var pad = utils.addLeadingZeroes;
+	
+	    var hours = pad(divideTime(time, 360));
+	    var minutes = pad(divideTime(time - hours * 360, 60));
+	    var seconds = pad(divideTime(time - hours * 360 - minutes * 60));
 	
 	    function divideTime(initialTime) {
 	      var division = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -213,19 +213,18 @@
 	        console.log(err);
 	      });
 	    },
-	    createNewTask: function createNewTask() {
+	    createNewTask: function createNewTask(time, callback) {
 	      var url = apiURL + 'tasks/create';
-	      var title = utils.getValue('#new-task #title') || undefined;
-	      var description = utils.getValue('#new-task #description');
-	      var time = utils.getValue('#new-task #time');
+	      var title = utils.getValue('.timer-save .title') || undefined;
+	      var description = utils.getValue('.timer-save .description');
 	      var data = { title: title, date: new Date(Date.now()), time: time, description: description };
 	
-	      utils.emptyForm(['#new-task #title', '#new-task #time', '#new-task #description']);
 	      $.post(url, data).done(function (task) {
 	        // Create some sort of clalback system a la Node?
-	        $('#tasks-container').append(generateHTML.taskHTML(task));
+	        callback(null, task);
+	        // $('#tasks-container').append(generateHTML.taskHTML(task));
 	      }).fail(function (err) {
-	        console.log(err);
+	        callback(err);
 	      });
 	    },
 	    editTask: function editTask(task, callback) {
@@ -238,7 +237,6 @@
 	        type: 'PUT',
 	        data: { title: title, description: description }
 	      }).done(function (editedTask) {
-	        console.log(editedTask);
 	        callback(null, editedTask);
 	      }).fail(function (err) {
 	        callback(err);
@@ -250,10 +248,8 @@
 	      $.ajax({
 	        url: url,
 	        type: 'DELETE'
-	      }).done(function (result) {
+	      }).done(function () {
 	        $('#' + id).remove();
-	      }).fail(function (err) {
-	        console.log('Oh no! Delete request went bad!');
 	      });
 	    }
 	  };
@@ -272,6 +268,8 @@
 	module.exports = function (ajax) {
 	
 	  $('#nav-buttons .my-tasks').click(function () {
+	    // TO DO -- add the close prompt if the timer is running. Otherwise just load the page.
+	    timer.reset();
 	    $('#timer-container').hide().siblings('#tasks-container').show();
 	  });
 	
@@ -280,7 +278,7 @@
 	    $('#timer-container').show().html(generateHTML.timerHTML());
 	  });
 	
-	  $('#tasks-container').on('click', '.task .edit', function (event) {
+	  $('#tasks-container').on('click', '.task .edit', function () {
 	    var task = $(this).parent();
 	    var html = generateHTML.editTaskHTML(task);
 	    $(task).html(html);
@@ -311,6 +309,7 @@
 	    ajax.deleteTask($(this).parent().attr('id'));
 	  });
 	
+	  // Timer
 	  $('#timer-container').on('click', '.timer .start', function () {
 	
 	    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
@@ -340,8 +339,42 @@
 	  $('#timer-container').on('click', '.timer .stop', function () {
 	    var seconds = timer.stop();
 	
-	    $('#timer-container h2').html('<span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>');
-	    console.log('End', seconds);
+	    $('#timer-container').html(generateHTML.timerSaveHTML(seconds));
+	  });
+	
+	  $('#timer-container').on('submit', '#save-task', function (event) {
+	    var timeInSeconds = timer.stop();
+	    timer.reset();
+	    event.preventDefault();
+	
+	    ajax.createNewTask(timeInSeconds, function (err, task) {
+	      $('#timer-container').hide().siblings('#tasks-container').show();
+	
+	      ajax.getOneTask(task._id, function (err, task) {
+	        // TO DO -- add error handler
+	        $('#tasks-container').prepend(generateHTML.taskHTML(task));
+	      });
+	    });
+	  });
+	
+	  $('#timer-container').on('click', '.cancel-save', function (event) {
+	    event.preventDefault();
+	    timer.reset();
+	    $('#timer-container').hide().siblings('#tasks-container').show();
+	  });
+	
+	  // Timer close prompt
+	  $('#timer-container').on('click', '.cancel', function () {
+	    $('#timer-container').append(generateHTML.timerClosePromptHTML());
+	  });
+	
+	  $('#timer-container').on('click', '.timer-close-prompt .yes', function () {
+	    timer.reset();
+	    $('#timer-container').hide().siblings('#tasks-container').show();
+	  });
+	
+	  $('#timer-container').on('click', '.timer-close-prompt .no', function () {
+	    $('#timer-container .timer-close-prompt').hide();
 	  });
 	};
 

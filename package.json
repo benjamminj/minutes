@@ -7,7 +7,8 @@
     "start": "nodemon server/server.js",
     "test": "NODE_ENV=testing mocha \"server/**/*.test.js\"",
     "coverage": "NODE_ENV=testing istanbul cover _mocha \"server/**/*.test.js\" -- -R spec",
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",

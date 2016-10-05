@@ -4,6 +4,7 @@ module.exports = {
   reset() {
     this.timeInSeconds = 0;
     this.isRunning = false;
+    this.stop();
   },
   start(callback) {
     if (!this.isRunning) {
@@ -20,9 +21,6 @@ module.exports = {
   },
   stop() {
     this.pause();
-    let finalTime = this.timeInSeconds;
-
-    this.reset();
-    return finalTime;
+    return this.timeInSeconds;
   }
 };

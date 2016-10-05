@@ -5,6 +5,8 @@ let utils = require('./utils')();
 module.exports = function(ajax) {
 
   $('#nav-buttons .my-tasks').click(function() {
+    // TO DO -- add the close prompt if the timer is running. Otherwise just load the page.
+    timer.reset();
     $('#timer-container').hide().siblings('#tasks-container').show();
   });
 
@@ -13,7 +15,7 @@ module.exports = function(ajax) {
     $('#timer-container').show().html(generateHTML.timerHTML());
   });
 
-  $('#tasks-container').on('click', '.task .edit', function(event) {
+  $('#tasks-container').on('click', '.task .edit', function() {
     let task = $(this).parent();
     let html = generateHTML.editTaskHTML(task);
     $(task).html(html);
@@ -27,7 +29,6 @@ module.exports = function(ajax) {
         task.html(generateHTML.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
       }
     });
-
   });
 
   $('#tasks-container').on('click', '.cancel-changes', function() {
@@ -45,10 +46,11 @@ module.exports = function(ajax) {
     ajax.deleteTask($(this).parent().attr('id'));
   });
 
+  // Timer
   $('#timer-container').on('click', '.timer .start', function() {
 
     $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
-    
+
     timer.start(function(currentTime) {
 
       if (currentTime % 360 === 0) {
@@ -62,7 +64,7 @@ module.exports = function(ajax) {
       function increaseTimerHTML(selector) {
         let selectorValuePlusOne = parseInt($(selector).html()) + 1;
         $(selector).html(utils.addLeadingZeroes(selectorValuePlusOne));
-      } 
+      }
     });
   });
 
@@ -74,7 +76,42 @@ module.exports = function(ajax) {
   $('#timer-container').on('click', '.timer .stop', function() {
     var seconds = timer.stop();
 
-    $('#timer-container h2').html('<span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>');
-    console.log('End', seconds);
+    $('#timer-container').html(generateHTML.timerSaveHTML(seconds));
+  });
+
+  $('#timer-container').on('submit', '#save-task', (event) => {
+    let timeInSeconds = timer.stop();
+    timer.reset();
+    event.preventDefault();
+
+    ajax.createNewTask(timeInSeconds, (err, task) => {
+      $('#timer-container').hide().siblings('#tasks-container').show();
+
+      ajax.getOneTask(task._id, (err, task) => {
+        // TO DO -- add error handler
+        $('#tasks-container').prepend(generateHTML.taskHTML(task));
+      });
+
+    });
+  });
+
+  $('#timer-container').on('click', '.cancel-save', (event) => {
+    event.preventDefault();
+    timer.reset();
+    $('#timer-container').hide().siblings('#tasks-container').show();
+  });
+
+  // Timer close prompt
+  $('#timer-container').on('click', '.cancel', () => {
+    $('#timer-container').append(generateHTML.timerClosePromptHTML());
+  });
+
+  $('#timer-container').on('click', '.timer-close-prompt .yes', () => {
+    timer.reset();
+    $('#timer-container').hide().siblings('#tasks-container').show();
+  });
+
+  $('#timer-container').on('click', '.timer-close-prompt .no', () => {
+    $('#timer-container .timer-close-prompt').hide();
   });
 };

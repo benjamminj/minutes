@@ -38,21 +38,20 @@ module.exports = function(apiURL) {
         });
     },
 
-    createNewTask() {
+    createNewTask(time, callback) {
       let url = apiURL + 'tasks/create';
-      let title = utils.getValue('#new-task #title') || undefined;
-      let description = utils.getValue('#new-task #description');
-      let time = utils.getValue('#new-task #time');
+      let title = utils.getValue('.timer-save .title') || undefined;
+      let description = utils.getValue('.timer-save .description');
       let data = { title: title, date: new Date(Date.now()), time: time, description: description };
 
-      utils.emptyForm(['#new-task #title', '#new-task #time', '#new-task #description']);
       $.post(url, data)
         .done(function(task) {
           // Create some sort of clalback system a la Node?
-          $('#tasks-container').append(generateHTML.taskHTML(task));
+          callback(null, task);
+          // $('#tasks-container').append(generateHTML.taskHTML(task));
         })
         .fail(function(err) {
-          console.log(err);
+          callback(err);
         });
     },
 
@@ -66,7 +65,6 @@ module.exports = function(apiURL) {
         type: 'PUT',
         data: { title: title, description: description }
       }).done(function(editedTask) {
-        console.log(editedTask);
         callback(null, editedTask);
       }).fail(function(err) {
         callback(err);
@@ -79,10 +77,8 @@ module.exports = function(apiURL) {
       $.ajax({
         url: url,
         type: 'DELETE',
-      }).done(function(result) {
+      }).done(function() {
         $('#' + id).remove();
-      }).fail(function(err) {
-        console.log('Oh no! Delete request went bad!');
       });
     },
 
