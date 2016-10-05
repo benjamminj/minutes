@@ -26,6 +26,7 @@ module.exports = {
   },
 
   innerTaskHTML(title, date, time, description) {
+    date = (new Date(date)).toDateString();
     if (!description) {
       description = '';
     }

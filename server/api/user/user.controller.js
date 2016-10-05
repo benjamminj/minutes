@@ -17,6 +17,8 @@ Controller.signup = function(req, res, next) {
       return User.create({ username: req.body.username, password: hashedPassword});
     })
     .then(function() {
+
+      // Perhaps post to the login endpoint and automatically log the user in.
       res.sendStatus(201);
     })
     .catch(function(err) {
