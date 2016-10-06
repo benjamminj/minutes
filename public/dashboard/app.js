@@ -46,20 +46,16 @@
 
 	'use strict';
 	
-	__webpack_require__(1);
-	__webpack_require__(5)();
+	// require('../less/style.less');
+	__webpack_require__(6)();
 
 /***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
+/* 1 */,
 /* 2 */,
 /* 3 */,
 /* 4 */,
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67,23 +63,23 @@
 	module.exports = function () {
 	
 	  $(document).ready(function () {
-	    __webpack_require__(6)(('//localhost:5000/'));
-	    __webpack_require__(12)(('//localhost:5000/'));
+	    __webpack_require__(7)(('//localhost:5000/'));
 	    __webpack_require__(13)(('//localhost:5000/'));
+	    __webpack_require__(14)(('//localhost:5000/'));
 	  });
 	};
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(7);
-	var generate = __webpack_require__(8);
+	var timer = __webpack_require__(8);
+	var generate = __webpack_require__(9);
 	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(10)(apiURL).getTasks;
+	  var getTasks = __webpack_require__(11)(apiURL).getTasks;
 	
 	  $('button.logout').click(function () {
 	    var url = apiURL + 'user/logout';
@@ -110,7 +106,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -143,12 +139,12 @@
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9)();
+	var utils = __webpack_require__(10)();
 	
 	module.exports = {
 	  timerHTML: function timerHTML() {
@@ -178,7 +174,7 @@
 	};
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -203,15 +199,15 @@
 	};
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(11);
+	var generate = __webpack_require__(12);
 	
 	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(9)(apiURL);
+	  var utils = __webpack_require__(10)(apiURL);
 	
 	  return {
 	    getTasks: function getTasks() {
@@ -261,12 +257,12 @@
 	};
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timeHTML = __webpack_require__(8);
+	var timeHTML = __webpack_require__(9);
 	
 	module.exports = {
 	  editTaskHTML: function editTaskHTML(task) {
@@ -291,15 +287,15 @@
 	};
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(11);
+	var generate = __webpack_require__(12);
 	
 	module.exports = function (apiURL) {
-	  var ajax = __webpack_require__(10)(apiURL);
+	  var ajax = __webpack_require__(11)(apiURL);
 	  ajax.getTasks();
 	
 	  $('#tasks-container').on('click', '.task .edit', function () {
@@ -332,18 +328,18 @@
 	};
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(7);
-	var utils = __webpack_require__(9)();
-	var generate = __webpack_require__(8);
+	var timer = __webpack_require__(8);
+	var utils = __webpack_require__(10)();
+	var generate = __webpack_require__(9);
 	
 	module.exports = function (apiURL) {
 	  var $container = $('#timer-container');
-	  var createTask = __webpack_require__(14)(apiURL);
+	  var createTask = __webpack_require__(15)(apiURL);
 	
 	  $container.on('click', '.timer .start', function () {
 	
@@ -382,7 +378,7 @@
 	
 	  $container.on('submit', '#save-task', function (event) {
 	    var timeInSeconds = timer.stop();
-	    var getTasks = __webpack_require__(10)(apiURL).getTasks;
+	    var getTasks = __webpack_require__(11)(apiURL).getTasks;
 	
 	    timer.reset();
 	    event.preventDefault();
@@ -414,12 +410,12 @@
 	};
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9)();
+	var utils = __webpack_require__(10)();
 	
 	module.exports = function (apiURL) {
 	

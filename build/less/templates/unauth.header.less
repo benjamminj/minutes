@@ -1,0 +1,91 @@
+// TO DO -- Add hover effects on elements
+
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/layout.less';
+@import (reference) '../styles/ui.less';
+@import (reference) '../styles/fonts.less';
+@import (reference) '../styles/layout.less';
+
+header {
+  padding: @outside-margin;
+  height: @header-height;
+  .flex-row(center, space-between);
+
+  h1 {
+    // height: @header-content-height;
+    font-size: @header-content-large-font;
+    // margin: 0;
+    z-index: 999;
+
+    a {
+      font-size: @header-content-large-font;
+      .desktop({
+        font-size: @header-content-font-size + 20px;
+      });
+    }
+  }
+
+  .menu-icon {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    z-index: 999;
+
+    .lnr-menu {
+      font-size: @header-content-large-font;
+    }
+
+    .desktop({
+      display: none;
+    });
+  }
+
+  nav {
+    // display: none;
+    height: 100vh;
+    width: 100vw;
+    background-color: @opaque-overlay;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-top: 75px;
+      padding: @outside-margin;
+
+      li {
+        margin: 15px 0;
+      }
+    }
+
+    .desktop({
+      display: inline-block;
+      position: relative;
+      height: auto;
+      width: auto;
+      background-color: transparent;
+
+      ul {
+        .flex-row(center, flex-end);
+        margin: 0;
+        padding: 0;
+        li {
+          margin-left: 20px;
+        }
+      }
+
+      .signup {
+        .transparent-button(@main-text-color, @header-content-height);
+        font-size: @header-content-font-size - (2vh * 2);
+        padding: 10px 20px;
+        &:hover {
+          .transparent-button-hover(@main-text-color, @accent-gradient-right);
+        }
+      }
+    });
+  }
+
+}

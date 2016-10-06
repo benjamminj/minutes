@@ -1,0 +1,16 @@
+.background-gradient {
+  // @gradient-color-1: #4384e3;
+  // @gradient-color-2: #adf2ab;
+
+  @gradient-color-1: #4384e3;
+  @gradient-color-2: #87d7cd;
+
+  background-color: @gradient-color-1;
+  background-size: contain;
+  background-image: -webkit-radial-gradient(0 0, circle, @gradient-color-1, @gradient-color-2);
+  background-image: radial-gradient(circle at 0 0, @gradient-color-1, @gradient-color-2);
+}
+
+@main-text-color: #ffffff;
+@accent-gradient-right: #7ac7d2;
+@opaque-overlay: rgba(0,0,0,0.75);

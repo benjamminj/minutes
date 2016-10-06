@@ -1,0 +1,24 @@
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/layout.less';
+@import (reference) '../styles/ui.less';
+@import (reference) '../styles/fonts.less';
+
+* {
+  color: @main-text-color;
+  text-decoration: none;
+  font-weight: lighter;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+body {
+  .background-gradient;
+  .full-screen;
+}
+
+@import '../templates/unauth.header.less';
+
+

@@ -1,0 +1,27 @@
+@import (reference) './colors.less';
+@import (reference) './layout.less';
+
+.button(@height) {
+  height: @height;
+  border-radius: @edges;
+}
+
+.transparent-button(@border, @height) {
+  .button(@height);
+  border: 1px solid @border;
+  background-color: transparent;
+}
+
+.transparent-button-hover(@fill, @text) {
+  background-color: @fill;
+  color: @text;
+}
+
+.filled-button(@fill, @height) {
+  .button(@height);
+  background-color: @fill;
+}
+
+
+
+@edges: 2px;
