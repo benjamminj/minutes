@@ -46,30 +46,55 @@
 
 	'use strict';
 	
-	var apiURL = '//localhost:5000/';
-	
-	// let ajax = require('./ajax')(apiURL);
-	
-	$(document).ready(function () {
-	  __webpack_require__(1)(apiURL);
-	  __webpack_require__(7)(apiURL);
-	  __webpack_require__(8)(apiURL);
-	  // require('./event.handlers.js')(ajax);
-	
-	});
+	__webpack_require__(1);
+	__webpack_require__(5)();
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(2);
-	var generate = __webpack_require__(3);
+	module.exports = function () {
+	
+	  $(document).ready(function () {
+	    __webpack_require__(6)(('//localhost:5000/'));
+	    __webpack_require__(12)(('//localhost:5000/'));
+	    __webpack_require__(13)(('//localhost:5000/'));
+	  });
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var timer = __webpack_require__(7);
+	var generate = __webpack_require__(8);
 	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(5)(apiURL).getTasks;
-	  // header
+	  var getTasks = __webpack_require__(10)(apiURL).getTasks;
+	
+	  $('button.logout').click(function () {
+	    var url = apiURL + 'user/logout';
+	    console.log(url);
+	
+	    console.log('button click');
+	    $.get(url).done(function () {
+	      window.location = ('//localhost:5000/');
+	    });
+	  });
+	
 	  $('#nav-buttons .my-tasks').click(function () {
 	    // TO DO -- add the close prompt if the timer is running. Otherwise just load the page.
 	    timer.reset();
@@ -85,7 +110,7 @@
 	};
 
 /***/ },
-/* 2 */
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -118,12 +143,12 @@
 	};
 
 /***/ },
-/* 3 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(4)();
+	var utils = __webpack_require__(9)();
 	
 	module.exports = {
 	  timerHTML: function timerHTML() {
@@ -153,7 +178,7 @@
 	};
 
 /***/ },
-/* 4 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -168,8 +193,8 @@
 	        $(element).val('');
 	      });
 	    },
-	    redirectToLogin: function redirectToLogin() {
-	      window.location = rootURL;
+	    redirectToLogin: function redirectToLogin(location) {
+	      window.location = location || rootURL;
 	    },
 	    addLeadingZeroes: function addLeadingZeroes(number) {
 	      return ('0' + number).slice(-2);
@@ -178,15 +203,15 @@
 	};
 
 /***/ },
-/* 5 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(6);
+	var generate = __webpack_require__(11);
 	
 	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(4)(apiURL);
+	  var utils = __webpack_require__(9)(apiURL);
 	
 	  return {
 	    getTasks: function getTasks() {
@@ -236,12 +261,12 @@
 	};
 
 /***/ },
-/* 6 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timeHTML = __webpack_require__(3);
+	var timeHTML = __webpack_require__(8);
 	
 	module.exports = {
 	  editTaskHTML: function editTaskHTML(task) {
@@ -266,15 +291,15 @@
 	};
 
 /***/ },
-/* 7 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(6);
+	var generate = __webpack_require__(11);
 	
 	module.exports = function (apiURL) {
-	  var ajax = __webpack_require__(5)(apiURL);
+	  var ajax = __webpack_require__(10)(apiURL);
 	  ajax.getTasks();
 	
 	  $('#tasks-container').on('click', '.task .edit', function () {
@@ -307,19 +332,20 @@
 	};
 
 /***/ },
-/* 8 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(2);
-	var utils = __webpack_require__(4)();
-	var generate = __webpack_require__(3);
+	var timer = __webpack_require__(7);
+	var utils = __webpack_require__(9)();
+	var generate = __webpack_require__(8);
 	
 	module.exports = function (apiURL) {
-	  var createTask = __webpack_require__(9)(apiURL);
+	  var $container = $('#timer-container');
+	  var createTask = __webpack_require__(14)(apiURL);
 	
-	  $('#timer-container').on('click', '.timer .start', function () {
+	  $container.on('click', '.timer .start', function () {
 	
 	    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
 	
@@ -343,57 +369,57 @@
 	    });
 	  });
 	
-	  $('#timer-container').on('click', '.timer .pause', function () {
+	  $container.on('click', '.timer .pause', function () {
 	    timer.pause();
 	    $('#timer-container .pause').addClass('start').removeClass('pause').html('Start');
 	  });
 	
-	  $('#timer-container').on('click', '.timer .stop.active', function () {
+	  $container.on('click', '.timer .stop.active', function () {
 	    var seconds = timer.stop();
 	
-	    $('#timer-container').html(generate.timerSaveHTML(seconds));
+	    $container.html(generate.timerSaveHTML(seconds));
 	  });
 	
-	  $('#timer-container').on('submit', '#save-task', function (event) {
+	  $container.on('submit', '#save-task', function (event) {
 	    var timeInSeconds = timer.stop();
-	    var getTasks = __webpack_require__(5)(apiURL).getTasks;
+	    var getTasks = __webpack_require__(10)(apiURL).getTasks;
 	
 	    timer.reset();
 	    event.preventDefault();
 	
 	    createTask(timeInSeconds, function () {
-	      $('#timer-container').hide().siblings('#tasks-container').show();
+	      $container.hide().siblings('#tasks-container').show();
 	      getTasks();
 	    });
 	  });
 	
-	  $('#timer-container').on('click', '.cancel-save', function (event) {
+	  $container.on('click', '.cancel-save', function (event) {
 	    event.preventDefault();
 	    timer.reset();
-	    $('#timer-container').hide().siblings('#tasks-container').show();
+	    $container.hide().siblings('#tasks-container').show();
 	  });
 	
-	  $('#timer-container').on('click', '.cancel', function () {
-	    $('#timer-container').append(generate.timerClosePromptHTML());
+	  $container.on('click', '.cancel', function () {
+	    $container.append(generate.timerClosePromptHTML());
 	  });
 	
-	  $('#timer-container').on('click', '.timer-close-prompt .yes', function () {
+	  $container.on('click', '.timer-close-prompt .yes', function () {
 	    timer.reset();
-	    $('#timer-container').hide().siblings('#tasks-container').show();
+	    $container.hide().siblings('#tasks-container').show();
 	  });
 	
-	  $('#timer-container').on('click', '.timer-close-prompt .no', function () {
+	  $container.on('click', '.timer-close-prompt .no', function () {
 	    $('#timer-container .timer-close-prompt').hide();
 	  });
 	};
 
 /***/ },
-/* 9 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(4)();
+	var utils = __webpack_require__(9)();
 	
 	module.exports = function (apiURL) {
 	

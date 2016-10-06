@@ -42,34 +42,9 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
-	
-	$(document).ready(function () {
-	  $('#login-form').submit(function (event) {
-	    event.preventDefault();
-	    var request = { username: $('#username').val(), password: $('#password').val() };
-	
-	    loginRequest(request);
-	  });
-	
-	  $('#signup-form').submit(function (event) {
-	    event.preventDefault();
-	    var request = { username: $('#create-username').val(), password: $('#create-password').val() };
-	
-	    $.post(('//localhost:5000/') + 'user/signup', request).done(function () {
-	      loginRequest(request);
-	    });
-	  });
-	
-	  function loginRequest(request) {
-	
-	    $.post(('//localhost:5000/') + 'user/login', request).done(function () {
-	      window.location = ('//localhost:5000/') + 'dashboard';
-	    });
-	  }
-	});
+	"use strict";
 
 /***/ }
 /******/ ]);

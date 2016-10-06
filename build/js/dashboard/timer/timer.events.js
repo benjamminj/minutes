@@ -2,11 +2,11 @@ let timer = require('./timer');
 let utils = require('../utils')();
 let generate = require('./timer.html');
 
-
 module.exports = (apiURL) => {
+  let $container = $('#timer-container');
   let createTask = require('./timer.ajax')(apiURL);
 
-  $('#timer-container').on('click', '.timer .start', function() {
+  $container.on('click', '.timer .start', function() {
 
     $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
 
@@ -30,18 +30,18 @@ module.exports = (apiURL) => {
     });
   });
 
-  $('#timer-container').on('click', '.timer .pause', function() {
+  $container.on('click', '.timer .pause', function() {
     timer.pause();
     $('#timer-container .pause').addClass('start').removeClass('pause').html('Start');
   });
 
-  $('#timer-container').on('click', '.timer .stop.active', function() {
+  $container.on('click', '.timer .stop.active', function() {
     var seconds = timer.stop();
 
-    $('#timer-container').html(generate.timerSaveHTML(seconds));
+    $container.html(generate.timerSaveHTML(seconds));
   });
 
-  $('#timer-container').on('submit', '#save-task', (event) => {
+  $container.on('submit', '#save-task', (event) => {
     let timeInSeconds = timer.stop();
     let getTasks = require('../tasks/tasks.ajax')(apiURL).getTasks;
     
@@ -49,27 +49,27 @@ module.exports = (apiURL) => {
     event.preventDefault();
 
     createTask(timeInSeconds, () => {
-      $('#timer-container').hide().siblings('#tasks-container').show();
+      $container.hide().siblings('#tasks-container').show();
       getTasks();
     });
   });
 
-  $('#timer-container').on('click', '.cancel-save', (event) => {
+  $container.on('click', '.cancel-save', (event) => {
     event.preventDefault();
     timer.reset();
-    $('#timer-container').hide().siblings('#tasks-container').show();
+    $container.hide().siblings('#tasks-container').show();
   });
 
-  $('#timer-container').on('click', '.cancel', () => {
-    $('#timer-container').append(generate.timerClosePromptHTML());
+  $container.on('click', '.cancel', () => {
+    $container.append(generate.timerClosePromptHTML());
   });
 
-  $('#timer-container').on('click', '.timer-close-prompt .yes', () => {
+  $container.on('click', '.timer-close-prompt .yes', () => {
     timer.reset();
-    $('#timer-container').hide().siblings('#tasks-container').show();
+    $container.hide().siblings('#tasks-container').show();
   });
 
-  $('#timer-container').on('click', '.timer-close-prompt .no', () => {
+  $container.on('click', '.timer-close-prompt .no', () => {
     $('#timer-container .timer-close-prompt').hide();
   });
 };

@@ -10,8 +10,8 @@ module.exports = function(rootURL) {
       });
     },
 
-    redirectToLogin() {
-      window.location = rootURL;
+    redirectToLogin(location) {
+      window.location = location || rootURL;
     },
 
     addLeadingZeroes(number) {
