@@ -3,36 +3,32 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
   <title>Time Tracker | Log In</title>
-  <style src="//cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css"></style>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <h1 class="logo">
+    <a href="/"><i class="fa fa-clock-o"></i></a>
+  </h1>
   <header>
-    <h1><a href="/">Time Tracker</a></h1>
-    <a href="/login">Log In</a>
+    <h1>Log in to your account</h1>
+    <h3>Keep up all the good work</h3>
   </header>
   <main>
-	  <form action="" id="login-form" class="form">
-	    <label for="username">Username</label>
-	    <input type="text" id="username">
-	    <label for="password">Password</label>
-	    <input type="text" id="password">
-	    <button type="submit">Log In</button>
-	  </form>
-  	<div class="sign-up-prompt">
-  		<p>Don't have an account? <a href="/signup">Sign up today.</a></p>
-  	</div>
+    <form action="" id="login-form" class="form">
+      <input type="text" id="username" class="top" placeholder="&#xf007; Username">
+      <hr>
+      <input type="password" id="password" class="bottom" placeholder="&#xf023; Password">
+      <button type="submit">Log In</button>
+    </form>
+    <div class="sign-up-prompt">
+      <a href="/signup">Don't have an account? Sign up today.</a>
+    </div>
   </main>
-  <!-- <form action="" id="signup-form">
-	<h1>Sign Up</h1>
-		<label for="create-username">Username</label>
-		<input type="text" id="create-username">
-		<label for="create-password">Password</label>
-		<input type="text" id="create-password">
-		<button type="submit">Sign Up</button>
-	</form> -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="app.js"></script>
 </body>

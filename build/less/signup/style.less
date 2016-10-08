@@ -1,0 +1,29 @@
+@import (reference) '../templates/general.less';
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/layout.less';
+@import (reference) '../templates/form.less';
+
+.set-general(@background-gradient-1);
+
+body {
+  .flex-column(center, flex-start);
+  text-align: center;
+  padding: @outside-margin;
+}
+
+.logo {
+  margin: 0;
+  a {}
+}
+
+header {
+  margin-top: 15vh;
+
+  h1 {}
+  h3 {}
+}
+
+form {
+  .form(#74c947);
+}
+// @import '../templates/unauth.header.less';

@@ -1,11 +1,14 @@
 * {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-weight: lighter;
 }
 ul {
   list-style-type: none;
   padding-left: 0;
+}
+button {
+  cursor: pointer;
 }
 body {
   background-color: #4384e3;
@@ -41,7 +44,7 @@ header .menu-icon {
   padding: 0;
   z-index: 999;
 }
-header .menu-icon .lnr-menu {
+header .menu-icon .fa {
   font-size: 30px;
 }
 @media only screen and (min-width: 700px) {
@@ -56,6 +59,14 @@ header nav {
   position: fixed;
   left: 0;
   top: 0;
+}
+header nav.collapsed {
+  display: none;
+}
+@media only screen and (min-width: 700px) {
+  header nav.collapsed {
+    display: inline-block;
+  }
 }
 header nav ul {
   display: flex;
@@ -89,13 +100,13 @@ header nav ul li {
   header nav .signup {
     height: 100%;
     border-radius: 2px;
-    border: 1px solid #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
     background-color: transparent;
     font-size: 16px;
     padding: 10px 20px;
   }
   header nav .signup:hover {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.8);
     color: #7ac7d2;
   }
 }

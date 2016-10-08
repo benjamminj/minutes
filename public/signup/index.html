@@ -3,25 +3,30 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Time Tracker | Log In</title>
-  <style src="//cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css"></style>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+  <title>Time Tracker | Sign Up</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <h1 class="logo">
+    <a href="/"><i class="fa fa-clock-o"></i></a>
+  </h1>
   <header>
-    <h1><a href="/">Time Tracker</a></h1>
-    <a href="/login">Log In</a>
+    <h1>Start tracking time for free today</h1>
+    <h3>It's that simple.</h3>
   </header>
   <main>
-    <!-- TO DO: Include some sort of fun remark to start -->
     <form action="" id="signup-form" class="form">
-      <label for="create-username">Username</label>
-      <input type="text" id="create-username">
-      <label for="create-password">Password</label>
-      <input type="text" id="create-password">
+      <input type="text" id="create-username" class="top" placeholder="&#xf007; Username">
+      <hr>
+      <!-- <label for="create-password">Password</label> -->
+      <input type="password" id="create-password" class="bottom" placeholder="&#xf023; Password">
       <button type="submit">Sign Up</button>
     </form>
+    <a href="/login">Already have an account?</a>
   </main>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="app.js"></script>

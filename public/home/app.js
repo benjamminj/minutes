@@ -47,18 +47,49 @@
 
 	'use strict';
 	
-	__webpack_require__(16);
-	
-	$(document).ready(function () {
-	  console.log('Hello world');
-	});
+	__webpack_require__(18);
+	__webpack_require__(30)();
 
 /***/ },
 
-/***/ 16:
+/***/ 18:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 30:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var swapClasses = __webpack_require__(31);
+	
+	module.exports = function () {
+	  $(document).ready(function () {
+	    console.log('Hey there');
+	
+	    $('.menu-icon').click(function () {
+	      var $this = $(this);
+	
+	      swapClasses($this.children('i'), 'fa-times', 'fa-bars');
+	      $this.siblings('nav').toggleClass('collapsed');
+	    });
+	  });
+	};
+
+/***/ },
+
+/***/ 31:
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	module.exports = function ($selector, class1, class2) {
+	  $selector.toggleClass(class1);
+	  $selector.toggleClass(class2);
+	};
 
 /***/ }
 

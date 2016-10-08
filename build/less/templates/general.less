@@ -1,0 +1,27 @@
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/layout.less';
+
+.set-general(@background) {
+  
+  * {
+    color: @main-text-color;
+    text-decoration: none;
+    font-weight: lighter;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  body {
+    @background();
+    .full-screen;
+  }
+}
+
+

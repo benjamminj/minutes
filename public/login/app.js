@@ -40,37 +40,62 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	$(document).ready(function () {
-	  $('#login-form').submit(function (event) {
-	    event.preventDefault();
-	    var request = { username: $('#username').val(), password: $('#password').val() };
+	__webpack_require__(21);
+	__webpack_require__(23)();
+
+/***/ },
+
+/***/ 21:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 23:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	    loginRequest(request);
-	  });
+	var controller = __webpack_require__(24);
 	
-	  $('#signup-form').submit(function (event) {
-	    event.preventDefault();
-	    var request = { username: $('#create-username').val(), password: $('#create-password').val() };
+	module.exports = function () {
+	  $(document).ready(function () {
+	    $('#login-form').submit(function (event) {
+	      event.preventDefault();
+	      var request = { username: $('#username').val(), password: $('#password').val() };
 	
-	    $.post(('//localhost:5000/') + 'user/signup', request).done(function () {
-	      loginRequest(request);
+	      controller.login(request);
+	      // loginRequest(request);
 	    });
 	  });
+	};
+
+/***/ },
+
+/***/ 24:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	
-	  function loginRequest(request) {
+	var Controller = {};
 	
-	    $.post(('//localhost:5000/') + 'user/login', request).done(function () {
-	      window.location = ('//localhost:5000/') + 'dashboard';
-	    });
-	  }
-	});
+	Controller.login = function (request) {
+	  $.post(('//localhost:5000/') + "user/login", request).done(function () {
+	    window.location = ('//localhost:5000/') + "dashboard";
+	  });
+	};
+	
+	module.exports = Controller;
 
 /***/ }
-/******/ ]);
+
+/******/ });
 //# sourceMappingURL=app.js.map

@@ -32,12 +32,19 @@ module.exports = {
     }
 
     return `
-      <h3 class="title">${title}</h3>
-      <h4 class="date">${date}</h4>
-      <h4 class="time">${timeHTML.divideTimeHTML(time)}</h4>
+      <div class="task-heading">
+        <h3 class="title">${title}</h3>
+        <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>
+      </div>
+      <div class="page-overlay"></div>
+      <div class="more-actions">
+        <button class="edit">Edit</button>
+        <hr>
+        <button class="delete">Delete</button>
+      </div>
+        <h4 class="date">${date}</h4>
+      <h1 class="time">${timeHTML.divideTimeHTML(time)}</h4>
       <p class="description">${description}</p>
-      <button class="edit">Edit</button>
-      <button class="delete">Delete</button>
     `;
   },
 

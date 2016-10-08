@@ -19,8 +19,9 @@ header {
 
     a {
       font-size: @header-content-large-font;
+      
       .desktop({
-        font-size: @header-content-font-size + 20px;
+        font-size: @header-content-large-font + 10px;
       });
     }
   }
@@ -31,7 +32,7 @@ header {
     padding: 0;
     z-index: 999;
 
-    .lnr-menu {
+    .fa {
       font-size: @header-content-large-font;
     }
 
@@ -48,7 +49,13 @@ header {
     position: fixed;
     left: 0;
     top: 0;
-
+    
+    &.collapsed {
+      display: none;
+      .desktop({
+        display: inline-block;
+      });
+    }
     ul {
       display: flex;
       flex-direction: column;

@@ -40,12 +40,82 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports) {
+/******/ ({
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	__webpack_require__(25);
+	__webpack_require__(27)();
+
+/***/ },
+
+/***/ 24:
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	
+	var Controller = {};
+	
+	Controller.login = function (request) {
+	  $.post(('//localhost:5000/') + "user/login", request).done(function () {
+	    window.location = ('//localhost:5000/') + "dashboard";
+	  });
+	};
+	
+	module.exports = Controller;
+
+/***/ },
+
+/***/ 25:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 27:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var controller = __webpack_require__(28);
+	
+	module.exports = function () {
+	
+	  $(document).ready(function () {
+	    $('#signup-form').submit(function (event) {
+	      // console.log('here');
+	      event.preventDefault();
+	      var request = { username: $('#create-username').val(), password: $('#create-password').val() };
+	
+	      controller.signup(request);
+	    });
+	  });
+	};
+
+/***/ },
+
+/***/ 28:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var loginRequest = __webpack_require__(24).login;
+	
+	var Controller = {};
+	
+	Controller.signup = function (request) {
+	  $.post(('//localhost:5000/') + 'user/signup', request).done(function () {
+	    loginRequest(request);
+	  });
+	};
+	
+	module.exports = Controller;
 
 /***/ }
-/******/ ]);
+
+/******/ });
 //# sourceMappingURL=app.js.map

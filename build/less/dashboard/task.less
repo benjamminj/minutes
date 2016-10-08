@@ -1,0 +1,75 @@
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/layout.less';
+
+.task {
+  padding: @outside-margin @small-margin;
+  background-color: @light-background;
+  margin: 0 0 @medium-margin;
+  .flex-row(center, flex-start);
+  flex-wrap: wrap;
+
+  * {
+    color: @dark-text-color;
+  }
+
+  .task-heading {
+    .flex-row(center, space-between);
+    width: 100%;
+  }
+
+  .title {
+    font-size: @large-font-size;
+    margin: 0;
+  }
+
+  .more {
+    i {
+      font-size: @large-font-size;
+    }
+  }
+  .date {
+    margin: 0;
+  }
+  
+  .page-overlay {
+    .hidden;
+  }
+  .page-overlay.open {
+    display: block;
+    position: fixed;
+    height: 100vh;
+    background-color: tint(@opaque-overlay, 10%);
+    width: 100vw;
+    left: 0;
+    top: 0;
+  }
+
+  .more-actions {
+    .hidden;
+  }
+  .more-actions.open {
+    display: flex;
+    .flex-column(flex-start, center);
+    position: fixed;
+    width: 100vw;
+    background: @light-background;
+    margin: @large-margin -@small-margin;
+    padding: 10px 0; 
+    z-index: 999;
+  }
+
+  .edit {}
+  .delete {}
+
+  .time, .description {
+    width: 100%;
+  }
+
+  .time {
+    text-align: center;
+    font-size: @jumbo-font-size;
+  }
+  .description {
+    margin: 0;
+  }
+}
