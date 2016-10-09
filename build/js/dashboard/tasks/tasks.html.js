@@ -4,18 +4,20 @@ module.exports = {
   editTaskHTML(task) {
     let currentTitle = task.find('.title').html();
     let currentDescription = task.children('.description').html() || '';
+    let formattedDescription = currentDescription.replace('<br>', '\n');
     let time = task.children('.time').html();
     let date = task.find('.date').html();
 
-    console.log(currentTitle, currentDescription, time, date);
-
     return `
-      <input type="text" class="title" placeholder="${currentTitle}">
-      <h4 class="date">${date}</h4>
-      <h4 class="time">${time}</h4>
-      <textarea name="" id="#edit-description" class="description" cols="30" rows="4" placeholder="Add a Description">${currentDescription}</textarea>
-      <button class="cancel-changes">Cancel Changes</button>
-      <button class="save-changes">Save Changes</button>
+      <input type="text" class="title" value="${currentTitle}" placeholder="Title">
+      <!-- <h4 class="date">${date}</h4> -->
+      <!-- <h4 class="time">${time}</h4> -->
+      <!-- <h4 class="description-heading">Description</h4> -->
+      <textarea name="" id="edit-description" cols="30" rows="4" placeholder="Add a Description">${formattedDescription}</textarea>  
+      <div class="edit-buttons">
+        <button class="cancel-changes">Cancel</button>
+        <button class="save-changes">Save</button>        
+      </div>  
     `;
   },
 
@@ -27,6 +29,7 @@ module.exports = {
     `;
   },
 
+  // TO DO -- refactor so that it only takes a single task as an arg.
   innerTaskHTML(title, date, time, description) {
     date = (new Date(date)).toDateString();
     if (!description) {
@@ -34,9 +37,6 @@ module.exports = {
     } else {
       description = description.replace(/\n/g, '<br>');
     }
-
-    // Move the more-actions div to make the margins work out better?
-    // Maybe move to directly below the task-heading, or directly above the page overlay./
 
     return `
       <div class="task-heading">

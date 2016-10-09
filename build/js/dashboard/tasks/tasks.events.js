@@ -1,5 +1,7 @@
 let generate = require('./tasks.html');
 let onClick = require('../../utils/on.click');
+let toggleScroll = require('../../utils/no.scroll');
+
 
 module.exports = (apiURL) => {
   let ajax = require('./tasks.ajax')(apiURL);
@@ -7,48 +9,52 @@ module.exports = (apiURL) => {
 
   ajax.getTasks();
 
-  $container.on('click', '.more', function() {
-    console.log('We got a click!');
-
+  containerClick('.more', function() {
     $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
-    $('body').toggleClass('no-scroll');
-  });
+    toggleScroll();
+  })
 
-  onClick($container, '.page-overlay.open', function() {
+  function containerClick(child, callback) {
+    return onClick($container, child, callback);
+  }
+
+  containerClick('.page-overlay.open', function() {
     $(this).toggleClass('open').siblings('.more-actions').toggleClass('open');
-    $('body').toggleClass('no-scroll');
+    toggleScroll();
   });
 
-  $container.on('click', '.edit', function() {
+  containerClick('.edit', function() {
     let task = $(this).parents('.task');
-
-    console.log('task', task);
     let html = generate.editTaskHTML(task);
     
-    $('.more-actions').html(html);
+    $('.more-actions').html(html).toggleClass('editing');
   });
 
-  $container.on('click', '.task .save-changes', function() {
+  containerClick('.task .save-changes', function() {
     let $task = $(this).parents('.task');
-    let $editContainer = $(this).parent();
+    let $editContainer = $(this).parents('.more-actions');
+    let id = $task.attr('id');
 
-    console.log($task.attr('id'))
-    ajax.editTask($task.attr('id'), $editContainer, function(err, editedTask) {
+    // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
+    ajax.editTask(id, $editContainer, function(err, editedTask) {
       if (editedTask) {
-        $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+        $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));     
+        toggleScroll();
       }
     });
   });
 
-  $container.on('click', '.cancel-changes', function() {
-    let task = $(this).parent();
+  containerClick('.cancel-changes', function() {
+    // let task = $(this).parent();
 
     // TODO -- update ajax.getOneTask to utilize full callback
     ajax.getTasks();
+    toggleScroll();
   });
 
-  $container.on('click', '.delete', function() {
+  containerClick('.delete', function() {
     // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
     ajax.deleteTask($(this).parents('.task').attr('id'));
+    toggleScroll();
   });
 };

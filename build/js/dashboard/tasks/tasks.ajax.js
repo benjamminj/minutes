@@ -8,18 +8,16 @@ module.exports = (apiURL) => {
       let url = apiURL + 'tasks/';
       $.getJSON(url)
         .done(function(tasks) {
+          $('#tasks-container').html('');
+
           if (!tasks.length) {
             $('#tasks-container').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
           }
 
-          $('#tasks-container').html('');
           tasks.forEach(function(task) {
-            // Change html to be a ul
             $('#tasks-container').append(generate.taskHTML(task));
           });
-        }).fail(function(err) {
-          // Eventually need to do something to handle this on the frontend?
-          console.log('Oh no!', err);
+        }).fail(function() {
           utils.redirectToLogin();
         });
     },
@@ -27,8 +25,8 @@ module.exports = (apiURL) => {
     editTask(id, edits, callback) {
       
       let title = edits.children('.title').val() || undefined;
-      let description = edits.children('.description').val() || undefined;
-      
+      let description = edits.children('#edit-description').val() || undefined;
+
       $.ajax({
         url: `${apiURL}tasks/edit/${id}`,
         type: 'PUT',

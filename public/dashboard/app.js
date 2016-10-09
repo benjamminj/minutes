@@ -226,25 +226,23 @@
 	    getTasks: function getTasks() {
 	      var url = apiURL + 'tasks/';
 	      $.getJSON(url).done(function (tasks) {
+	        $('#tasks-container').html('');
+	
 	        if (!tasks.length) {
 	          $('#tasks-container').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
 	        }
 	
-	        $('#tasks-container').html('');
 	        tasks.forEach(function (task) {
-	          // Change html to be a ul
 	          $('#tasks-container').append(generate.taskHTML(task));
 	        });
-	      }).fail(function (err) {
-	        // Eventually need to do something to handle this on the frontend?
-	        console.log('Oh no!', err);
+	      }).fail(function () {
 	        utils.redirectToLogin();
 	      });
 	    },
 	    editTask: function editTask(id, edits, callback) {
 	
 	      var title = edits.children('.title').val() || undefined;
-	      var description = edits.children('.description').val() || undefined;
+	      var description = edits.children('#edit-description').val() || undefined;
 	
 	      $.ajax({
 	        url: apiURL + 'tasks/edit/' + id,
@@ -281,16 +279,18 @@
 	  editTaskHTML: function editTaskHTML(task) {
 	    var currentTitle = task.find('.title').html();
 	    var currentDescription = task.children('.description').html() || '';
+	    var formattedDescription = currentDescription.replace('<br>', '\n');
 	    var time = task.children('.time').html();
 	    var date = task.find('.date').html();
 	
-	    console.log(currentTitle, currentDescription, time, date);
-	
-	    return '\n      <input type="text" class="title" placeholder="' + currentTitle + '">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <textarea name="" id="#edit-description" class="description" cols="30" rows="4" placeholder="Add a Description">' + currentDescription + '</textarea>\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
+	    return '\n      <input type="text" class="title" value="' + currentTitle + '" placeholder="Title">\n      <!-- <h4 class="date">' + date + '</h4> -->\n      <!-- <h4 class="time">' + time + '</h4> -->\n      <!-- <h4 class="description-heading">Description</h4> -->\n      <textarea name="" id="edit-description" cols="30" rows="4" placeholder="Add a Description">' + formattedDescription + '</textarea>  \n      <div class="edit-buttons">\n        <button class="cancel-changes">Cancel</button>\n        <button class="save-changes">Save</button>        \n      </div>  \n    ';
 	  },
 	  taskHTML: function taskHTML(task) {
 	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description, task._id) + '\n      </div>\n    ';
 	  },
+	
+	
+	  // TO DO -- refactor so that it only takes a single task as an arg.
 	  innerTaskHTML: function innerTaskHTML(title, date, time, description) {
 	    date = new Date(date).toDateString();
 	    if (!description) {
@@ -298,9 +298,6 @@
 	    } else {
 	      description = description.replace(/\n/g, '<br>');
 	    }
-	
-	    // Move the more-actions div to make the margins work out better?
-	    // Maybe move to directly below the task-heading, or directly above the page overlay./
 	
 	    return '\n      <div class="task-heading">\n        <h3 class="title">' + title + '</h3>\n        <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>\n        <div class="more-actions">\n          <button class="edit"><i class="fa fa-pencil"></i> Edit</button>\n          <hr>\n          <button class="delete"><i class="fa fa-trash"></i> Delete</button>\n        </div>\n        <div class="page-overlay"></div>\n      </div>\n      <h4 class="date">' + date + '</h4>\n      <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n    ';
 	  }
@@ -314,6 +311,7 @@
 	
 	var generate = __webpack_require__(20);
 	var onClick = __webpack_require__(22);
+	var toggleScroll = __webpack_require__(37);
 	
 	module.exports = function (apiURL) {
 	  var ajax = __webpack_require__(19)(apiURL);
@@ -321,49 +319,53 @@
 	
 	  ajax.getTasks();
 	
-	  $container.on('click', '.more', function () {
-	    console.log('We got a click!');
-	
+	  containerClick('.more', function () {
 	    $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
-	    $('body').toggleClass('no-scroll');
+	    toggleScroll();
 	  });
 	
-	  onClick($container, '.page-overlay.open', function () {
+	  function containerClick(child, callback) {
+	    return onClick($container, child, callback);
+	  }
+	
+	  containerClick('.page-overlay.open', function () {
 	    $(this).toggleClass('open').siblings('.more-actions').toggleClass('open');
-	    $('body').toggleClass('no-scroll');
+	    toggleScroll();
 	  });
 	
-	  $container.on('click', '.edit', function () {
+	  containerClick('.edit', function () {
 	    var task = $(this).parents('.task');
-	
-	    console.log('task', task);
 	    var html = generate.editTaskHTML(task);
 	
-	    $('.more-actions').html(html);
+	    $('.more-actions').html(html).toggleClass('editing');
 	  });
 	
-	  $container.on('click', '.task .save-changes', function () {
+	  containerClick('.task .save-changes', function () {
 	    var $task = $(this).parents('.task');
-	    var $editContainer = $(this).parent();
+	    var $editContainer = $(this).parents('.more-actions');
+	    var id = $task.attr('id');
 	
-	    console.log($task.attr('id'));
-	    ajax.editTask($task.attr('id'), $editContainer, function (err, editedTask) {
+	    // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
+	    ajax.editTask(id, $editContainer, function (err, editedTask) {
 	      if (editedTask) {
 	        $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+	        toggleScroll();
 	      }
 	    });
 	  });
 	
-	  $container.on('click', '.cancel-changes', function () {
-	    var task = $(this).parent();
+	  containerClick('.cancel-changes', function () {
+	    // let task = $(this).parent();
 	
 	    // TODO -- update ajax.getOneTask to utilize full callback
 	    ajax.getTasks();
+	    toggleScroll();
 	  });
 	
-	  $container.on('click', '.delete', function () {
+	  containerClick('.delete', function () {
 	    // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
 	    ajax.deleteTask($(this).parents('.task').attr('id'));
+	    toggleScroll();
 	  });
 	};
 
@@ -482,6 +484,28 @@
 	      callback(err);
 	    });
 	  };
+	};
+
+/***/ },
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function () {
+	  $('body').toggleClass('no-scroll');
 	};
 
 /***/ }
