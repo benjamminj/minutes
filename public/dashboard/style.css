@@ -390,7 +390,8 @@ header #nav-buttons button:hover {
 @media only screen and (min-width: 700px) {
   #tasks-container {
     width: 700px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 #timer-container .timer {
@@ -402,11 +403,21 @@ header #nav-buttons button:hover {
   /* justify-content: center; */
   margin: 15% auto;
 }
+@media only screen and (min-width: 700px) {
+  #timer-container .timer {
+    margin-top: 10%;
+  }
+}
 #timer-container .time {
   font-size: 60px;
   margin: 20px 0;
   width: 100%;
   text-align: center;
+}
+@media only screen and (min-width: 700px) {
+  #timer-container .time {
+    font-size: 150px;
+  }
 }
 #timer-container .timer-buttons {
   width: 90%;
@@ -437,7 +448,7 @@ header #nav-buttons button:hover {
   color: white;
 }
 #timer-container .timer-buttons button.start {
-  height: 40px;
+  height: 50px;
   border-radius: 2px;
   background-color: #74c947;
   border: none;
@@ -448,7 +459,7 @@ header #nav-buttons button:hover {
 }
 #timer-container .timer-buttons button.stop,
 #timer-container .timer-buttons button.cancel-save {
-  height: 40px;
+  height: 50px;
   border-radius: 2px;
   background-color: #fe5151;
   border: none;
@@ -459,7 +470,7 @@ header #nav-buttons button:hover {
   background-color: #fe3838;
 }
 #timer-container .timer-buttons button.save {
-  height: 40px;
+  height: 50px;
   border-radius: 2px;
   background-color: #37c3fe;
   border: none;
@@ -468,7 +479,7 @@ header #nav-buttons button:hover {
 }
 #timer-container .timer-buttons button.save.active,
 #timer-container .timer-buttons button.submit {
-  height: 40px;
+  height: 50px;
   border-radius: 2px;
   background-color: #37c3fe;
   border: none;
@@ -523,6 +534,13 @@ header #nav-buttons button:hover {
 #timer-container #save-task textarea:focus,
 #timer-container #save-task input:focus {
   outline: none;
+}
+@media only screen and (min-width: 700px) {
+  #timer-container {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /*# sourceMappingURL=style.css.map*/

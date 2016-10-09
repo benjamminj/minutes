@@ -10,6 +10,10 @@
   margin-top: 15% auto;
   /* justify-content: center; */
   margin: 15% auto;
+
+  .desktop({
+    margin-top: 10%;
+  });
 }
 
 .time {
@@ -17,6 +21,10 @@
   margin: 20px 0;
   width: 100%;
   text-align: center;
+
+  .desktop({
+    font-size: 150px;
+  })
 }
 
 .timer-buttons {
@@ -36,27 +44,27 @@
     }
 
     &.start {
-      .filled-button(@green, 40px);
+      .filled-button(@green, 50px);
       &:hover {
         background-color: darken(@green, 5%);
       }
     }
 
     &.stop, &.cancel-save {
-      .filled-button(@red, 40px);
+      .filled-button(@red, 50px);
       &:hover {
         background-color: darken(@red, 5%);
       }
     }
 
     &.save {
-      .filled-button(@accent, 40px);
+      .filled-button(@accent, 50px);
       opacity: 0.2;
 
     }
 
     &.save.active, &.submit {
-      .filled-button(@accent, 40px);
+      .filled-button(@accent, 50px);
       opacity: 1;
       &:hover {
         background-color: darken(@accent, 5%);
