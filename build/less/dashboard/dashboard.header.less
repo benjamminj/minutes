@@ -2,24 +2,17 @@
 @import (reference) '../styles/layout.less';
 @import (reference) '../styles/fonts.less';
 @import (reference) '../effects/hover.effects.less';
+@import (reference) 'header.desktop.less';
 
 header {
-  // height: @header-height;
-  // width: 100%;
+
   padding: @outside-margin @small-margin;
   .flex-row(center, center);
   flex-wrap: wrap;
 
-  // h1 {
-  //   font-size: @header-content-large-font;
-  //   i {
-  //     font-size: @header-content-large-font;
-  //   }
-  // }
-
-  // button {
-
-  // }
+  h1 {
+   display: none; 
+  }
 
   .logout {
     // display: none;
@@ -75,4 +68,6 @@ header {
       }
     }
   }
+
+  .desktop(@header-desktop);
 }
