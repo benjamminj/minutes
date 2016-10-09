@@ -10,6 +10,9 @@ ul {
 button {
   cursor: pointer;
 }
+button:focus {
+  outline: none;
+}
 body {
   background-color: #4384e3;
   background-size: contain;
@@ -17,6 +20,9 @@ body {
   background-image: radial-gradient(circle at 0 0, #4384e3, #87d7cd);
   min-height: 100vh;
   margin: 0;
+}
+.no-scroll {
+  overflow: hidden;
 }
 header {
   padding: 20px;

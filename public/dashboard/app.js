@@ -46,8 +46,8 @@
 
 	'use strict';
 	
-	__webpack_require__(32);
-	__webpack_require__(8)();
+	__webpack_require__(10);
+	__webpack_require__(14)();
 
 /***/ },
 /* 1 */,
@@ -57,7 +57,18 @@
 /* 5 */,
 /* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */,
+/* 10 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65,23 +76,23 @@
 	module.exports = function () {
 	
 	  $(document).ready(function () {
-	    __webpack_require__(9)(('//localhost:5000/'));
 	    __webpack_require__(15)(('//localhost:5000/'));
-	    __webpack_require__(16)(('//localhost:5000/'));
+	    __webpack_require__(21)(('//localhost:5000/'));
+	    __webpack_require__(23)(('//localhost:5000/'));
 	  });
 	};
 
 /***/ },
-/* 9 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(10);
-	var generate = __webpack_require__(11);
+	var timer = __webpack_require__(16);
+	var generate = __webpack_require__(17);
 	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(13)(apiURL).getTasks;
+	  var getTasks = __webpack_require__(19)(apiURL).getTasks;
 	
 	  $('button.logout').click(function () {
 	    var url = apiURL + 'user/logout';
@@ -108,7 +119,7 @@
 	};
 
 /***/ },
-/* 10 */
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -141,12 +152,12 @@
 	};
 
 /***/ },
-/* 11 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12)();
+	var utils = __webpack_require__(18)();
 	
 	module.exports = {
 	  timerHTML: function timerHTML() {
@@ -156,7 +167,7 @@
 	    return '\n      <div class="timer-close-prompt">\n        <h2>Are you sure you want to end the timer? You will lose any time currently on the clock</h2>\n        <button class="yes">Yes, I would like to cancel this timer</button>\n        <button class="no">No, I want to keep running the timer</button>\n      </div>\n    ';
 	  },
 	  timerSaveHTML: function timerSaveHTML(seconds) {
-	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <input type="text" placeholder="Choose a Title" class="title">\n          <h4 class="time">\n            ' + this.divideTimeHTML(seconds) + '\n          </h4>\n          <input type="text" placeholder="Add a Description" class="description">\n          <button class="cancel-save">Cancel</button>\n          <button type="submit">Save</button>\n        </form>\n      </div>\n    ';
+	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <input type="text" placeholder="Choose a Title" class="title">\n          <h4 class="time">\n            ' + this.divideTimeHTML(seconds) + '\n          </h4>\n          <textarea placeholder="Add a Description" class="description" rows="10" cols="50"></textarea>\n          <button class="cancel-save">Cancel</button>\n          <button type="submit">Save</button>\n        </form>\n      </div>\n    ';
 	  },
 	  divideTimeHTML: function divideTimeHTML(time) {
 	    var pad = utils.addLeadingZeroes;
@@ -176,7 +187,7 @@
 	};
 
 /***/ },
-/* 12 */
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -201,15 +212,15 @@
 	};
 
 /***/ },
-/* 13 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(14);
+	var generate = __webpack_require__(20);
 	
 	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(12)(apiURL);
+	  var utils = __webpack_require__(18)(apiURL);
 	
 	  return {
 	    getTasks: function getTasks() {
@@ -230,10 +241,10 @@
 	        utils.redirectToLogin();
 	      });
 	    },
-	    editTask: function editTask(task, callback) {
-	      var id = task.attr('id');
-	      var title = task.children('.title').val() || undefined;
-	      var description = task.children('.description').val() || undefined;
+	    editTask: function editTask(id, edits, callback) {
+	
+	      var title = edits.children('.title').val() || undefined;
+	      var description = edits.children('.description').val() || undefined;
 	
 	      $.ajax({
 	        url: apiURL + 'tasks/edit/' + id,
@@ -259,66 +270,86 @@
 	};
 
 /***/ },
-/* 14 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timeHTML = __webpack_require__(11);
+	var timeHTML = __webpack_require__(17);
 	
 	module.exports = {
 	  editTaskHTML: function editTaskHTML(task) {
-	    var currentTitle = task.children('.title').html();
-	    var currentDescription = task.children('.description').html() || 'Add a description';
+	    var currentTitle = task.find('.title').html();
+	    var currentDescription = task.children('.description').html() || '';
 	    var time = task.children('.time').html();
-	    var date = task.children('.date').html();
+	    var date = task.find('.date').html();
 	
-	    return '\n      <input type="text" class="title" placeholder="' + currentTitle + '">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <input type="text" class="description" placeholder="' + currentDescription + '">\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
+	    console.log(currentTitle, currentDescription, time, date);
+	
+	    return '\n      <input type="text" class="title" placeholder="' + currentTitle + '">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <textarea name="" id="#edit-description" class="description" cols="30" rows="4" placeholder="Add a Description">' + currentDescription + '</textarea>\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
 	  },
 	  taskHTML: function taskHTML(task) {
-	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description) + '\n      </div>\n    ';
+	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description, task._id) + '\n      </div>\n    ';
 	  },
 	  innerTaskHTML: function innerTaskHTML(title, date, time, description) {
 	    date = new Date(date).toDateString();
 	    if (!description) {
 	      description = '';
+	    } else {
+	      description = description.replace(/\n/g, '<br>');
 	    }
 	
-	    return '\n      <div class="task-heading">\n        <h3 class="title">' + title + '</h3>\n        <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>\n      </div>\n      <div class="page-overlay"></div>\n      <div class="more-actions">\n        <button class="edit">Edit</button>\n        <hr>\n        <button class="delete">Delete</button>\n      </div>\n        <h4 class="date">' + date + '</h4>\n      <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n    ';
+	    // Move the more-actions div to make the margins work out better?
+	    // Maybe move to directly below the task-heading, or directly above the page overlay./
+	
+	    return '\n      <div class="task-heading">\n        <h3 class="title">' + title + '</h3>\n        <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>\n        <div class="more-actions">\n          <button class="edit"><i class="fa fa-pencil"></i> Edit</button>\n          <hr>\n          <button class="delete"><i class="fa fa-trash"></i> Delete</button>\n        </div>\n        <div class="page-overlay"></div>\n      </div>\n      <h4 class="date">' + date + '</h4>\n      <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n    ';
 	  }
 	};
 
 /***/ },
-/* 15 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(14);
+	var generate = __webpack_require__(20);
+	var onClick = __webpack_require__(22);
 	
 	module.exports = function (apiURL) {
-	  var ajax = __webpack_require__(13)(apiURL);
+	  var ajax = __webpack_require__(19)(apiURL);
 	  var $container = $('#tasks-container');
 	
 	  ajax.getTasks();
 	
 	  $container.on('click', '.more', function () {
 	    console.log('We got a click!');
-	    $(this).parent().siblings('.more-actions, .page-overlay').toggleClass('open');
+	
+	    $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
+	    $('body').toggleClass('no-scroll');
 	  });
 	
-	  $container.on('click', '.task .edit', function () {
-	    var task = $(this).parent();
+	  onClick($container, '.page-overlay.open', function () {
+	    $(this).toggleClass('open').siblings('.more-actions').toggleClass('open');
+	    $('body').toggleClass('no-scroll');
+	  });
+	
+	  $container.on('click', '.edit', function () {
+	    var task = $(this).parents('.task');
+	
+	    console.log('task', task);
 	    var html = generate.editTaskHTML(task);
-	    $(task).html(html);
+	
+	    $('.more-actions').html(html);
 	  });
 	
 	  $container.on('click', '.task .save-changes', function () {
-	    var task = $(this).parent();
+	    var $task = $(this).parents('.task');
+	    var $editContainer = $(this).parent();
 	
-	    ajax.editTask(task, function (err, editedTask) {
+	    console.log($task.attr('id'));
+	    ajax.editTask($task.attr('id'), $editContainer, function (err, editedTask) {
 	      if (editedTask) {
-	        task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+	        $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
 	      }
 	    });
 	  });
@@ -337,18 +368,28 @@
 	};
 
 /***/ },
-/* 16 */
+/* 22 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function ($selector, child, callback) {
+	  $selector.on('click', child, callback);
+	};
+
+/***/ },
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(10);
-	var utils = __webpack_require__(12)();
-	var generate = __webpack_require__(11);
+	var timer = __webpack_require__(16);
+	var utils = __webpack_require__(18)();
+	var generate = __webpack_require__(17);
 	
 	module.exports = function (apiURL) {
 	  var $container = $('#timer-container');
-	  var createTask = __webpack_require__(17)(apiURL);
+	  var createTask = __webpack_require__(24)(apiURL);
 	
 	  $container.on('click', '.timer .start', function () {
 	
@@ -387,7 +428,7 @@
 	
 	  $container.on('submit', '#save-task', function (event) {
 	    var timeInSeconds = timer.stop();
-	    var getTasks = __webpack_require__(13)(apiURL).getTasks;
+	    var getTasks = __webpack_require__(19)(apiURL).getTasks;
 	
 	    timer.reset();
 	    event.preventDefault();
@@ -419,12 +460,12 @@
 	};
 
 /***/ },
-/* 17 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12)();
+	var utils = __webpack_require__(18)();
 	
 	module.exports = function (apiURL) {
 	
@@ -432,6 +473,7 @@
 	    var url = apiURL + 'tasks/create';
 	    var title = utils.getValue('.timer-save .title') || undefined;
 	    var description = utils.getValue('.timer-save .description');
+	    // console.log(description.replace('/\n/g, <br>'));
 	    var data = { title: title, date: new Date(Date.now()), time: time, description: description };
 	
 	    $.post(url, data).done(function (task) {
@@ -441,26 +483,6 @@
 	    });
 	  };
 	};
-
-/***/ },
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);

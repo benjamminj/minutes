@@ -24,10 +24,10 @@ module.exports = (apiURL) => {
         });
     },
 
-    editTask(task, callback) {
-      let id = task.attr('id');
-      let title = task.children('.title').val() || undefined;
-      let description = task.children('.description').val() || undefined;
+    editTask(id, edits, callback) {
+      
+      let title = edits.children('.title').val() || undefined;
+      let description = edits.children('.description').val() || undefined;
       
       $.ajax({
         url: `${apiURL}tasks/edit/${id}`,

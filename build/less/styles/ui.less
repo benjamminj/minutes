@@ -1,5 +1,6 @@
 @import (reference) './colors.less';
 @import (reference) './layout.less';
+
 .button(@height) {
   height: @height;
   border-radius: @edges;
@@ -27,6 +28,11 @@
   background-color: @fill;
   border: none;
   outline: none;
+}
+
+.invisible-button() {
+  border: none;
+  background-color: transparent;
 }
 
 @medium-button-size: 50px;

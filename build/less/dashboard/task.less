@@ -1,5 +1,6 @@
 @import (reference) '../styles/colors.less';
 @import (reference) '../styles/layout.less';
+@import (reference) '../styles/ui.less';
 
 .task {
   padding: @outside-margin @small-margin;
@@ -23,6 +24,8 @@
   }
 
   .more {
+    .invisible-button;
+
     i {
       font-size: @large-font-size;
     }
@@ -47,18 +50,45 @@
   .more-actions {
     .hidden;
   }
+
   .more-actions.open {
     display: flex;
     .flex-column(flex-start, center);
-    position: fixed;
-    width: 100vw;
-    background: @light-background;
-    margin: @large-margin -@small-margin;
-    padding: 10px 0; 
+    position: absolute;
+    // width: 100vw;
+    background: @solid-light;
+    margin: 90px 0;
+    padding: 10px @small-margin; 
     z-index: 999;
+    left: 0;
+    right: 0;
+    border-radius: @edges;
+
+    button {
+      font-size: @medium-font-size;
+      height: 40px;
+      width: 100%;
+      text-align: left;
+      .invisible-button;
+    }
+  }
+
+  .more-actions.open:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 14px 16px;
+    border-color: #FFFFFF transparent;
+    width: 0px;
+    top: -11px;
+    right: 7px;
   }
 
   .edit {}
+
+  hr {
+    width: 100%;
+  }
   .delete {}
 
   .time, .description {

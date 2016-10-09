@@ -16,11 +16,19 @@
 
   button {
     cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   body {
     @background();
     .full-screen;
+  }
+
+  .no-scroll {
+    overflow: hidden;
   }
 }
 

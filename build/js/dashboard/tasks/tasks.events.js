@@ -1,5 +1,5 @@
 let generate = require('./tasks.html');
-
+let onClick = require('../../utils/on.click');
 
 module.exports = (apiURL) => {
   let ajax = require('./tasks.ajax')(apiURL);
@@ -9,21 +9,33 @@ module.exports = (apiURL) => {
 
   $container.on('click', '.more', function() {
     console.log('We got a click!');
-    $(this).parent().siblings('.more-actions, .page-overlay').toggleClass('open');
+
+    $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
+    $('body').toggleClass('no-scroll');
   });
 
-  $container.on('click', '.task .edit', function() {
-    let task = $(this).parent();
+  onClick($container, '.page-overlay.open', function() {
+    $(this).toggleClass('open').siblings('.more-actions').toggleClass('open');
+    $('body').toggleClass('no-scroll');
+  });
+
+  $container.on('click', '.edit', function() {
+    let task = $(this).parents('.task');
+
+    console.log('task', task);
     let html = generate.editTaskHTML(task);
-    $(task).html(html);
+    
+    $('.more-actions').html(html);
   });
 
   $container.on('click', '.task .save-changes', function() {
-    let task = $(this).parent();
+    let $task = $(this).parents('.task');
+    let $editContainer = $(this).parent();
 
-    ajax.editTask(task, function(err, editedTask) {
+    console.log($task.attr('id'))
+    ajax.editTask($task.attr('id'), $editContainer, function(err, editedTask) {
       if (editedTask) {
-        task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+        $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
       }
     });
   });

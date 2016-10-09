@@ -10,6 +10,9 @@ ul {
 button {
   cursor: pointer;
 }
+button:focus {
+  outline: none;
+}
 body {
   background-color: #4384e3;
   background-size: contain;
@@ -17,6 +20,9 @@ body {
   background-image: radial-gradient(circle at 0 0, #4384e3, #87d7cd);
   min-height: 100vh;
   margin: 0;
+}
+.no-scroll {
+  overflow: hidden;
 }
 header {
   padding: 20px 5px;
@@ -90,6 +96,10 @@ header #nav-buttons button.right {
   font-size: 30px;
   margin: 0;
 }
+#tasks-container .task .more {
+  border: none;
+  background-color: transparent;
+}
 #tasks-container .task .more i {
   font-size: 30px;
 }
@@ -116,12 +126,35 @@ header #nav-buttons button.right {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  position: fixed;
-  width: 100vw;
-  background: rgba(255, 255, 255, 0.9);
-  margin: 20px -5px;
-  padding: 10px 0;
+  position: absolute;
+  background: #fff;
+  margin: 90px 0;
+  padding: 10px 5px;
   z-index: 999;
+  left: 0;
+  right: 0;
+  border-radius: 2px;
+}
+#tasks-container .task .more-actions.open button {
+  font-size: 20px;
+  height: 40px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+}
+#tasks-container .task .more-actions.open:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 14px 16px;
+  border-color: #FFFFFF transparent;
+  width: 0px;
+  top: -11px;
+  right: 7px;
+}
+#tasks-container .task hr {
+  width: 100%;
 }
 #tasks-container .task .time,
 #tasks-container .task .description {

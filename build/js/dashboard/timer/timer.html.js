@@ -34,7 +34,7 @@ module.exports = {
           <h4 class="time">
             ${this.divideTimeHTML(seconds)}
           </h4>
-          <input type="text" placeholder="Add a Description" class="description">
+          <textarea placeholder="Add a Description" class="description" rows="10" cols="50"></textarea>
           <button class="cancel-save">Cancel</button>
           <button type="submit">Save</button>
         </form>

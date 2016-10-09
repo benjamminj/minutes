@@ -47,24 +47,24 @@
 
 	'use strict';
 	
-	__webpack_require__(21);
-	__webpack_require__(23)();
+	__webpack_require__(29);
+	__webpack_require__(31)();
 
 /***/ },
 
-/***/ 21:
+/***/ 29:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 23:
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var controller = __webpack_require__(24);
+	var controller = __webpack_require__(32);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
@@ -80,7 +80,7 @@
 
 /***/ },
 
-/***/ 24:
+/***/ 32:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
