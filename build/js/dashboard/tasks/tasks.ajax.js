@@ -11,11 +11,11 @@ module.exports = (apiURL) => {
           $('#tasks-container').html('');
 
           if (!tasks.length) {
-            $('#tasks-container').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
+            $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. Click \'New\' to get started.</h3>');
           }
 
           tasks.forEach(function(task) {
-            $('#tasks-container').append(generate.taskHTML(task));
+            $('#tasks-container').prepend(generate.taskHTML(task));
           });
         }).fail(function() {
           utils.redirectToLogin();

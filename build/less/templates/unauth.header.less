@@ -1,46 +1,44 @@
 // TO DO -- Add hover effects on elements
-
 @import (reference) '../styles/colors.less';
 @import (reference) '../styles/layout.less';
 @import (reference) '../styles/ui.less';
 @import (reference) '../styles/fonts.less';
 @import (reference) '../styles/layout.less';
-
+@import (reference) '../effects/hover.effects.less';
 header {
   padding: @outside-margin;
   height: @header-height;
   .flex-row(center, space-between);
-
   h1 {
     // height: @header-content-height;
     font-size: @header-content-large-font;
     // margin: 0;
     z-index: 999;
-
     a {
       font-size: @header-content-large-font;
-      
-      .desktop({
+      .desktop( {
         font-size: @header-content-large-font + 10px;
-      });
+      }
+      );
     }
   }
-
   .menu-icon {
     border: none;
     background-color: transparent;
     padding: 0;
     z-index: 999;
-
+    .grow;
     .fa {
       font-size: @header-content-large-font;
     }
-
-    .desktop({
+    .desktop( {
       display: none;
-    });
+    }
+    );
+    &:hover {
+      .grow-hover;
+    }
   }
-
   nav {
     // display: none;
     height: 100vh;
@@ -49,12 +47,12 @@ header {
     position: fixed;
     left: 0;
     top: 0;
-    
     &.collapsed {
       display: none;
-      .desktop({
+      .desktop( {
         display: inline-block;
-      });
+      }
+      );
     }
     ul {
       display: flex;
@@ -62,19 +60,30 @@ header {
       align-items: flex-end;
       margin-top: 75px;
       padding: @outside-margin;
-
       li {
         margin: 15px 0;
       }
     }
-
-    .desktop({
+    .login {
+      .grow;
+      &:hover {
+        .grow-hover;
+      }
+    }
+    .signup {
+      .mobile-only({
+        .grow;
+        &:hover {
+          .grow-hover;
+        }
+      });
+    }
+    .desktop( {
       display: inline-block;
       position: relative;
       height: auto;
       width: auto;
       background-color: transparent;
-
       ul {
         .flex-row(center, flex-end);
         margin: 0;
@@ -83,16 +92,17 @@ header {
           margin-left: 20px;
         }
       }
-
       .signup {
         .transparent-button(@main-text-color, @header-content-height);
         font-size: @header-content-font-size - (2vh * 2);
         padding: 10px 20px;
+        .fade;
         &:hover {
-          .transparent-button-hover(@main-text-color, @accent-gradient-right);
+          .fade-hover;
+          background-color: @opaque-light-color;
         }
       }
-    });
+    }
+    );
   }
-
 }

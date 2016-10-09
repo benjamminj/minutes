@@ -4,7 +4,7 @@ module.exports = {
   reset() {
     this.timeInSeconds = 0;
     this.isRunning = false;
-    this.stop();
+    this.end();
   },
   start(callback) {
     if (!this.isRunning) {
@@ -15,12 +15,12 @@ module.exports = {
       }.bind(this), 1000);
     }
   },
-  pause() {
+  stop() {
     this.isRunning = false;
     clearInterval(this.intervalID);
   },
-  stop() {
-    this.pause();
+  end() {
+    this.stop();
     return this.timeInSeconds;
   }
 };

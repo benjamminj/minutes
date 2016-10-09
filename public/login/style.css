@@ -57,7 +57,7 @@ form input {
   padding: 0 5%;
 }
 form input:focus {
-  outline: 1px solid yellow;
+  outline: none;
 }
 form input.top {
   border-radius: 2px 2px 0 0;
@@ -76,6 +76,12 @@ form button {
   background-color: #37c3fe;
   border: none;
   outline: none;
+}
+form button:hover {
+  background-color: #1ebbfe;
+}
+.sign-up-prompt a:hover {
+  color: rgba(242, 242, 242, 0.8);
 }
 
 /*# sourceMappingURL=style.css.map*/

@@ -38,3 +38,9 @@
     @rules();
   }
 }
+
+.mobile-only(@rules) {
+  @media only screen and (max-width: (@desktop - 1px)) {
+    @rules();
+  }
+}

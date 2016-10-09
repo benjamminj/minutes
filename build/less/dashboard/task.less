@@ -2,6 +2,10 @@
 @import (reference) '../styles/layout.less';
 @import (reference) '../styles/ui.less';
 
+#no-tasks {
+  margin: 70px;
+  font-size: 30px;
+}
 .task {
   padding: @outside-margin @small-margin;
   background-color: @light-background;
@@ -26,9 +30,14 @@
   .more {
     .invisible-button;
     align-self: flex-start;
+    .grow;
 
     i {
       font-size: @large-font-size;
+    }
+
+    &:hover {
+      .grow-hover;
     }
   }
   .date {

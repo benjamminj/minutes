@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
+    "hover.css": "^2.0.2",
     "joi": "^9.0.4",
     "mongoose": "^4.6.0",
     "nodemon": "^1.10.2",

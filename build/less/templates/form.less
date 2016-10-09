@@ -19,7 +19,7 @@
     font-family: FontAwesome, sans-serif;
     padding: 0 5%;
     &:focus {
-      outline: 1px solid yellow;
+      outline: none;
     }
     &.top {
       border-radius: @edges @edges 0 0;
@@ -37,5 +37,9 @@
     margin: 20px;
     width: 100%;
     .filled-button(@submit-button-color, 50px);
+
+    &:hover {
+      background-color: darken(@submit-button-color, 5%);
+    }
   }
 }

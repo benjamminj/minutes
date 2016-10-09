@@ -1,5 +1,11 @@
 @background-gradient-1: {
-  .background-gradient(#4384e3, #87d7cd)
+  .background-gradient(#4384e3, #87d7cd);
+};
+
+@background-gradient-2: {
+  
+  // .background-gradient(#87d7cd, #717cf6);
+  .background-gradient(#5086d2, #717cf6);
 };
 
 .background-gradient(@color-1, @color-2) {
@@ -10,14 +16,22 @@
 }
 
 @main-text-color: rgba(255,255,255,0.8);
+@slightly-opaque-light-color: fade(#fff, 60%);
+@opaque-light-color: rgba(255,255,255,0.2);
+
 @dark-text-color: rgba(0,0,0,0.8);
 @opaque-text-color: rgba(0,0,0,0.4);
 @very-light-text-color: rgba(0,0,0,.2);
-@accent-gradient-right: #7ac7d2;
 @opaque-overlay: rgba(0,0,0,0.75);
 
 @light-background: tint(@main-text-color);
 @solid-light: #fff;
 
-@green: green;
-@red: red;
+@see-through-text: #7ac7d2;
+
+@dashboard-see-through-text: #717cf6;
+@dashboard-gradient-right: purple;
+
+@green: #74c947;
+@red: #fe5151;
+@accent: #37c3fe;

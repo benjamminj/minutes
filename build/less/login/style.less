@@ -2,6 +2,7 @@
 @import (reference) '../styles/colors.less';
 @import (reference) '../styles/layout.less';
 @import (reference) '../templates/form.less';
+@import (reference) '../effects/hover.effects.less';
 
 .set-general(@background-gradient-1);
 
@@ -25,5 +26,12 @@ header {
 
 form {
   .form(#37c3fe);
+}
+
+.sign-up-prompt a {
+
+  &:hover {
+    color: darken(@main-text-color, 5%);
+  }
 }
 // @import '../templates/unauth.header.less';

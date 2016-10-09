@@ -17,5 +17,11 @@ module.exports = function(rootURL) {
     addLeadingZeroes(number) {
       return ('0' + number).slice(-2);
     },
+
+    toggleNav($button) {
+      if (!$button.hasClass('current')) {
+        $button.toggleClass('current').siblings().toggleClass('current');
+      }
+    }
   };
 };

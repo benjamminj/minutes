@@ -1,6 +1,8 @@
 @import (reference) '../styles/ui.less';
 @import (reference) '../styles/layout.less';
 @import (reference) '../styles/fonts.less';
+@import (reference) '../effects/hover.effects.less';
+
 header {
   // height: @header-height;
   // width: 100%;
@@ -8,22 +10,24 @@ header {
   .flex-row(center, center);
   flex-wrap: wrap;
 
-  h1 {
-    font-size: @header-content-large-font;
-    i {
-      font-size: @header-content-large-font;
-    }
-  }
-  button {
+  // h1 {
+  //   font-size: @header-content-large-font;
+  //   i {
+  //     font-size: @header-content-large-font;
+  //   }
+  // }
 
-  }
+  // button {
 
-  button.logout {
+  // }
+
+  .logout {
     // display: none;
     background-color: transparent;
     border: none;
     position: absolute;
     right: @small-margin;
+    .grow;
 
     i {
       font-size: @header-content-large-font;
@@ -32,11 +36,16 @@ header {
     h4 {
       display: none;
     }
+
+    &:hover {
+      .grow-hover;
+    }
   }
 
   #nav-buttons {
     font-size: 0;
     width: 60%;
+    .fade;
     .flex-row(center, center);
     
     button {
@@ -50,6 +59,19 @@ header {
 
       &.right {
         border-radius: 0 @edges @edges 0;
+      }
+
+      &.current {
+        .transparent-button-hover(@main-text-color, @dashboard-see-through-text);
+
+        &:hover {
+          .transparent-button-hover(@main-text-color, @dashboard-see-through-text);
+        }
+      }
+
+      &:hover {
+        .fade-hover;
+        background-color: @opaque-light-color;
       }
     }
   }

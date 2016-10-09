@@ -3,15 +3,14 @@ let utils = require('../utils')();
 module.exports = {
   timerHTML() {
     return `
-      <button class="cancel">
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </button>
       <div class="timer">
-        <h2>
+        <h2 class="time">
           <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
         </h2>
-        <button class="start">Start</button>
-        <button class="stop">Stop</button>
+        <div class="timer-buttons">
+          <button class="start">Start</button>
+          <button class="save">Save</button>
+        </div>
       </div>
     `;
   },
@@ -30,13 +29,15 @@ module.exports = {
     return `
       <div class="timer-save">
         <form action="" id="save-task">
-          <input type="text" placeholder="Choose a Title" class="title">
-          <h4 class="time">
+          <h2 class="time">
             ${this.divideTimeHTML(seconds)}
-          </h4>
-          <textarea placeholder="Add a Description" class="description" rows="10" cols="50"></textarea>
-          <button class="cancel-save">Cancel</button>
-          <button type="submit">Save</button>
+          </h2>
+          <input type="text" placeholder="Choose a Title" class="title top">
+          <textarea placeholder="Add a Description" class="description bottom" rows="3" cols="50"></textarea>
+          <div class="timer-buttons">
+            <button class="cancel-save">Cancel</button>
+            <button type="submit" class="submit">Save</button>
+          </div>
         </form>
       </div>
     `;
