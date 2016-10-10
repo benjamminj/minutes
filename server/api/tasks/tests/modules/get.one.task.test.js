@@ -38,7 +38,7 @@ module.exports = function(chai, app, testData) {
     it('Invalid: 404 -- wrong endpoint', function(done) {
       loginAndGetOne('', function(err, res) {
         res.should.have.status(200);
-        res.text.should.include('<title>Time Tracker | Log In or Sign Up');
+        res.text.should.include('<title>Time Tracker');
         done();
       });
     });
