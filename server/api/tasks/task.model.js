@@ -12,7 +12,6 @@ let taskSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    // TO DO -- format date so that appears as MM/DD/YYYY
     default: Date.now(),
   },
   time: {
@@ -27,4 +26,3 @@ let taskSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Task', taskSchema);
-
