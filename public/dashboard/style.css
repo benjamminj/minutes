@@ -402,7 +402,7 @@ header #nav-buttons button:hover {
   }
 }
 #timer-container .time {
-  font-size: 60px;
+  font-size: 70px;
   margin: 20px 0;
   width: 100%;
   text-align: center;
@@ -529,7 +529,7 @@ header #nav-buttons button:hover {
   outline: none;
 }
 main {
-  min-height: 70vh;
+  min-height: 65vh;
 }
 @media only screen and (min-width: 700px) {
   main {
@@ -547,10 +547,10 @@ main {
 .logout {
   height: 50px;
   border-radius: 2px;
-  background-color: #fe5151;
-  border: none;
-  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background-color: transparent;
   width: 80%;
+  color: #fe5151;
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: translateZ(0);
@@ -568,7 +568,9 @@ main {
 .logout:hover {
   background-color: #2098d1;
   color: white;
-  background-color: #fe3838;
+  background-color: #fe5151;
+  border-color: #fe5151;
+  color: rgba(255, 255, 255, 0.8);
 }
 @media only screen and (min-width: 700px) {
   .logout {

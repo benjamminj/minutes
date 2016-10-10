@@ -11,19 +11,24 @@
 }
 
 .logout {
-  .filled-button(@red, 50px);
+  .transparent-button(@main-text-color, 50px);
   width: 80%;
+  color: @red;
   .fade;
 
   &:hover {
     .fade-hover;
-    background-color: darken(@red, 5%);
+    background-color: @red;
+    border-color: @red;
+    color: @main-text-color;
   }
 
   .desktop({
     width: 700px;  
   });
+
   h4 {
+  
     margin: 0;
   }
 
