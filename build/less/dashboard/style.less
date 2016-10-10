@@ -6,7 +6,26 @@
 
 #tasks-container {
   @import './task.less';
+  // min-width: 80vh;
+  // .desktop({
+  //   width: 700px;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  // })
+}
 
+#timer-container {
+  @import './timer.less';
+  // min-width: 80vh;
+  // .desktop({
+  //   width: 700px;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  // });
+}
+
+main {
+  min-height: 70vh;
   .desktop({
     width: 700px;
     margin-left: auto;
@@ -14,16 +33,5 @@
   })
 }
 
-#timer-container {
-  @import './timer.less';
-
-  .desktop({
-    width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  });
-}
-
-
-
-
+@import './logout.less';
+  

@@ -1,0 +1,31 @@
+@import (reference) '../styles/ui.less';
+@import (reference) '../styles/colors.less';
+@import (reference) '../effects/hover.effects.less';
+
+.logout-container {
+  // position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  margin: 50px 0;
+}
+
+.logout {
+  .filled-button(@red, 50px);
+  width: 80%;
+  .fade;
+
+  &:hover {
+    .fade-hover;
+    background-color: darken(@red, 5%);
+  }
+
+  .desktop({
+    width: 700px;  
+  });
+  h4 {
+    margin: 0;
+  }
+
+
+}

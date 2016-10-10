@@ -387,13 +387,6 @@ header #nav-buttons button:hover {
     padding-right: 15px;
   }
 }
-@media only screen and (min-width: 700px) {
-  #tasks-container {
-    width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 #timer-container .timer {
   display: flex;
   flex-direction: column;
@@ -535,12 +528,55 @@ header #nav-buttons button:hover {
 #timer-container #save-task input:focus {
   outline: none;
 }
+main {
+  min-height: 70vh;
+}
 @media only screen and (min-width: 700px) {
-  #timer-container {
+  main {
     width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
+}
+.logout-container {
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  margin: 50px 0;
+}
+.logout {
+  height: 50px;
+  border-radius: 2px;
+  background-color: #fe5151;
+  border: none;
+  outline: none;
+  width: 80%;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.logout:hover {
+  background-color: #2098d1;
+  color: white;
+  background-color: #fe3838;
+}
+@media only screen and (min-width: 700px) {
+  .logout {
+    width: 700px;
+  }
+}
+.logout h4 {
+  margin: 0;
 }
 
 /*# sourceMappingURL=style.css.map*/
