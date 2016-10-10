@@ -46,46 +46,87 @@
 
 	'use strict';
 	
-	var apiURL = '//localhost:5000/';
-	
-	// let ajax = require('./ajax')(apiURL);
-	
-	$(document).ready(function () {
-	  __webpack_require__(1)(apiURL);
-	  __webpack_require__(7)(apiURL);
-	  __webpack_require__(8)(apiURL);
-	  // require('./event.handlers.js')(ajax);
-	
-	});
+	__webpack_require__(14);
+	__webpack_require__(18)();
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(2);
-	var generate = __webpack_require__(3);
+	module.exports = function () {
+	
+	  $(document).ready(function () {
+	    __webpack_require__(19)(('//localhost:5000/'));
+	    __webpack_require__(25)(('//localhost:5000/'));
+	    __webpack_require__(28)(('//localhost:5000/'));
+	  });
+	};
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var timer = __webpack_require__(20);
+	var generate = __webpack_require__(21);
+	var utils = __webpack_require__(22)();
 	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(5)(apiURL).getTasks;
-	  // header
+	  var getTasks = __webpack_require__(23)(apiURL).getTasks;
+	
+	  $('button.logout').click(function () {
+	    var url = apiURL + 'user/logout';
+	    console.log(url);
+	
+	    console.log('button click');
+	    $.get(url).done(function () {
+	      window.location = ('//localhost:5000/');
+	    });
+	  });
+	
 	  $('#nav-buttons .my-tasks').click(function () {
 	    // TO DO -- add the close prompt if the timer is running. Otherwise just load the page.
 	    timer.reset();
 	    getTasks();
+	    utils.toggleNav($(this));
 	    $('#timer-container').hide().siblings('#tasks-container').show();
 	  });
 	
 	  // header
 	  $('#nav-buttons .new-task').click(function () {
 	    $('#tasks-container').hide();
+	    utils.toggleNav($(this));
 	    $('#timer-container').show().html(generate.timerHTML());
 	  });
 	};
 
 /***/ },
-/* 2 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -96,7 +137,7 @@
 	  reset: function reset() {
 	    this.timeInSeconds = 0;
 	    this.isRunning = false;
-	    this.stop();
+	    this.end();
 	  },
 	  start: function start(callback) {
 	    if (!this.isRunning) {
@@ -107,33 +148,33 @@
 	      }.bind(this), 1000);
 	    }
 	  },
-	  pause: function pause() {
+	  stop: function stop() {
 	    this.isRunning = false;
 	    clearInterval(this.intervalID);
 	  },
-	  stop: function stop() {
-	    this.pause();
+	  end: function end() {
+	    this.stop();
 	    return this.timeInSeconds;
 	  }
 	};
 
 /***/ },
-/* 3 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(4)();
+	var utils = __webpack_require__(22)();
 	
 	module.exports = {
 	  timerHTML: function timerHTML() {
-	    return '\n      <button class="cancel">\n        <i class="fa fa-times" aria-hidden="true"></i>\n      </button>\n      <div class="timer">\n        <h2>\n          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n        </h2>\n        <button class="start">Start</button>\n        <button class="stop">Stop</button>\n      </div>\n    ';
+	    return '\n      <div class="timer">\n        <h2 class="time">\n          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>\n        </h2>\n        <div class="timer-buttons">\n          <button class="start">Start</button>\n          <button class="save">Save</button>\n        </div>\n      </div>\n    ';
 	  },
 	  timerClosePromptHTML: function timerClosePromptHTML() {
 	    return '\n      <div class="timer-close-prompt">\n        <h2>Are you sure you want to end the timer? You will lose any time currently on the clock</h2>\n        <button class="yes">Yes, I would like to cancel this timer</button>\n        <button class="no">No, I want to keep running the timer</button>\n      </div>\n    ';
 	  },
 	  timerSaveHTML: function timerSaveHTML(seconds) {
-	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <input type="text" placeholder="Choose a Title" class="title">\n          <h4 class="time">\n            ' + this.divideTimeHTML(seconds) + '\n          </h4>\n          <input type="text" placeholder="Add a Description" class="description">\n          <button class="cancel-save">Cancel</button>\n          <button type="submit">Save</button>\n        </form>\n      </div>\n    ';
+	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <h2 class="time">\n            ' + this.divideTimeHTML(seconds) + '\n          </h2>\n          <input type="text" placeholder="Choose a Title" class="title top">\n          <textarea placeholder="Add a Description" class="description bottom" rows="3" cols="50"></textarea>\n          <div class="timer-buttons">\n            <button class="cancel-save">Cancel</button>\n            <button type="submit" class="submit">Save</button>\n          </div>\n        </form>\n      </div>\n    ';
 	  },
 	  divideTimeHTML: function divideTimeHTML(time) {
 	    var pad = utils.addLeadingZeroes;
@@ -153,7 +194,7 @@
 	};
 
 /***/ },
-/* 4 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -168,49 +209,52 @@
 	        $(element).val('');
 	      });
 	    },
-	    redirectToLogin: function redirectToLogin() {
-	      window.location = rootURL;
+	    redirectToLogin: function redirectToLogin(location) {
+	      window.location = location || rootURL;
 	    },
 	    addLeadingZeroes: function addLeadingZeroes(number) {
 	      return ('0' + number).slice(-2);
+	    },
+	    toggleNav: function toggleNav($button) {
+	      if (!$button.hasClass('current')) {
+	        $button.toggleClass('current').siblings().toggleClass('current');
+	      }
 	    }
 	  };
 	};
 
 /***/ },
-/* 5 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(6);
+	var generate = __webpack_require__(24);
 	
 	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(4)(apiURL);
+	  var utils = __webpack_require__(22)(apiURL);
 	
 	  return {
 	    getTasks: function getTasks() {
 	      var url = apiURL + 'tasks/';
 	      $.getJSON(url).done(function (tasks) {
+	        $('#tasks-container').html('');
+	
 	        if (!tasks.length) {
-	          $('#tasks-container').append('<p>It looks like you haven\'t created any tasks yet. Start tracking time today</p>');
+	          $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. Click \'New\' to get started.</h3>');
 	        }
 	
-	        $('#tasks-container').html('');
 	        tasks.forEach(function (task) {
-	          // Change html to be a ul
-	          $('#tasks-container').append(generate.taskHTML(task));
+	          $('#tasks-container').prepend(generate.taskHTML(task));
 	        });
-	      }).fail(function (err) {
-	        // Eventually need to do something to handle this on the frontend?
-	        console.log('Oh no!', err);
+	      }).fail(function () {
 	        utils.redirectToLogin();
 	      });
 	    },
-	    editTask: function editTask(task, callback) {
-	      var id = task.attr('id');
-	      var title = task.children('.title').val() || undefined;
-	      var description = task.children('.description').val() || undefined;
+	    editTask: function editTask(id, edits, callback) {
+	
+	      var title = edits.children('.title').val() || undefined;
+	      var description = edits.children('#edit-description').val() || undefined;
 	
 	      $.ajax({
 	        url: apiURL + 'tasks/edit/' + id,
@@ -236,97 +280,146 @@
 	};
 
 /***/ },
-/* 6 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timeHTML = __webpack_require__(3);
+	var timeHTML = __webpack_require__(21);
 	
 	module.exports = {
 	  editTaskHTML: function editTaskHTML(task) {
-	    var currentTitle = task.children('.title').html();
-	    var currentDescription = task.children('.description').html() || 'Add a description';
+	    var currentTitle = task.find('.title').html();
+	    var currentDescription = task.children('.description').html() || '';
+	    var formattedDescription = currentDescription.replace('<br>', '\n');
 	    var time = task.children('.time').html();
-	    var date = task.children('.date').html();
+	    var date = task.find('.date').html();
 	
-	    return '\n      <input type="text" class="title" placeholder="' + currentTitle + '">\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + time + '</h4>\n      <input type="text" class="description" placeholder="' + currentDescription + '">\n      <button class="cancel-changes">Cancel Changes</button>\n      <button class="save-changes">Save Changes</button>\n    ';
+	    return '\n      <input type="text" class="title" value="' + currentTitle + '" placeholder="Title">\n      <!-- <h4 class="date">' + date + '</h4> -->\n      <!-- <h4 class="time">' + time + '</h4> -->\n      <!-- <h4 class="description-heading">Description</h4> -->\n      <textarea name="" id="edit-description" cols="30" rows="4" placeholder="Add a Description">' + formattedDescription + '</textarea>  \n      <div class="edit-buttons">\n        <button class="cancel-changes">Cancel</button>\n        <button class="save-changes">Save</button>        \n      </div>  \n    ';
 	  },
 	  taskHTML: function taskHTML(task) {
-	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description) + '\n      </div>\n    ';
+	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description, task._id) + '\n      </div>\n    ';
 	  },
+	
+	
+	  // TO DO -- refactor so that it only takes a single task as an arg.
 	  innerTaskHTML: function innerTaskHTML(title, date, time, description) {
 	    date = new Date(date).toDateString();
 	    if (!description) {
 	      description = '';
+	    } else {
+	      description = description.replace(/\n/g, '<br>');
 	    }
 	
-	    return '\n      <h3 class="title">' + title + '</h3>\n      <h4 class="date">' + date + '</h4>\n      <h4 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n      <button class="edit">Edit</button>\n      <button class="delete">Delete</button>\n    ';
+	    return '\n      <div class="task-heading">\n        <h3 class="title">' + title + '</h3>\n        <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>\n        <div class="more-actions">\n          <button class="edit"><i class="fa fa-pencil"></i> Edit</button>\n          <hr>\n          <button class="delete"><i class="fa fa-trash"></i> Delete</button>\n        </div>\n        <div class="page-overlay"></div>\n      </div>\n      <h4 class="date">' + date + '</h4>\n      <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n    ';
 	  }
 	};
 
 /***/ },
-/* 7 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(6);
+	var generate = __webpack_require__(24);
+	var onClick = __webpack_require__(26);
+	var toggleScroll = __webpack_require__(27);
 	
 	module.exports = function (apiURL) {
-	  var ajax = __webpack_require__(5)(apiURL);
+	  var ajax = __webpack_require__(23)(apiURL);
+	  var $container = $('#tasks-container');
+	
 	  ajax.getTasks();
 	
-	  $('#tasks-container').on('click', '.task .edit', function () {
-	    var task = $(this).parent();
-	    var html = generate.editTaskHTML(task);
-	    $(task).html(html);
+	  containerClick('.more', function () {
+	    $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
+	    toggleScroll();
 	  });
 	
-	  $('#tasks-container').on('click', '.task .save-changes', function () {
-	    var task = $(this).parent();
+	  function containerClick(child, callback) {
+	    return onClick($container, child, callback);
+	  }
 	
-	    ajax.editTask(task, function (err, editedTask) {
+	  containerClick('.page-overlay.open', function () {
+	    $(this).toggleClass('open').siblings('.more-actions').toggleClass('open');
+	    toggleScroll();
+	  });
+	
+	  containerClick('.edit', function () {
+	    var task = $(this).parents('.task');
+	    var html = generate.editTaskHTML(task);
+	
+	    $('.more-actions').html(html).toggleClass('editing');
+	  });
+	
+	  containerClick('.task .save-changes', function () {
+	    var $task = $(this).parents('.task');
+	    var $editContainer = $(this).parents('.more-actions');
+	    var id = $task.attr('id');
+	
+	    // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
+	    ajax.editTask(id, $editContainer, function (err, editedTask) {
 	      if (editedTask) {
-	        task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+	        $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+	        toggleScroll();
 	      }
 	    });
 	  });
 	
-	  $('#tasks-container').on('click', '.cancel-changes', function () {
-	    var task = $(this).parent();
+	  containerClick('.cancel-changes', function () {
+	    // let task = $(this).parent();
 	
 	    // TODO -- update ajax.getOneTask to utilize full callback
 	    ajax.getTasks();
+	    toggleScroll();
 	  });
 	
-	  $('#tasks-container').on('click', '.task .delete', function () {
+	  containerClick('.delete', function () {
 	    // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
-	    ajax.deleteTask($(this).parent().attr('id'));
+	    ajax.deleteTask($(this).parents('.task').attr('id'));
+	    toggleScroll();
 	  });
 	};
 
 /***/ },
-/* 8 */
+/* 26 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function ($selector, child, callback) {
+	  $selector.on('click', child, callback);
+	};
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function () {
+	  $('body').toggleClass('no-scroll');
+	};
+
+/***/ },
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(2);
-	var utils = __webpack_require__(4)();
-	var generate = __webpack_require__(3);
+	var timer = __webpack_require__(20);
+	var utils = __webpack_require__(22)();
+	var generate = __webpack_require__(21);
 	
 	module.exports = function (apiURL) {
-	  var createTask = __webpack_require__(9)(apiURL);
+	  var $container = $('#timer-container');
+	  var createTask = __webpack_require__(29)(apiURL);
 	
-	  $('#timer-container').on('click', '.timer .start', function () {
+	  $container.on('click', '.timer .start', function () {
 	
-	    $('#timer-container .start').addClass('pause').removeClass('start').html('Pause');
+	    $('#timer-container .start').addClass('stop').removeClass('start').html('Stop');
 	
 	    timer.start(function (currentTime) {
-	      if (currentTime > 0) {
-	        $('#timer-container .stop').addClass('active');
-	      }
 	
 	      if (currentTime % 360 === 0) {
 	        increaseTimerHTML('.timer .hours');
@@ -343,57 +436,57 @@
 	    });
 	  });
 	
-	  $('#timer-container').on('click', '.timer .pause', function () {
-	    timer.pause();
-	    $('#timer-container .pause').addClass('start').removeClass('pause').html('Start');
+	  $container.on('click', '.timer .stop', function () {
+	    timer.stop();
+	
+	    // New
+	    if (timer.timeInSeconds > 0) {
+	      $('#timer-container .save').addClass('active');
+	    }
+	
+	    $(this).addClass('start').removeClass('stop').html('Start');
 	  });
 	
-	  $('#timer-container').on('click', '.timer .stop.active', function () {
-	    var seconds = timer.stop();
+	  $container.on('click', '.timer .save.active', function () {
+	    var seconds = timer.end();
 	
-	    $('#timer-container').html(generate.timerSaveHTML(seconds));
+	    $container.html(generate.timerSaveHTML(seconds));
 	  });
 	
-	  $('#timer-container').on('submit', '#save-task', function (event) {
-	    var timeInSeconds = timer.stop();
-	    var getTasks = __webpack_require__(5)(apiURL).getTasks;
+	  $container.on('submit', '#save-task', function (event) {
+	    var timeInSeconds = timer.end();
+	    var getTasks = __webpack_require__(23)(apiURL).getTasks;
 	
 	    timer.reset();
 	    event.preventDefault();
 	
 	    createTask(timeInSeconds, function () {
-	      $('#timer-container').hide().siblings('#tasks-container').show();
+	      $container.hide().siblings('#tasks-container').show();
+	      toggleNav();
 	      getTasks();
 	    });
 	  });
 	
-	  $('#timer-container').on('click', '.cancel-save', function (event) {
+	  function toggleNav() {
+	    console.log('asdfasdfasdf');
+	    utils.toggleNav($('.my-tasks'));
+	  }
+	
+	  $container.on('click', '.cancel-save', function (event) {
 	    event.preventDefault();
 	    timer.reset();
-	    $('#timer-container').hide().siblings('#tasks-container').show();
-	  });
-	
-	  $('#timer-container').on('click', '.cancel', function () {
-	    $('#timer-container').append(generate.timerClosePromptHTML());
-	  });
-	
-	  $('#timer-container').on('click', '.timer-close-prompt .yes', function () {
-	    timer.reset();
-	    $('#timer-container').hide().siblings('#tasks-container').show();
-	  });
-	
-	  $('#timer-container').on('click', '.timer-close-prompt .no', function () {
-	    $('#timer-container .timer-close-prompt').hide();
+	    toggleNav();
+	    $container.hide().siblings('#tasks-container').show();
 	  });
 	};
 
 /***/ },
-/* 9 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(4)();
+	var utils = __webpack_require__(22)();
 	
 	module.exports = function (apiURL) {
 	
@@ -401,6 +494,7 @@
 	    var url = apiURL + 'tasks/create';
 	    var title = utils.getValue('.timer-save .title') || undefined;
 	    var description = utils.getValue('.timer-save .description');
+	    // console.log(description.replace('/\n/g, <br>'));
 	    var data = { title: title, date: new Date(Date.now()), time: time, description: description };
 	
 	    $.post(url, data).done(function (task) {

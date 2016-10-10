@@ -9,7 +9,7 @@ let User = require('../api/user/user.model');
 module.exports = function(app) {
 
 	// app.use(express.static('public/dashboard'));
-	app.use(express.static('public/login'));
+	app.use(express.static('public/home'));
 	app.use(cookieParser());
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: false }));

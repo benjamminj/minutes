@@ -120,7 +120,7 @@ module.exports = function(chai, app, testData) {
         })
         .end(function(err, res) {
           res.should.have.status(200);
-          res.text.should.include('<title>Time Tracker | Log In or Sign Up');
+          res.text.should.include('<title>Time Tracker');
           done();
         });
     });

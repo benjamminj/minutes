@@ -1,0 +1,53 @@
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/fonts.less';
+
+@header-desktop: {
+  justify-content: flex-start;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  h1 {
+    display: block;
+    flex-grow: 1;
+  }
+
+  #nav-buttons {
+    width: 250px;
+    justify-content: flex-end;
+
+    button {
+      border: none;
+      .grow;
+      width: 100px;
+
+      &.current {
+        background-color: transparent;
+        color: fade(@main-text-color, 100%);
+        font-size: @medium-font-size + 2px;
+        &:hover {
+          background-color: transparent;
+          color: @main-text-color;
+        }
+      }
+
+      &:hover {
+        background-color: transparent;
+        color: @main-text-color;
+        .grow-hover;
+      }
+    }
+  }
+
+  .logout {
+    position: static;
+    width: 100px;
+    i {
+      display: none;
+    }
+    h4 {
+      font-size: @medium-font-size;
+      margin: 0;
+      display: inline-flex;
+    }
+  }
+};

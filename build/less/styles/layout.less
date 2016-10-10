@@ -1,0 +1,46 @@
+.full-screen {
+  min-height: 100vh;
+  margin: 0;
+}
+
+@outside-margin: 20px;
+@large-margin: 20px;
+@medium-margin: 10px;
+@small-margin: 5px;
+@header-height: 50px;
+@header-content-height: 100%;
+
+
+.flex(@direction, @align) {
+  display: flex;
+  flex-direction: @direction;
+  align-items: @align;
+}
+
+.flex-row(@align, @justify) {
+  .flex(row, @align);
+  justify-content: @justify;
+}
+
+.flex-column(@align, @justify) {
+  .flex(column, @align);
+  justify-content: @justify;
+}
+
+.hidden {
+  display: none;
+}
+
+@desktop: 700px;
+
+.desktop(@rules) {
+  @media only screen and (min-width: @desktop) {
+    @rules();
+  }
+}
+
+.mobile-only(@rules) {
+  @media only screen and (max-width: (@desktop - 1px)) {
+    @rules();
+  }
+}

@@ -1,0 +1,45 @@
+@import (reference) '../styles/ui.less';
+@import (reference) '../styles/layout.less';
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/fonts.less';
+
+.form(@submit-button-color) {
+  // background-color: white;
+  .flex-column(center, center);
+  min-width: 50vw;
+  max-width: 80vw;
+  
+  input {
+    height: 50px;
+    width: 90%;
+    font-size: @medium-font-size;
+    border: none;
+    background-color: #ffffff;
+    color: @opaque-text-color;
+    font-family: FontAwesome, sans-serif;
+    padding: 0 5%;
+    &:focus {
+      outline: none;
+    }
+    &.top {
+      border-radius: @edges @edges 0 0;
+    }
+    &.bottom {
+      border-radius: 0 0 @edges @edges;
+    }
+  }
+
+  hr {
+    margin: 0;
+  }
+
+  button {
+    margin: 20px;
+    width: 100%;
+    .filled-button(@submit-button-color, 50px);
+
+    &:hover {
+      background-color: darken(@submit-button-color, 5%);
+    }
+  }
+}

@@ -40,42 +40,62 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports) {
+/******/ ({
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var apiURL = '//localhost:5000/';
+	__webpack_require__(34);
+	__webpack_require__(36)();
+
+/***/ },
+
+/***/ 34:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 36:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	$(document).ready(function () {
+	var controller = __webpack_require__(37);
 	
-	  $('#login-form').submit(function (event) {
-	    event.preventDefault();
-	    var request = { username: $('#username').val(), password: $('#password').val() };
+	module.exports = function () {
+	  $(document).ready(function () {
+	    $('#login-form').submit(function (event) {
+	      event.preventDefault();
+	      var request = { username: $('#username').val(), password: $('#password').val() };
 	
-	    loginRequest(request);
-	  });
-	
-	  $('#signup-form').submit(function (event) {
-	    event.preventDefault();
-	    var request = { username: $('#create-username').val(), password: $('#create-password').val() };
-	
-	    $.post(apiURL + 'user/signup', request).done(function () {
-	      loginRequest(request);
-	    }).fail(function (err) {
-	      console.log(err);
+	      controller.login(request);
+	      // loginRequest(request);
 	    });
 	  });
+	};
+
+/***/ },
+
+/***/ 37:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	
-	  function loginRequest(request) {
+	var Controller = {};
 	
-	    $.post(apiURL + 'user/login', request).done(function () {
-	      window.location = '//localhost:5000/dashboard';
-	    });
-	  }
-	});
+	Controller.login = function (request) {
+	  $.post(('//localhost:5000/') + "user/login", request).done(function () {
+	    window.location = ('//localhost:5000/') + "dashboard";
+	  });
+	};
+	
+	module.exports = Controller;
 
 /***/ }
-/******/ ]);
+
+/******/ });
 //# sourceMappingURL=app.js.map

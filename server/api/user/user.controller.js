@@ -27,6 +27,7 @@ Controller.signup = function(req, res, next) {
 };
 
 Controller.logout = function(req, res) {
+  console.log('here');
   req.logout();
   res.redirect('/user/login');
 };

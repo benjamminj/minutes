@@ -1,0 +1,25 @@
+@import (reference) '../styles/layout.less';
+@import (reference) '../templates/general.less';
+
+.set-general(@background-gradient-2);
+@import './dashboard.header.less';
+
+#tasks-container {
+  @import './task.less';
+}
+
+#timer-container {
+  @import './timer.less';
+}
+
+main {
+  min-height: 65vh;
+  .desktop({
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  })
+}
+
+@import './logout.less';
+  

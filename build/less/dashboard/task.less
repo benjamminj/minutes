@@ -1,0 +1,78 @@
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/layout.less';
+@import (reference) '../styles/ui.less';
+
+#no-tasks {
+  margin: 70px;
+  font-size: 30px;
+}
+.task {
+  padding: @outside-margin @small-margin;
+  background-color: @light-background;
+  margin: 0 0 @medium-margin;
+  .flex-row(center, flex-start);
+  flex-wrap: wrap;
+
+  * {
+    color: @dark-text-color;
+  }
+
+  .task-heading {
+    .flex-row(center, space-between);
+    width: 100%;
+  }
+
+  .title {
+    font-size: @large-font-size;
+    margin: 0;
+  }
+
+  .more {
+    .invisible-button;
+    align-self: flex-start;
+    .grow;
+
+    i {
+      font-size: @large-font-size;
+    }
+
+    &:hover {
+      .grow-hover;
+    }
+  }
+  .date {
+    margin: 0;
+  }
+  
+  .page-overlay {
+    .hidden;
+  }
+  .page-overlay.open {
+    display: block;
+    position: fixed;
+    height: 100vh;
+    background-color: tint(@opaque-overlay, 10%);
+    width: 100vw;
+    left: 0;
+    top: 0;
+  }
+
+  .time, .description {
+    width: 100%;
+  }
+
+  .time {
+    text-align: center;
+    font-size: @jumbo-font-size;
+  }
+  #edit-description {
+    margin: 0;
+  }
+
+  @import './task.more.actions.less';
+  .desktop({
+    border-radius: @edges;
+    padding-left: 15px;
+    padding-right: 15px;
+  });
+}

@@ -1,0 +1,120 @@
+@import (reference) '../styles/colors.less';
+@import (reference) '../styles/layout.less';
+@import (reference) '../styles/ui.less';
+
+.more-actions {
+  .hidden;
+}
+
+.more-actions.open {
+  display: flex;
+  .flex-column(flex-start, center);
+  position: absolute;
+  // width: 100vw;
+  background: @solid-light;
+  margin: 90px 0;
+  padding: 10px @small-margin; 
+  z-index: 999;
+  left: 0;
+  right: 0;
+  border-radius: @edges;
+
+  button {
+    font-size: @medium-font-size;
+    height: 40px;
+    width: 100%;
+    text-align: left;
+    .invisible-button;
+    .grow;
+
+    &:hover {
+      .small-grow-hover;
+    }
+  }
+
+  .desktop({
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  })
+}
+
+.more-actions.open:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 14px 16px;
+  border-color: #FFFFFF transparent;
+  width: 0px;
+  top: -11px;
+  right: 7px;
+}
+
+.editing {
+  .title {
+    border: none;
+    border-bottom: 1px solid @very-light-text-color;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .description-heading {
+    margin: 0;
+  }
+
+  #edit-description {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-top: 1px solid @very-light-text-color;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .edit-buttons {
+    .flex-row(center, space-between);
+    width: 100%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    button {
+      width: 45%;
+      text-align: center;
+      .fade;
+
+      &:hover {
+        .fade-hover;
+      }
+      // color: @main-text-color;
+
+      &.cancel-changes {
+        .transparent-button(@red, 40px);
+        color: @red;
+
+        &:hover {
+          .transparent-button-hover(@red, @main-text-color);
+        }
+      }
+
+      &.save-changes {
+        .transparent-button(@green, 40px);
+        color: @green;
+
+        &:hover {
+          .transparent-button-hover(@green, @main-text-color);
+        }
+      }
+    }
+  }
+}
+
+.edit {}
+
+hr {
+  width: 100%;
+}
+.delete {}
