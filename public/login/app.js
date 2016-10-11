@@ -88,8 +88,8 @@
 	var Controller = {};
 	
 	Controller.login = function (request) {
-	  $.post(('//localhost:5000/') + "user/login", request).done(function () {
-	    window.location = ('//localhost:5000/') + "dashboard";
+	  $.post(('https://bjohnson-time-tracker.herokuapp.com/') + "user/login", request).done(function () {
+	    window.location = ('https://bjohnson-time-tracker.herokuapp.com/') + "dashboard";
 	  });
 	};
 	
