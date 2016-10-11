@@ -9,7 +9,7 @@
     "coverage": "NODE_ENV=testing istanbul cover _mocha \"server/**/*.test.js\" -- -R spec",
     "build": "webpack",
     "watch": "webpack --watch",
-    "build:prod": "NODE_ENV=production webpack"
+    "postinstall": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
