@@ -1,9 +1,8 @@
 @import (reference) '../styles/ui.less';
 @import (reference) '../styles/layout.less';
-@import (reference) '../styles/fonts.less';
 @import (reference) '../effects/hover.effects.less';
-@import (reference) './header.desktop.less';
 @import (reference) '../styles/fonts.less';
+@import (reference) './header.desktop.less';
 
 header {
 
@@ -24,6 +23,7 @@ header {
     .grow;
 
     i {
+      // .reset-link;
       font-size: @header-content-large-font;
     }
 
@@ -43,6 +43,7 @@ header {
     .flex-row(center, center);
     
     button {
+      // .medium-font-size();
       font-size: @medium-font-size;
       .transparent-button(@main-text-color, @short-button-size);
       width: 50%;

@@ -47,7 +47,7 @@
 	'use strict';
 	
 	__webpack_require__(15);
-	__webpack_require__(18)();
+	__webpack_require__(19)();
 
 /***/ },
 /* 1 */,
@@ -72,7 +72,8 @@
 /***/ },
 /* 16 */,
 /* 17 */,
-/* 18 */
+/* 18 */,
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80,24 +81,24 @@
 	module.exports = function () {
 	
 	  $(document).ready(function () {
-	    __webpack_require__(19)(('//localhost:5000/'));
-	    __webpack_require__(25)(('//localhost:5000/'));
-	    __webpack_require__(28)(('//localhost:5000/'));
+	    __webpack_require__(20)(('//localhost:5000/'));
+	    __webpack_require__(26)(('//localhost:5000/'));
+	    __webpack_require__(29)(('//localhost:5000/'));
 	  });
 	};
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(20);
-	var generate = __webpack_require__(21);
-	var utils = __webpack_require__(22)();
+	var timer = __webpack_require__(21);
+	var generate = __webpack_require__(22);
+	var utils = __webpack_require__(23)();
 	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(23)(apiURL).getTasks;
+	  var getTasks = __webpack_require__(24)(apiURL).getTasks;
 	
 	  $('button.logout').click(function () {
 	    var url = apiURL + 'user/logout';
@@ -124,7 +125,7 @@
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -157,12 +158,12 @@
 	};
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(22)();
+	var utils = __webpack_require__(23)();
 	
 	module.exports = {
 	  timerHTML: function timerHTML() {
@@ -192,7 +193,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -222,15 +223,15 @@
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(24);
+	var generate = __webpack_require__(25);
 	
 	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(22)(apiURL);
+	  var utils = __webpack_require__(23)(apiURL);
 	
 	  return {
 	    getTasks: function getTasks() {
@@ -278,12 +279,12 @@
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timeHTML = __webpack_require__(21);
+	var timeHTML = __webpack_require__(22);
 	
 	module.exports = {
 	  editTaskHTML: function editTaskHTML(task) {
@@ -314,17 +315,17 @@
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(24);
-	var onClick = __webpack_require__(26);
-	var toggleScroll = __webpack_require__(27);
+	var generate = __webpack_require__(25);
+	var onClick = __webpack_require__(27);
+	var toggleScroll = __webpack_require__(28);
 	
 	module.exports = function (apiURL) {
-	  var ajax = __webpack_require__(23)(apiURL);
+	  var ajax = __webpack_require__(24)(apiURL);
 	  var $container = $('#tasks-container');
 	
 	  ajax.getTasks();
@@ -380,7 +381,7 @@
 	};
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -390,7 +391,7 @@
 	};
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -400,18 +401,18 @@
 	};
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(20);
-	var utils = __webpack_require__(22)();
-	var generate = __webpack_require__(21);
+	var timer = __webpack_require__(21);
+	var utils = __webpack_require__(23)();
+	var generate = __webpack_require__(22);
 	
 	module.exports = function (apiURL) {
 	  var $container = $('#timer-container');
-	  var createTask = __webpack_require__(29)(apiURL);
+	  var createTask = __webpack_require__(30)(apiURL);
 	
 	  $container.on('click', '.timer .start', function () {
 	
@@ -453,7 +454,7 @@
 	
 	  $container.on('submit', '#save-task', function (event) {
 	    var timeInSeconds = timer.end();
-	    var getTasks = __webpack_require__(23)(apiURL).getTasks;
+	    var getTasks = __webpack_require__(24)(apiURL).getTasks;
 	
 	    timer.reset();
 	    event.preventDefault();
@@ -479,12 +480,12 @@
 	};
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(22)();
+	var utils = __webpack_require__(23)();
 	
 	module.exports = function (apiURL) {
 	
