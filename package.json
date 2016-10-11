@@ -8,7 +8,8 @@
     "test": "NODE_ENV=testing mocha \"server/**/*.test.js\"",
     "coverage": "NODE_ENV=testing istanbul cover _mocha \"server/**/*.test.js\" -- -R spec",
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "postinstall": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
