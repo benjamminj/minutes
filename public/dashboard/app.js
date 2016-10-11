@@ -420,9 +420,9 @@
 	module.exports = function () {
 	
 	  $(document).ready(function () {
-	    __webpack_require__(20)(('//localhost:5000/'));
-	    __webpack_require__(26)(('//localhost:5000/'));
-	    __webpack_require__(29)(('//localhost:5000/'));
+	    __webpack_require__(20)(('https://bjohnson-time-tracker.herokuapp.com/'));
+	    __webpack_require__(26)(('https://bjohnson-time-tracker.herokuapp.com/'));
+	    __webpack_require__(29)(('https://bjohnson-time-tracker.herokuapp.com/'));
 	  });
 	};
 
@@ -443,7 +443,7 @@
 	    var url = apiURL + 'user/logout';
 	
 	    $.get(url).done(function () {
-	      window.location = ('//localhost:5000/');
+	      window.location = ('https://bjohnson-time-tracker.herokuapp.com/');
 	    });
 	  });
 	

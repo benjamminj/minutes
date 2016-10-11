@@ -16,7 +16,7 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
-      API_URL: (process.env.NODE_ENV === 'production') ? '\'AAAAAA\'' : `'//localhost:5000/'`
+      API_URL: (process.env.NODE_ENV === 'production') ? '\'https://bjohnson-time-tracker.herokuapp.com/\'' : `'//localhost:5000/'`
     }),
     new extractTextPlugin('[name]style.css')
   ],
