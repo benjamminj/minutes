@@ -8,9 +8,7 @@ module.exports = function(apiURL) {
 
   $('button.logout').click(function() {
     let url = `${apiURL}user/logout`; 
-    console.log(url);
-
-    console.log('button click');
+    
     $.get(url)
       .done(() => {
         window.location = API_URL;
