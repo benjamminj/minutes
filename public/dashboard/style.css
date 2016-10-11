@@ -171,7 +171,9 @@ header #nav-buttons button:hover {
 }
 #tasks-container #no-tasks {
   margin: 70px;
-  font-size: 30px;
+  font-size: 14px;
+  opacity: 0.5;
+  text-align: center;
 }
 #tasks-container .task {
   padding: 20px 5px;
