@@ -5,6 +5,21 @@ Node app for simple time management
 
 MINUTES is a Node.js app that allows you to start a timer and save the end result with a title and description. This is perfect for habit tracking, billable hours, or any activity in which you may need to monitor *how long* you're doing what you're doing.
 
+### Installation
+##### Clone the repository
+`git clone https://github.com/benjaminj6/minutes-app.git`
+
+##### Install Dependencies
+`npm install`
+
+##### Start the app
+`npm start`
+
+*Make sure that you are running MongodDB before you start
+
+### Live Demo
+
+To view MINUTES in action, you can try out the Live Demo here. [add link] To sign in, use the username 'testuser' and the password 'testpassword'.
 ### API
 
 #### Endpoints
@@ -20,17 +35,6 @@ MINUTES is a Node.js app that allows you to start a timer and save the end resul
 | /tasks/edit/:id   | Edit a single task               | PUT    | <ul><li>title</li><li>description</li></ul>     | 
 \* indicates a required parameter
 
-### Installation
-##### Clone the repository
-`git clone https://github.com/benjaminj6/minutes-app.git`
-
-##### Install Dependencies
-`npm install`
-
-##### Start the app
-`npm start`
-
-*Make sure that you are running MongodDB before you start
 
 ### Run Tests
 All of the tests for MINUTES are written in Mocha using the Chai assertion library.
