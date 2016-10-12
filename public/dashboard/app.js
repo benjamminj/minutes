@@ -96,17 +96,10 @@
 	var timer = __webpack_require__(21);
 	var generate = __webpack_require__(22);
 	var utils = __webpack_require__(43)();
+	var toggleScroll = __webpack_require__(28);
 	
 	module.exports = function (apiURL) {
 	  var getTasks = __webpack_require__(45)(apiURL).getTasks;
-	
-	  $('button.logout').click(function () {
-	    var url = apiURL + 'user/logout';
-	
-	    $.get(url).done(function () {
-	      window.location = ('//localhost:5000/');
-	    });
-	  });
 	
 	  $('#nav-buttons .my-tasks').click(function () {
 	    timer.reset();
@@ -115,11 +108,22 @@
 	    $('#timer-container').hide().siblings('#tasks-container').show();
 	  });
 	
-	  // header
 	  $('#nav-buttons .new-task').click(function () {
 	    $('#tasks-container').hide();
 	    utils.toggleNav($(this));
 	    $('#timer-container').show().html(generate.timerHTML());
+	  });
+	
+	  $('.profile').click(function () {
+	    $('.profile-display').toggleClass('open');
+	  });
+	
+	  $('button.logout').click(function () {
+	    var url = apiURL + 'user/logout';
+	
+	    $.get(url).done(function () {
+	      window.location = ('//localhost:5000/');
+	    });
 	  });
 	};
 

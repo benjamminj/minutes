@@ -9,32 +9,36 @@ header {
   padding: @outside-margin @small-margin;
   .flex-row(center, center);
   flex-wrap: wrap;
+  position: fixed;
+  box-sizing: border-box;
+  top: 0;
+  width: 100vw;
 
   h1 {
    display: none; 
   }
 
-  .logout {
-    // display: none;
-    background-color: transparent;
-    border: none;
-    position: absolute;
-    right: @small-margin;
-    .grow;
+  // .logout {
+  //   display: none;
+  //   background-color: transparent;
+  //   border: none;
+  //   position: absolute;
+  //   right: @small-margin;
+  //   .grow;
 
-    i {
-      // .reset-link;
-      font-size: @header-content-large-font;
-    }
+  //   i {
+  //     // .reset-link;
+  //     font-size: @header-content-large-font;
+  //   }
 
-    h4 {
-      display: none;
-    }
+  //   h4 {
+  //     display: none;
+  //   }
 
-    &:hover {
-      .grow-hover;
-    }
-  }
+  //   &:hover {
+  //     .grow-hover;
+  //   }
+  // }
 
   #nav-buttons {
     font-size: 0;
@@ -69,6 +73,29 @@ header {
         background-color: @opaque-light-color;
       }
     }
+  }
+
+  .profile {
+    .invisible-button();
+    .flex-row(center, center);
+    position: fixed;
+    right: 10px;
+    i {
+      font-size: 28px;
+      
+    }
+    h4 {
+      display: none;
+    }
+  }
+  .profile-display {
+    display: none;
+  }
+  .profile-display.open {
+    .menu {
+      button {}
+    }
+    .page-overlay {}
   }
 
   .desktop(@header-desktop);
