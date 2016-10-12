@@ -9,7 +9,7 @@ let UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: {
-      validator: function(value) {
+      validator: (value) => {
         return !/[^A-Za-z0-9_@.]/g.test(value);
       },
       message: 'Value "{VALUE}" must be alphanumeric at path "{PATH}"'
@@ -26,10 +26,10 @@ UserSchema.methods.validatePassword = function(password) {
   let user = this;
   
   return new Promise(function(resolve, reject) {
-    bcrypt.compare(password, correctPassword, function(err, isValid) {
+    bcrypt.compare(password, correctPassword, (err, passwordIsValid) => {
       if (err) {
         reject(createError('ValidationError', err.message, 400));
-      } else if (isValid) {
+      } else if (passwordIsValid) {
         resolve(user);
       } else {
         resolve(null);

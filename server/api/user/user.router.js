@@ -1,8 +1,8 @@
 let express = require('express');
-
 let router = express.Router();
-let controller = require('./user.controller');
+
 let passport = require('passport');
+let controller = require('./user.controller');
 
 router.post('/login', 
   passport.authenticate('local', {

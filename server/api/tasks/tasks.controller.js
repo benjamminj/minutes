@@ -13,20 +13,6 @@ Controller.getAllTasks = function(req, res, next) {
     });
 };
 
-Controller.getOneTask = function(req, res, next) {
-  Task.findById(req.params.taskID)
-    .then(function(task) {
-      if (!task || !task.id) {
-        throw createError('NotFound', 'This task does not exist in the database!', 404);
-      } else {
-        res.status(200).json(task);
-      }
-    })
-    .catch(function(err) {
-      next(err);
-    });
-};
-
 Controller.deleteTask = function(req, res, next) {
   Task.findByIdAndRemove(req.params.taskID)
     .then(function(task) {
