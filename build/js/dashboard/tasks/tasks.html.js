@@ -10,9 +10,6 @@ module.exports = {
 
     return `
       <input type="text" class="title" value="${currentTitle}" placeholder="Title">
-      <!-- <h4 class="date">${date}</h4> -->
-      <!-- <h4 class="time">${time}</h4> -->
-      <!-- <h4 class="description-heading">Description</h4> -->
       <textarea name="" id="edit-description" cols="30" rows="4" placeholder="Add a Description">${formattedDescription}</textarea>  
       <div class="edit-buttons">
         <button class="cancel-changes">Cancel</button>
@@ -42,9 +39,9 @@ module.exports = {
         <h3 class="title">${title}</h3>
         <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>
         <div class="more-actions">
-          <button class="edit"><i class="fa fa-pencil"></i> Edit</button>
+          <button class="edit"><i class="fa fa-pencil"></i><h4>Edit</h4></button>
           <hr>
-          <button class="delete"><i class="fa fa-trash"></i> Delete</button>
+          <button class="delete"><i class="fa fa-trash"></i><h4>Delete</h4></button>
         </div>
         <div class="page-overlay"></div>
       </div>

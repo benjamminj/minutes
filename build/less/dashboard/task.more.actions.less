@@ -19,22 +19,36 @@
   left: 0;
   right: 0;
   border-radius: @edges;
+  padding-left: 20px;
 
   button {
     font-size: @medium-font-size;
     height: 40px;
     width: 100%;
     text-align: left;
+    margin: 5px;
     .invisible-button;
+    .flex-row(center, flex-start);
     .grow;
 
     &:hover {
       .small-grow-hover;
     }
+    h4 {
+      margin: 0 5px;
+    }
+
+    h4 {
+      .grow;
+
+      &:hover {
+        .small-grow-hover;
+      }
+    }
   }
 
   .desktop({
-    width: 700px;
+    width: 670px;
     margin-left: auto;
     margin-right: auto;
   })

@@ -19,21 +19,22 @@
       border: none;
       .grow;
       width: 100px;
+      font-size: 16px;
 
       &.current {
         background-color: transparent;
         color: fade(@main-text-color, 100%);
-        font-size: 22px;
+        font-size: 18px;
         &:hover {
           background-color: transparent;
-          color: @main-text-color;
+          color: fade(@main-text-color, 100%);
         }
       }
 
       &:hover {
         background-color: transparent;
-        color: @main-text-color;
-        .grow-hover;
+        color: fade(@main-text-color, 90%);
+        .small-grow-hover;
       }
     }
   }
