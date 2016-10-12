@@ -114,8 +114,26 @@
 	    $('#timer-container').show().html(generate.timerHTML());
 	  });
 	
+	  $(document).scroll(function () {
+	    var scrollPosition = $(this).scrollTop();
+	    var $header = $('header');
+	
+	    if (scrollPosition >= 30) {
+	      $header.addClass('dark');
+	    } else {
+	      $header.removeClass('dark');
+	    }
+	  });
+	
+	  var $profileDisplay = $('.profile-display');
 	  $('.profile').click(function () {
-	    $('.profile-display').toggleClass('open');
+	    $profileDisplay.toggleClass('open');
+	    toggleScroll();
+	  });
+	
+	  $('.page-overlay').click(function () {
+	    $profileDisplay.toggleClass('open');
+	    toggleScroll();
 	  });
 	
 	  $('button.logout').click(function () {
