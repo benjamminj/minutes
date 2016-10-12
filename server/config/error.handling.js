@@ -1,7 +1,8 @@
+let debug = require('debug')('debug:errors');
 const winston = require('winston');
 
 module.exports = function(app) {
-  
+
   app.use(function(err, req, res, next) {
     if (err.name === 'ValidationError') {
       winston.warn(err);
@@ -35,7 +36,7 @@ module.exports = function(app) {
   app.use(function(err, req, res, next) {
     if (err) {
       winston.warn(err);
-      res.status(err.status).json({name: err.name, message: err.message});
+      res.status(err.status).json({ name: err.name, message: err.message });
     }
   });
 };

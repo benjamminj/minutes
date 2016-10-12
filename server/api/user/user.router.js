@@ -5,11 +5,11 @@ let controller = require('./user.controller');
 let passport = require('passport');
 
 router.post('/login', 
-	passport.authenticate('local', {
-		successRedirect: '/user/login/me',
-		failureRedirect: '/user/login/unauthorized',
-		failureFlash: true
-	})
+  passport.authenticate('local', {
+    successRedirect: '/user/login/me',
+    failureRedirect: '/user/login/unauthorized',
+    failureFlash: true
+  })
 );
 
 router.get('/login/unauthorized', controller.unauthorized);

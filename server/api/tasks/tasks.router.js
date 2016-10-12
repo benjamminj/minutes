@@ -7,7 +7,6 @@ let controller = require('./tasks.controller');
 router.use(isLoggedIn);
 
 router.get('/', controller.getAllTasks);
-router.get('/id:taskID', controller.getOneTask);
 router.delete('/delete/:taskID', controller.deleteTask);
 router.post('/create', controller.createTask);
 router.put('/edit/:taskID', controller.editTask);
