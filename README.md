@@ -29,16 +29,25 @@ MINUTES is a Node.js app that allows you to start a timer and save the end resul
 
 ##### Start the app
 `npm start`
+
 *Make sure that you are running MongodDB before you start
 
 ### Run Tests
 All of the tests for MINUTES are written in Mocha using the Chai assertion library.
+
 `$ npm test`
 
 ### Coverage Reports
 Coverage reports are generated via Istanbul.
 
 `$ npm run coverage`
+
+### Builds
+##### Run a frontend build
+`npm run build`
+
+Alternatively, you can also set a watch command using `npm run watch` to start continuous builds.
+To run a production build simply use the `npm run build:prod` command.
 
 ### Technologies Used
 
