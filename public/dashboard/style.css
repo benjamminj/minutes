@@ -335,6 +335,11 @@ header #nav-buttons button:hover {
   top: -11px;
   right: 7px;
 }
+@media only screen and (min-width: 700px) {
+  #tasks-container .task .more-actions.open:after {
+    right: 12px;
+  }
+}
 #tasks-container .task .editing .title {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
