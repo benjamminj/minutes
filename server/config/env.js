@@ -1,4 +1,4 @@
-module.exports = function(env) {
+module.exports = (env) => {
   switch (env.NODE_ENV) {
     case 'production':
       {
