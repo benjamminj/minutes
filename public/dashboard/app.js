@@ -46,8 +46,8 @@
 
 	'use strict';
 	
-	__webpack_require__(15);
-	__webpack_require__(19)();
+	__webpack_require__(14);
+	__webpack_require__(18)();
 
 /***/ },
 /* 1 */,
@@ -63,17 +63,16 @@
 /* 11 */,
 /* 12 */,
 /* 13 */,
-/* 14 */,
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
+/* 15 */,
 /* 16 */,
 /* 17 */,
-/* 18 */,
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81,23 +80,23 @@
 	module.exports = function () {
 	
 	  $(document).ready(function () {
-	    __webpack_require__(20)(('//localhost:5000/'));
-	    __webpack_require__(26)(('//localhost:5000/'));
-	    __webpack_require__(29)(('//localhost:5000/'));
+	    __webpack_require__(19)(('https://bjohnson-time-tracker.herokuapp.com/'));
+	    __webpack_require__(27)(('https://bjohnson-time-tracker.herokuapp.com/'));
+	    __webpack_require__(29)(('https://bjohnson-time-tracker.herokuapp.com/'));
 	  });
 	};
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(21);
-	var generate = __webpack_require__(22);
-	var toggleNav = __webpack_require__(43)().toggleNav;
-	var toggleScroll = __webpack_require__(28);
-	var router = __webpack_require__(46);
+	var timer = __webpack_require__(20);
+	var generate = __webpack_require__(21);
+	var toggleNav = __webpack_require__(22)().toggleNav;
+	var toggleScroll = __webpack_require__(23);
+	var router = __webpack_require__(24);
 	
 	module.exports = function () {
 	
@@ -143,13 +142,13 @@
 	
 	  $('button.logout').click(function () {
 	    router.logout().then(function () {
-	      window.location = ('//localhost:5000/');
+	      window.location = ('https://bjohnson-time-tracker.herokuapp.com/');
 	    });
 	  });
 	};
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -182,12 +181,12 @@
 	};
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(43)();
+	var utils = __webpack_require__(22)();
 	
 	module.exports = {
 	  timerHTML: function timerHTML() {
@@ -217,14 +216,123 @@
 	};
 
 /***/ },
-/* 23 */,
-/* 24 */,
+/* 22 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function (rootURL) {
+	  return {
+	    getValue: function getValue(selector) {
+	      return $(selector).val();
+	    },
+	    emptyForm: function emptyForm(formElements) {
+	      formElements.forEach(function (element) {
+	        $(element).val('');
+	      });
+	    },
+	    redirectToLogin: function redirectToLogin(location) {
+	      window.location = location || rootURL;
+	    },
+	    addLeadingZeroes: function addLeadingZeroes(number) {
+	      return ('0' + number).slice(-2);
+	    },
+	    toggleNav: function toggleNav($button) {
+	      if (!$button.hasClass('current')) {
+	        $button.toggleClass('current').siblings().toggleClass('current');
+	      }
+	    }
+	  };
+	};
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = function () {
+	  $('body').toggleClass('no-scroll');
+	};
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Router = {};
+	
+	Router.getTasks = __webpack_require__(25)(('https://bjohnson-time-tracker.herokuapp.com/')).getTasks;
+	Router.logout = function () {
+	  return $.get(('https://bjohnson-time-tracker.herokuapp.com/') + 'user/logout');
+	};
+	
+	module.exports = Router;
+
+/***/ },
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timeHTML = __webpack_require__(22);
+	var generate = __webpack_require__(26);
+	
+	module.exports = function (apiURL) {
+	  var utils = __webpack_require__(22)(apiURL);
+	
+	  return {
+	    getTasks: function getTasks() {
+	      var url = apiURL + 'tasks/';
+	      $.getJSON(url).done(function (tasks) {
+	        $('#tasks-container').html('');
+	
+	        if (!tasks.length) {
+	          $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. Click \'New\' to get started.</h3>');
+	        }
+	
+	        tasks.forEach(function (task) {
+	          $('#tasks-container').prepend(generate.taskHTML(task));
+	        });
+	      }).fail(function () {
+	        utils.redirectToLogin();
+	      });
+	    },
+	    editTask: function editTask(id, edits, callback) {
+	
+	      var title = edits.children('.title').val() || undefined;
+	      var description = edits.children('#edit-description').val() || undefined;
+	
+	      $.ajax({
+	        url: apiURL + 'tasks/edit/' + id,
+	        type: 'PUT',
+	        data: { title: title, description: description }
+	      }).done(function (editedTask) {
+	        callback(null, editedTask);
+	      }).fail(function (err) {
+	        callback(err);
+	      });
+	    },
+	    deleteTask: function deleteTask(id) {
+	      var url = apiURL + 'tasks/delete/' + id;
+	
+	      $.ajax({
+	        url: url,
+	        type: 'DELETE'
+	      }).done(function () {
+	        $('#' + id).remove();
+	      });
+	    }
+	  };
+	};
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var timeHTML = __webpack_require__(21);
 	
 	module.exports = {
 	  editTaskHTML: function editTaskHTML(task) {
@@ -250,17 +358,17 @@
 	};
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(25);
-	var onClick = __webpack_require__(27);
-	var toggleScroll = __webpack_require__(28);
+	var generate = __webpack_require__(26);
+	var onClick = __webpack_require__(28);
+	var toggleScroll = __webpack_require__(23);
 	
 	module.exports = function (apiURL) {
-	  var router = __webpack_require__(45)(apiURL);
+	  var router = __webpack_require__(25)(apiURL);
 	  var $container = $('#tasks-container');
 	
 	  router.getTasks();
@@ -316,7 +424,7 @@
 	};
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -326,24 +434,14 @@
 	};
 
 /***/ },
-/* 28 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function () {
-	  $('body').toggleClass('no-scroll');
-	};
-
-/***/ },
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(21);
-	var utils = __webpack_require__(43)();
-	var generate = __webpack_require__(22);
+	var timer = __webpack_require__(20);
+	var utils = __webpack_require__(22)();
+	var generate = __webpack_require__(21);
 	
 	module.exports = function (apiURL) {
 	  var $container = $('#timer-container');
@@ -394,12 +492,12 @@
 	
 	  $container.on('submit', '#save-task', function (event) {
 	    var timeInSeconds = timer.end();
-	    var getTasks = __webpack_require__(45)(apiURL).getTasks;
+	    var getTasks = __webpack_require__(25)(apiURL).getTasks;
 	
 	    timer.reset();
 	    event.preventDefault();
 	
-	    var createTask = __webpack_require__(44)(apiURL);
+	    var createTask = __webpack_require__(30)(apiURL);
 	    createTask(timeInSeconds).then(function () {
 	      $container.hide().siblings('#tasks-container').show();
 	      toggleNav();
@@ -420,55 +518,12 @@
 	};
 
 /***/ },
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = function (rootURL) {
-	  return {
-	    getValue: function getValue(selector) {
-	      return $(selector).val();
-	    },
-	    emptyForm: function emptyForm(formElements) {
-	      formElements.forEach(function (element) {
-	        $(element).val('');
-	      });
-	    },
-	    redirectToLogin: function redirectToLogin(location) {
-	      window.location = location || rootURL;
-	    },
-	    addLeadingZeroes: function addLeadingZeroes(number) {
-	      return ('0' + number).slice(-2);
-	    },
-	    toggleNav: function toggleNav($button) {
-	      if (!$button.hasClass('current')) {
-	        $button.toggleClass('current').siblings().toggleClass('current');
-	      }
-	    }
-	  };
-	};
-
-/***/ },
-/* 44 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(43)();
+	var utils = __webpack_require__(22)();
 	
 	module.exports = function (apiURL) {
 	
@@ -482,77 +537,6 @@
 	    return $.post(url, data);
 	  };
 	};
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var generate = __webpack_require__(25);
-	
-	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(43)(apiURL);
-	
-	  return {
-	    getTasks: function getTasks() {
-	      var url = apiURL + 'tasks/';
-	      $.getJSON(url).done(function (tasks) {
-	        $('#tasks-container').html('');
-	
-	        if (!tasks.length) {
-	          $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. Click \'New\' to get started.</h3>');
-	        }
-	
-	        tasks.forEach(function (task) {
-	          $('#tasks-container').prepend(generate.taskHTML(task));
-	        });
-	      }).fail(function () {
-	        utils.redirectToLogin();
-	      });
-	    },
-	    editTask: function editTask(id, edits, callback) {
-	
-	      var title = edits.children('.title').val() || undefined;
-	      var description = edits.children('#edit-description').val() || undefined;
-	
-	      $.ajax({
-	        url: apiURL + 'tasks/edit/' + id,
-	        type: 'PUT',
-	        data: { title: title, description: description }
-	      }).done(function (editedTask) {
-	        callback(null, editedTask);
-	      }).fail(function (err) {
-	        callback(err);
-	      });
-	    },
-	    deleteTask: function deleteTask(id) {
-	      var url = apiURL + 'tasks/delete/' + id;
-	
-	      $.ajax({
-	        url: url,
-	        type: 'DELETE'
-	      }).done(function () {
-	        $('#' + id).remove();
-	      });
-	    }
-	  };
-	};
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Router = {};
-	
-	Router.getTasks = __webpack_require__(45)(('//localhost:5000/')).getTasks;
-	Router.logout = function () {
-	  return $.get(('//localhost:5000/') + 'user/logout');
-	};
-	
-	module.exports = Router;
 
 /***/ }
 /******/ ]);

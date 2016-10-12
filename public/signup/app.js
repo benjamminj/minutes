@@ -61,7 +61,7 @@
 	
 	Router.login = function (request) {
 	  return $.post({
-	    url: ('//localhost:5000/') + 'user/login',
+	    url: ('https://bjohnson-time-tracker.herokuapp.com/') + 'user/login',
 	    data: request,
 	    dataType: 'json'
 	  });
@@ -114,7 +114,7 @@
 	var Controller = {};
 	
 	Controller.signup = function (request) {
-	  $.post(('//localhost:5000/') + 'user/signup', request).done(function () {
+	  $.post(('https://bjohnson-time-tracker.herokuapp.com/') + 'user/signup', request).done(function () {
 	    loginRequest(request);
 	  });
 	};

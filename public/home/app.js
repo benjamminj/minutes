@@ -64,7 +64,7 @@
 
 	'use strict';
 	
-	var swapIcons = __webpack_require__(47);
+	var swapIcons = __webpack_require__(34);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
@@ -80,7 +80,7 @@
 
 /***/ },
 
-/***/ 47:
+/***/ 34:
 /***/ function(module, exports) {
 
 	"use strict";

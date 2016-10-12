@@ -73,7 +73,7 @@
 	      var request = { username: $('#username').val(), password: $('#password').val() };
 	
 	      router.login(request).then(function () {
-	        window.location = ('//localhost:5000/') + 'dashboard';
+	        window.location = ('https://bjohnson-time-tracker.herokuapp.com/') + 'dashboard';
 	      }).catch(function (err) {
 	        if (err.status === 401) {
 	          var message = err.responseJSON.message;
@@ -95,7 +95,7 @@
 	
 	Router.login = function (request) {
 	  return $.post({
-	    url: ('//localhost:5000/') + 'user/login',
+	    url: ('https://bjohnson-time-tracker.herokuapp.com/') + 'user/login',
 	    data: request,
 	    dataType: 'json'
 	  });
