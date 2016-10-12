@@ -12,7 +12,7 @@ module.exports = (apiURL) => {
   containerClick('.more', function() {
     $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
     toggleScroll();
-  })
+  });
 
   function containerClick(child, callback) {
     return onClick($container, child, callback);

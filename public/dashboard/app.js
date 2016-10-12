@@ -95,25 +95,30 @@
 	
 	var timer = __webpack_require__(21);
 	var generate = __webpack_require__(22);
-	var utils = __webpack_require__(43)();
+	var toggleNav = __webpack_require__(43)().toggleNav;
 	var toggleScroll = __webpack_require__(28);
 	var router = __webpack_require__(46);
 	
-	module.exports = function (apiURL) {
+	module.exports = function () {
 	
-	  $('#nav-buttons .my-tasks').click(function () {
+	  var $tasksContainer = $('#tasks-container');
+	  var $timerContainer = $('#timer-container');
+	
+	  $('.my-tasks').click(function () {
 	    timer.reset();
 	    router.getTasks();
-	    utils.toggleNav($(this));
-	    $('#timer-container').hide().siblings('#tasks-container').show();
+	    toggleNav($(this));
+	    $timerContainer.hide();
+	    $tasksContainer.show();
 	  });
 	
-	  $('#nav-buttons .new-task').click(function () {
-	    $('#tasks-container').hide();
-	    utils.toggleNav($(this));
-	    $('#timer-container').show().html(generate.timerHTML());
+	  $('.new-task').click(function () {
+	    $tasksContainer.hide();
+	    toggleNav($(this));
+	    $timerContainer.show().html(generate.timerHTML());
 	  });
 	
+	  // Make the header dark when the user scrolls past a certain point
 	  $(document).scroll(function () {
 	    var scrollPosition = $(this).scrollTop();
 	    var $header = $('header');
@@ -226,8 +231,6 @@
 	    var currentTitle = task.find('.title').html();
 	    var currentDescription = task.children('.description').html() || '';
 	    var formattedDescription = currentDescription.replace('<br>', '\n');
-	    var time = task.children('.time').html();
-	    var date = task.find('.date').html();
 	
 	    return '\n      <input type="text" class="title" value="' + currentTitle + '" placeholder="Title">\n      <textarea name="" id="edit-description" cols="30" rows="4" placeholder="Add a Description">' + formattedDescription + '</textarea>  \n      <div class="edit-buttons">\n        <button class="cancel-changes">Cancel</button>\n        <button class="save-changes">Save</button>        \n      </div>  \n    ';
 	  },
@@ -242,7 +245,7 @@
 	      description = description.replace(/\n/g, '<br>');
 	    }
 	
-	    return '\n      <div class="task-heading">\n        <h3 class="title">' + title + '</h3>\n        <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>\n        <div class="more-actions">\n          <button class="edit"><i class="fa fa-pencil"></i><h4>Edit</h4></button>\n          <hr>\n          <button class="delete"><i class="fa fa-trash"></i><h4>Delete</h4></button>\n        </div>\n        <div class="page-overlay"></div>\n      </div>\n      <h4 class="date">' + date + '</h4>\n      <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n    ';
+	    return '\n      <div class="task-heading">\n        <h3 class="title">' + title + '</h3>\n        <button class="more"><i class="material-icons" aria-label="More">expand_more</i></button>\n        <div class="more-actions">\n          <button class="edit"><i class="material-icons">mode_edit</i><h4>Edit</h4></button>\n          <hr>\n          <button class="delete"><i class="material-icons">delete_forever</i><h4>Delete</h4></button>\n        </div>\n        <div class="page-overlay"></div>\n      </div>\n      <h4 class="date">' + date + '</h4>\n      <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n    ';
 	  }
 	};
 

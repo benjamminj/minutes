@@ -24,6 +24,10 @@ body {
 .no-scroll {
   overflow: hidden;
 }
+.material-icons {
+  font-size: inherit;
+  vertical-align: inherit;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -34,6 +38,7 @@ body {
 }
 .logo {
   margin: 0;
+  font-size: 40px;
 }
 header {
   margin-top: 15vh;
@@ -46,6 +51,13 @@ form {
   min-width: 50vw;
   max-width: 80vw;
 }
+form .field-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
 form input {
   height: 50px;
   width: 90%;
@@ -53,8 +65,7 @@ form input {
   border: none;
   background-color: #ffffff;
   color: rgba(0, 0, 0, 0.4);
-  font-family: FontAwesome, sans-serif;
-  padding: 0 5%;
+  padding: 0 25px;
 }
 form input:focus {
   outline: none;
@@ -64,6 +75,12 @@ form input.top {
 }
 form input.bottom {
   border-radius: 0 0 2px 2px;
+}
+form .form-icon {
+  color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  width: 20px;
+  padding-left: 5px;
 }
 form hr {
   margin: 0;

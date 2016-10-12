@@ -19,7 +19,7 @@ MINUTES is a Node.js app that allows you to start a timer and save the end resul
 
 ### Live Demo
 
-To view MINUTES in action, you can try out the Live Demo here. [add link] To sign in, use the username 'testuser' and the password 'testpassword'.
+To view MINUTES in action, you can try out the Live Demo here. [add link] To sign in, use the username 'testuser' and the password 'password123'.
 ### API
 
 #### Endpoints

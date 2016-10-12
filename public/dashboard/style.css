@@ -24,6 +24,10 @@ body {
 .no-scroll {
   overflow: hidden;
 }
+.material-icons {
+  font-size: inherit;
+  vertical-align: inherit;
+}
 header {
   display: inline-block;
   vertical-align: middle;

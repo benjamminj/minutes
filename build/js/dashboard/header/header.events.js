@@ -1,24 +1,29 @@
 let timer = require('../timer/timer');
 let generate = require('../timer/timer.html');
-let utils = require('../dashboard.utils')();
+let toggleNav = require('../dashboard.utils')().toggleNav;
 let toggleScroll = require('../../utils/no.scroll');
 let router = require('./header.router');
 
-module.exports = function(apiURL) {
+module.exports = function() {
 
-  $('#nav-buttons .my-tasks').click(function() {
+  let $tasksContainer = $('#tasks-container');
+  let $timerContainer = $('#timer-container');
+
+  $('.my-tasks').click(function() {
     timer.reset();
     router.getTasks();
-    utils.toggleNav($(this));
-    $('#timer-container').hide().siblings('#tasks-container').show();
+    toggleNav($(this));
+    $timerContainer.hide();
+    $tasksContainer.show();
   });
 
-  $('#nav-buttons .new-task').click(function() {
-    $('#tasks-container').hide();
-    utils.toggleNav($(this));
-    $('#timer-container').show().html(generate.timerHTML());
+  $('.new-task').click(function() {
+    $tasksContainer.hide();
+    toggleNav($(this));
+    $timerContainer.show().html(generate.timerHTML());
   });
 
+  // Make the header dark when the user scrolls past a certain point
   $(document).scroll(function() {
     let scrollPosition = $(this).scrollTop();
     let $header = $('header');

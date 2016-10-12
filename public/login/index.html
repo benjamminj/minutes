@@ -7,6 +7,7 @@
   <title>Time Tracker | Log In</title>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,9 +21,15 @@
   </header>
   <main>
     <form action="" id="login-form" class="form">
-      <input type="text" id="username" class="top" placeholder="&#xf007; Username">
+      <div class="field-wrapper">
+        <input type="text" id="username" class="top" placeholder="Username">
+        <i class="material-icons form-icon">person_outline</i>
+      </div>
       <hr>
-      <input type="password" id="password" class="bottom" placeholder="&#xf023; Password">
+      <div class="field-wrapper">
+        <input type="password" id="password" class="bottom" placeholder="Password">
+        <i class="material-icons form-icon">lock_outline</i>
+      </div>
       <button type="submit">Log In</button>
     </form>
     <div class="sign-up-prompt">
