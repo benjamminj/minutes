@@ -14,10 +14,10 @@ button:focus {
   outline: none;
 }
 body {
-  background-color: #00dbde;
+  background-color: #4384e3;
   background-size: contain;
-  background-image: -webkit-radial-gradient(0 0, circle, #00dbde, #8d61f1);
-  background-image: radial-gradient(circle at 0 0, #00dbde, #8d61f1);
+  background-image: -webkit-radial-gradient(0 0, circle, #4384e3, #87d7cd);
+  background-image: radial-gradient(circle at 0 0, #4384e3, #87d7cd);
   min-height: 100vh;
   margin: 0;
 }
@@ -99,11 +99,11 @@ header #nav-buttons button.right {
 }
 header #nav-buttons button.current {
   background-color: rgba(255, 255, 255, 0.8);
-  color: #717cf6;
+  color: #559add;
 }
 header #nav-buttons button.current:hover {
   background-color: rgba(255, 255, 255, 0.8);
-  color: #717cf6;
+  color: #559add;
 }
 header #nav-buttons button:hover {
   background-color: #2098d1;
@@ -119,6 +119,18 @@ header #nav-buttons button i {
   padding-right: 5px;
 }
 header .profile {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
   border: none;
   background-color: transparent;
   display: flex;
@@ -133,6 +145,11 @@ header .profile i {
 }
 header .profile h4 {
   display: none;
+}
+header .profile:hover {
+  -webkit-transform: scale(1.01);
+  transform: scale(1.01);
+  color: rgba(255, 255, 255, 0.9);
 }
 header .profile-display {
   display: none;
@@ -167,8 +184,24 @@ header .profile-display.open .menu button {
   padding: 0 30px;
 }
 header .profile-display.open .menu button h4 {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
   color: inherit;
   font-size: 20px;
+}
+header .profile-display.open .menu button h4:hover {
+  -webkit-transform: scale(1.01);
+  transform: scale(1.01);
 }
 header .profile-display.open .menu:after {
   content: '';
@@ -194,13 +227,13 @@ header .profile-display.open .page-overlay {
   header h1 {
     display: block;
     flex-grow: 1;
+    margin: 0;
   }
   header #nav-buttons {
     width: 250px;
     justify-content: flex-end;
   }
   header #nav-buttons button {
-    border: none;
     display: inline-block;
     vertical-align: middle;
     -webkit-transform: translateZ(0);
@@ -213,6 +246,8 @@ header .profile-display.open .page-overlay {
     transition-duration: 0.3s;
     -webkit-transition-property: transform;
     transition-property: transform;
+    display: flex;
+    border: none;
     width: 100px;
     font-size: 16px;
   }
@@ -231,17 +266,24 @@ header .profile-display.open .page-overlay {
     -webkit-transform: scale(1.01);
     transform: scale(1.01);
   }
-  header .logout {
+  header #nav-buttons button i {
+    font-size: inherit;
+  }
+  header .profile {
     position: static;
-    width: 100px;
+    font-size: 16px;
   }
-  header .logout i {
-    display: none;
-  }
-  header .logout h4 {
-    font-size: 20px;
-    margin: 0;
+  header .profile h4 {
     display: inline-flex;
+    margin: 0;
+  }
+  header .profile i {
+    font-size: inherit;
+    padding-right: 5px;
+  }
+  header .profile-display.open .menu {
+    width: 200px;
+    right: 15px;
   }
 }
 #tasks-container #no-tasks {
@@ -526,8 +568,6 @@ header .profile-display.open .page-overlay {
   justify-content: space-between;
 }
 #timer-container .timer-buttons button {
-  width: 48%;
-  font-size: 20px;
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: translateZ(0);
@@ -541,6 +581,10 @@ header .profile-display.open .page-overlay {
   transition-duration: 0.3s;
   -webkit-transition-property: color, background-color;
   transition-property: color, background-color;
+  width: 48%;
+  font-size: 20px;
+  transform: none;
+  -webkit-transform: none;
 }
 #timer-container .timer-buttons button:hover {
   background-color: #2098d1;

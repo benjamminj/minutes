@@ -20,24 +20,6 @@ header {
   h1 {
     display: none;
   }
-  // .logout {
-  //   display: none;
-  //   background-color: transparent;
-  //   border: none
-    //   position: absolute;
-  //   right: @small-margin;
-  //   .grow;
-  //   i {
-  //     // .reset-link;
-  //     font-size: @header-content-large-font;
-  //   }
-  //   h4 {
-  //     display: none;
-  //   }
-  //   &:hover {
-  //     .grow-hover;
-  //   }
-  // }
   #nav-buttons {
     font-size: 0;
     width: 60%;
@@ -48,7 +30,6 @@ header {
       font-size: @medium-font-size;
       width: 50%;
       .flex-row(center, center);
-
       &.left {
         border-radius: @edges 0 0 @edges;
       }
@@ -65,7 +46,8 @@ header {
         .fade-hover;
         background-color: @opaque-light-color;
       }
-      h4, i {
+      h4,
+      i {
         color: inherit;
         margin: 0;
       }
@@ -75,6 +57,7 @@ header {
     }
   }
   .profile {
+    .grow;
     .invisible-button();
     .flex-row(center, center);
     position: fixed;
@@ -85,12 +68,14 @@ header {
     h4 {
       display: none;
     }
+    &:hover {
+      .small-grow-hover;
+      color: fade(@main-text-color, 90%);
+    }
   }
-
   .profile-display {
     display: none;
   }
-
   .profile-display.open {
     display: block;
     position: absolute;
@@ -99,8 +84,6 @@ header {
     right: 0;
     height: 100vh;
     width: 100vw;
-    
-
     .menu {
       width: 100%;
       display: flex;
@@ -111,7 +94,6 @@ header {
       top: 70px;
       z-index: 999;
       background-color: #fff;
-
       button {
         color: fade(#000, 80%);
         background-color: inherit;
@@ -119,14 +101,16 @@ header {
         width: 100%;
         text-align: left;
         padding: 0 30px;
-
         h4 {
+          .grow;
           color: inherit;
           font-size: 20px;
+          &:hover {
+            .small-grow-hover;
+          }
         }
       }
     }
-
     .menu:after {
       content: '';
       position: absolute;
@@ -137,7 +121,6 @@ header {
       top: -11px;
       right: 12px;
     }
-
     .page-overlay {
       background-color: fade(#000, 80%);
       height: 100%;
@@ -145,11 +128,5 @@ header {
     }
   }
 
-  .profile-display.open {
-    .menu {
-      button {}
-    }
-    .page-overlay {}
-  }
   .desktop(@header-desktop);
 }
