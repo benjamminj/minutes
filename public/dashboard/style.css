@@ -545,7 +545,6 @@ header .profile-display.open .page-overlay {
   flex-direction: column;
   width: 90%;
   align-items: center;
-  /* justify-content: center; */
   margin: 0 auto;
   padding-top: 15%;
 }
@@ -563,7 +562,6 @@ header .profile-display.open .page-overlay {
 #timer-container .timer-buttons {
   width: 90%;
   margin-top: 20px;
-  /* padding: 0 10%; */
   display: flex;
   justify-content: space-between;
 }

@@ -4,7 +4,6 @@
 
 .set-general(@background-gradient-1);
 @import './dashboard.header.less';
-
 #tasks-container {
   @import './task.less';
 }
@@ -13,22 +12,21 @@
   @import './timer.less';
 }
 
-#tasks-container, #timer-container {
+#tasks-container,
+#timer-container {
   margin-top: 80px;
-
-  .desktop({
-    margin-top: 150px;  
-  })
+  .desktop( {
+    margin-top: 150px;
+  }
+  )
 }
 
 main {
   min-height: 65vh;
-  .desktop({
+  .desktop( {
     width: 700px;
     margin-left: auto;
     margin-right: auto;
-  })
+  }
+  )
 }
-
-@import './logout.less';
-  

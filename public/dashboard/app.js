@@ -97,13 +97,13 @@
 	var generate = __webpack_require__(22);
 	var utils = __webpack_require__(43)();
 	var toggleScroll = __webpack_require__(28);
+	var router = __webpack_require__(46);
 	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(45)(apiURL).getTasks;
 	
 	  $('#nav-buttons .my-tasks').click(function () {
 	    timer.reset();
-	    getTasks();
+	    router.getTasks();
 	    utils.toggleNav($(this));
 	    $('#timer-container').hide().siblings('#tasks-container').show();
 	  });
@@ -137,9 +137,7 @@
 	  });
 	
 	  $('button.logout').click(function () {
-	    var url = apiURL + 'user/logout';
-	
-	    $.get(url).done(function () {
+	    router.logout().then(function () {
 	      window.location = ('//localhost:5000/');
 	    });
 	  });
@@ -537,6 +535,21 @@
 	    }
 	  };
 	};
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Router = {};
+	
+	Router.getTasks = __webpack_require__(45)(('//localhost:5000/')).getTasks;
+	Router.logout = function () {
+	  return $.get(('//localhost:5000/') + 'user/logout');
+	};
+	
+	module.exports = Router;
 
 /***/ }
 /******/ ]);

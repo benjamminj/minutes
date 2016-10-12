@@ -2,13 +2,13 @@ let timer = require('../timer/timer');
 let generate = require('../timer/timer.html');
 let utils = require('../dashboard.utils')();
 let toggleScroll = require('../../utils/no.scroll');
+let router = require('./header.router');
 
 module.exports = function(apiURL) {
-  let getTasks = require('../tasks/tasks.router')(apiURL).getTasks;
 
   $('#nav-buttons .my-tasks').click(function() {
     timer.reset();
-    getTasks();
+    router.getTasks();
     utils.toggleNav($(this));
     $('#timer-container').hide().siblings('#tasks-container').show();
   });
@@ -42,10 +42,8 @@ module.exports = function(apiURL) {
   });
 
   $('button.logout').click(function() {
-    let url = `${apiURL}user/logout`; 
-    
-    $.get(url)
-      .done(() => {
+    router.logout()
+      .then(() => {
         window.location = API_URL;
       });
   });
