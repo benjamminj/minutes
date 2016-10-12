@@ -44,10 +44,11 @@ header {
     .fade;
     .flex-row(center, center);
     button {
-      // .medium-font-size();
-      font-size: @medium-font-size;
       .transparent-button(@main-text-color, @short-button-size);
+      font-size: @medium-font-size;
       width: 50%;
+      .flex-row(center, center);
+
       &.left {
         border-radius: @edges 0 0 @edges;
       }
@@ -63,6 +64,13 @@ header {
       &:hover {
         .fade-hover;
         background-color: @opaque-light-color;
+      }
+      h4, i {
+        color: inherit;
+        margin: 0;
+      }
+      i {
+        padding-right: 5px;
       }
     }
   }
