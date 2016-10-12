@@ -29,7 +29,6 @@ module.exports = {
     `;
   },
 
-  // TO DO -- refactor so that it only takes a single task as an arg.
   innerTaskHTML(title, date, time, description) {
     date = (new Date(date)).toDateString();
     if (!description) {

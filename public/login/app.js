@@ -64,7 +64,7 @@
 
 	'use strict';
 	
-	var controller = __webpack_require__(38);
+	var router = __webpack_require__(38);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
@@ -72,8 +72,14 @@
 	      event.preventDefault();
 	      var request = { username: $('#username').val(), password: $('#password').val() };
 	
-	      controller.login(request);
-	      // loginRequest(request);
+	      router.login(request).then(function () {
+	        window.location = ('//localhost:5000/') + 'dashboard';
+	      }).catch(function (err) {
+	        if (err.status === 401) {
+	          var message = err.responseJSON.message;
+	          $('header h3').html(message + '. Please try again').addClass('unauthorized');
+	        }
+	      });
 	    });
 	  });
 	};
@@ -83,17 +89,23 @@
 /***/ 38:
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	var Controller = {};
+	var Router = {};
 	
-	Controller.login = function (request) {
-	  $.post(('https://bjohnson-time-tracker.herokuapp.com/') + "user/login", request).done(function () {
-	    window.location = ('https://bjohnson-time-tracker.herokuapp.com/') + "dashboard";
+	Router.login = function (request) {
+	  return $.post({
+	    url: ('//localhost:5000/') + 'user/login',
+	    data: request,
+	    dataType: 'json'
 	  });
+	
+	  // .done(() => {
+	  //   window.location = `${API_URL}dashboard`;
+	  // });
 	};
 	
-	module.exports = Controller;
+	module.exports = Router;
 
 /***/ }
 

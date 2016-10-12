@@ -68,7 +68,6 @@
 	
 	module.exports = function () {
 	  $(document).ready(function () {
-	    console.log('Hey there');
 	
 	    $('.menu-icon').click(function () {
 	      var $this = $(this);

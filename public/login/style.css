@@ -38,6 +38,9 @@ body {
 header {
   margin-top: 15vh;
 }
+header h3.unauthorized {
+  color: #fe5151;
+}
 form {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-let loginRequest = require('../login/login.controller').login;
+let loginRequest = require('../login/login.router').login;
 
 let Controller = {};
 

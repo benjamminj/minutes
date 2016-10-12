@@ -3,61 +3,63 @@ let createError = require('../../utils/create.error');
 
 let Controller = {};
 
-Controller.getAllTasks = function(req, res, next) {
+Controller.getAllTasks = (req, res, next) => {
   Task.find({ _owner: req.user.id })
-    .then(function(tasks) {
+    .then((tasks) => {
       res.status(200).json(tasks);
     })
-    .catch(function(err) {
+    .catch((err) => {
       next(err);
     });
 };
 
-Controller.deleteTask = function(req, res, next) {
+Controller.deleteTask = (req, res, next) => {
   Task.findByIdAndRemove(req.params.taskID)
-    .then(function(task) {
+    .then((task) => {
       if (!task) {
         throw createError('NotFound', 'This task does not exist in the database!', 404);
       } else {
         res.status(200).end();
       }
-    }).catch(function(err) {
+    }).catch((err) => {
       next(err);
     });
 };
 
-Controller.createTask = function(req, res, next) {
+Controller.createTask = (req, res, next) => {
   Task.create({
     _owner: req.user.id,
     title: req.body.title,
     time: req.body.time,
     description: req.body.description
-  }).then(function(task) {
+  }).then((task) => {
     res.status(201).json(task);
-  }).catch(function(err) {
+  }).catch((err) => {
     next(err);
   });
 };
 
-Controller.editTask = function(req, res, next) {
+Controller.editTask = (req, res, next) => {
   let edits = {};
 
+  // Only adds title to the edits object if it exists
   if (req.body.title) {
     edits.title = req.body.title;
   }
 
+  // Only adds description to the edits object if it exists
   if (req.body.description) {
     edits.description = req.body.description;
   }
 
   Task.findByIdAndUpdate(req.params.taskID, edits, { runValidators: true, new: true })
-    .then(function(task) {
+    .then((task) => {
       if (!task) {
         throw createError('NotFound', 'This task does not exist in the database!', 404);
       } else {
         res.status(200).json(task);
       }
-    }).catch(function(err) {
+    }).catch((err) => {
       next(err);
     });
 };

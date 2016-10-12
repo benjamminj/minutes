@@ -55,17 +55,23 @@
 /***/ 38:
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	var Controller = {};
+	var Router = {};
 	
-	Controller.login = function (request) {
-	  $.post(('https://bjohnson-time-tracker.herokuapp.com/') + "user/login", request).done(function () {
-	    window.location = ('https://bjohnson-time-tracker.herokuapp.com/') + "dashboard";
+	Router.login = function (request) {
+	  return $.post({
+	    url: ('//localhost:5000/') + 'user/login',
+	    data: request,
+	    dataType: 'json'
 	  });
+	
+	  // .done(() => {
+	  //   window.location = `${API_URL}dashboard`;
+	  // });
 	};
 	
-	module.exports = Controller;
+	module.exports = Router;
 
 /***/ },
 
@@ -108,7 +114,7 @@
 	var Controller = {};
 	
 	Controller.signup = function (request) {
-	  $.post(('https://bjohnson-time-tracker.herokuapp.com/') + 'user/signup', request).done(function () {
+	  $.post(('//localhost:5000/') + 'user/signup', request).done(function () {
 	    loginRequest(request);
 	  });
 	};
