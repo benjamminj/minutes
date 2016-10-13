@@ -64,16 +64,15 @@
 
 	'use strict';
 	
-	var swapClasses = __webpack_require__(34);
+	var swapIcons = __webpack_require__(34);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
-	    console.log('Hey there');
 	
 	    $('.menu-icon').click(function () {
 	      var $this = $(this);
-	
-	      swapClasses($this.children('i'), 'fa-times', 'fa-bars');
+	      swapIcons($this.children('i'), 'menu', 'close');
+	      // swapClasses($this.children('i'), 'fa-times', 'fa-bars');
 	      $this.siblings('nav').toggleClass('collapsed');
 	    });
 	  });
@@ -86,9 +85,14 @@
 
 	"use strict";
 	
-	module.exports = function ($selector, class1, class2) {
-	  $selector.toggleClass(class1);
-	  $selector.toggleClass(class2);
+	module.exports = function ($element, firstHTML, secondHTML) {
+	  var html = $element.html();
+	
+	  if (html === firstHTML) {
+	    $element.html(secondHTML);
+	  } else {
+	    $element.html(firstHTML);
+	  }
 	};
 
 /***/ }

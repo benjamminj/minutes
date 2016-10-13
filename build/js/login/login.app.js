@@ -1,4 +1,4 @@
-let controller = require('./login.controller');
+let router = require('./login.router');
 
 module.exports = () => {
   $(document).ready(() => {
@@ -6,8 +6,15 @@ module.exports = () => {
       event.preventDefault();
       var request = { username: $('#username').val(), password: $('#password').val()};
       
-      controller.login(request);
-      // loginRequest(request);
+      router.login(request)
+        .then(() => {
+          window.location = `${API_URL}dashboard`;
+        }).catch((err) => {
+          if (err.status === 401) {
+            let message = err.responseJSON.message;
+            $('header h3').html(message + '. Please try again').addClass('unauthorized');
+          }
+        });
     });
   });
-}
+};

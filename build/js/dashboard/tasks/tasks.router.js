@@ -1,7 +1,7 @@
 let generate = require('./tasks.html');
 
 module.exports = (apiURL) => {
-  let utils = require('../utils')(apiURL);
+  let utils = require('../dashboard.utils')(apiURL);
 
   return {
     getTasks() {

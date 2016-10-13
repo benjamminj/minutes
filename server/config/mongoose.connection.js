@@ -7,7 +7,6 @@ module.exports  = () => {
     .then(() => {
       winston.info(`Connected to MongoDB database ${process.env.DATABASE_URL}`);
     }).catch((err) => {
-      console.log('There was an error connecting to MongoDB', err);
+      winston.error(err);
     });
-  
 };

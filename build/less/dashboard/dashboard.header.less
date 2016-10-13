@@ -3,71 +3,128 @@
 @import (reference) '../effects/hover.effects.less';
 @import (reference) '../styles/fonts.less';
 @import (reference) './header.desktop.less';
-
 header {
-
+  .fade;
   padding: @outside-margin @small-margin;
   .flex-row(center, center);
   flex-wrap: wrap;
-
+  position: fixed;
+  box-sizing: border-box;
+  top: 0;
+  width: 100vw;
+  overflow: visible;
+  &.dark {
+    .fade-hover;
+    background-color: fade(#000, 60%);
+  }
   h1 {
-   display: none; 
+    display: none;
   }
-
-  .logout {
-    // display: none;
-    background-color: transparent;
-    border: none;
-    position: absolute;
-    right: @small-margin;
-    .grow;
-
-    i {
-      // .reset-link;
-      font-size: @header-content-large-font;
-    }
-
-    h4 {
-      display: none;
-    }
-
-    &:hover {
-      .grow-hover;
-    }
-  }
-
   #nav-buttons {
     font-size: 0;
     width: 60%;
     .fade;
     .flex-row(center, center);
-    
     button {
-      // .medium-font-size();
-      font-size: @medium-font-size;
       .transparent-button(@main-text-color, @short-button-size);
+      font-size: @medium-font-size;
       width: 50%;
-
+      .flex-row(center, center);
       &.left {
         border-radius: @edges 0 0 @edges;
       }
-
       &.right {
         border-radius: 0 @edges @edges 0;
       }
-
       &.current {
         .transparent-button-hover(@main-text-color, @dashboard-see-through-text);
-
         &:hover {
           .transparent-button-hover(@main-text-color, @dashboard-see-through-text);
         }
       }
-
       &:hover {
         .fade-hover;
         background-color: @opaque-light-color;
       }
+      h4,
+      i {
+        color: inherit;
+        margin: 0;
+      }
+      i {
+        padding-right: 5px;
+      }
+    }
+  }
+  .profile {
+    .grow;
+    .invisible-button();
+    .flex-row(center, center);
+    position: fixed;
+    right: 10px;
+    i {
+      font-size: 28px;
+    }
+    h4 {
+      display: none;
+    }
+    &:hover {
+      .small-grow-hover;
+      color: fade(@main-text-color, 90%);
+    }
+  }
+  .profile-display {
+    display: none;
+  }
+  .profile-display.open {
+    display: block;
+    position: absolute;
+    z-index: 777;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    .menu {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      position: fixed;
+      top: 70px;
+      z-index: 999;
+      background-color: #fff;
+      button {
+        color: fade(#000, 80%);
+        background-color: inherit;
+        .invisible-button();
+        width: 100%;
+        text-align: left;
+        padding: 0 30px;
+        h4 {
+          .grow;
+          color: inherit;
+          font-size: 20px;
+          &:hover {
+            .small-grow-hover;
+          }
+        }
+      }
+    }
+    .menu:after {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 14px 16px;
+      border-color: #FFFFFF transparent;
+      width: 0px;
+      top: -11px;
+      right: 12px;
+    }
+    .page-overlay {
+      background-color: fade(#000, 80%);
+      height: 100%;
+      width: 100%;
     }
   }
 

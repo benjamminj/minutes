@@ -24,6 +24,10 @@ body {
 .no-scroll {
   overflow: hidden;
 }
+.material-icons {
+  font-size: inherit;
+  vertical-align: inherit;
+}
 header {
   padding: 20px;
   height: 50px;
@@ -62,7 +66,7 @@ header .menu-icon {
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-header .menu-icon .fa {
+header .menu-icon i {
   font-size: 30px;
 }
 @media only screen and (min-width: 700px) {
@@ -115,8 +119,8 @@ header nav .login {
   transition-property: transform;
 }
 header nav .login:hover {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  -webkit-transform: scale(1.01);
+  transform: scale(1.01);
 }
 @media only screen and (max-width: 699px) {
   header nav .signup {
@@ -134,8 +138,8 @@ header nav .login:hover {
     transition-property: transform;
   }
   header nav .signup:hover {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(1.01);
+    transform: scale(1.01);
   }
 }
 @media only screen and (min-width: 700px) {

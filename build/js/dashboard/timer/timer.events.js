@@ -1,40 +1,46 @@
 let timer = require('./timer');
-let utils = require('../utils')();
+let utils = require('../dashboard.utils')();
 let generate = require('./timer.html');
 
 module.exports = (apiURL) => {
   let $container = $('#timer-container');
-  let createTask = require('./timer.ajax')(apiURL);
+
 
   $container.on('click', '.timer .start', function() {
 
     $('#timer-container .start').addClass('stop').removeClass('start').html('Stop');
 
     timer.start(function(currentTime) {
+      let $hours = $('.timer .hours');
+      let $minutes = $('.timer .minutes');
+      let $seconds = $('.timer .seconds');
 
       if (currentTime % 360 === 0) {
-        increaseTimerHTML('.timer .hours');
+        increaseTimerHTML($hours);
+        $minutes.html('00');
+        $seconds.html('00');
       } else if (currentTime % 60 === 0) {
-        increaseTimerHTML('.timer .minutes');
+        increaseTimerHTML($minutes);
+        $seconds.html('00');
       } else {
-        increaseTimerHTML('.timer .seconds');
+        increaseTimerHTML($seconds);
       }
 
-      function increaseTimerHTML(selector) {
-        let selectorValuePlusOne = parseInt($(selector).html()) + 1;
-        $(selector).html(utils.addLeadingZeroes(selectorValuePlusOne));
+      function increaseTimerHTML($element) {
+        let elementValuePlusOne = parseInt($element.html()) + 1;
+        $element.html(utils.addLeadingZeroes(elementValuePlusOne));
       }
     });
   });
 
   $container.on('click', '.timer .stop', function() {
     timer.stop();
-    
-    // New
+
+    // Makes sure that the time >= 1 before activating the 'Save' button
     if (timer.timeInSeconds > 0) {
       $('#timer-container .save').addClass('active');
     }
-    
+
     $(this).addClass('start').removeClass('stop').html('Start');
   });
 
@@ -46,21 +52,22 @@ module.exports = (apiURL) => {
 
   $container.on('submit', '#save-task', (event) => {
     let timeInSeconds = timer.end();
-    let getTasks = require('../tasks/tasks.ajax')(apiURL).getTasks;
-    
+    let getTasks = require('../tasks/tasks.router')(apiURL).getTasks;
+
     timer.reset();
     event.preventDefault();
 
-    createTask(timeInSeconds, () => {
-      $container.hide().siblings('#tasks-container').show();
-      toggleNav();
-      getTasks();
-    });
+    let createTask = require('./timer.router')(apiURL);
+    createTask(timeInSeconds)
+      .then(() => {
+        $container.hide().siblings('#tasks-container').show();
+        toggleNav();
+        getTasks();
+      });
   });
 
   function toggleNav() {
-    console.log('asdfasdfasdf');
-    utils.toggleNav($('.my-tasks')); 
+    utils.toggleNav($('.my-tasks'));
   }
 
   $container.on('click', '.cancel-save', (event) => {

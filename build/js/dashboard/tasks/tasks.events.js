@@ -4,15 +4,15 @@ let toggleScroll = require('../../utils/no.scroll');
 
 
 module.exports = (apiURL) => {
-  let ajax = require('./tasks.ajax')(apiURL);
+  let router = require('./tasks.router')(apiURL);
   let $container = $('#tasks-container');
 
-  ajax.getTasks();
+  router.getTasks();
 
   containerClick('.more', function() {
     $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
     toggleScroll();
-  })
+  });
 
   function containerClick(child, callback) {
     return onClick($container, child, callback);
@@ -36,7 +36,7 @@ module.exports = (apiURL) => {
     let id = $task.attr('id');
 
     // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
-    ajax.editTask(id, $editContainer, function(err, editedTask) {
+    router.editTask(id, $editContainer, function(err, editedTask) {
       if (editedTask) {
         $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));     
         toggleScroll();
@@ -47,14 +47,14 @@ module.exports = (apiURL) => {
   containerClick('.cancel-changes', function() {
     // let task = $(this).parent();
 
-    // TODO -- update ajax.getOneTask to utilize full callback
-    ajax.getTasks();
+    // TODO -- update router.getOneTask to utilize full callback
+    router.getTasks();
     toggleScroll();
   });
 
   containerClick('.delete', function() {
-    // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
-    ajax.deleteTask($(this).parents('.task').attr('id'));
+    // TODO -- refactor router.delete to separate the router call from the DOM manipulation
+    router.deleteTask($(this).parents('.task').attr('id'));
     toggleScroll();
   });
 };

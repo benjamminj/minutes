@@ -10,9 +10,7 @@ header {
   height: @header-height;
   .flex-row(center, space-between);
   h1 {
-    // height: @header-content-height;
     font-size: @header-content-large-font;
-    // margin: 0;
     z-index: 999;
     a {
       font-size: @header-content-large-font;
@@ -28,7 +26,7 @@ header {
     padding: 0;
     z-index: 999;
     .grow;
-    .fa {
+    i {
       font-size: @header-content-large-font;
     }
     .desktop( {
@@ -40,7 +38,6 @@ header {
     }
   }
   nav {
-    // display: none;
     height: 100vh;
     width: 100vw;
     background-color: @opaque-overlay;
@@ -67,14 +64,14 @@ header {
     .login {
       .grow;
       &:hover {
-        .grow-hover;
+        .small-grow-hover;
       }
     }
     .signup {
       .mobile-only({
         .grow;
         &:hover {
-          .grow-hover;
+          .small-grow-hover;
         }
       });
     }

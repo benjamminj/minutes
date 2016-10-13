@@ -7,13 +7,8 @@
   flex-direction: column;
   width: 90%;
   align-items: center;
-  margin-top: 15% auto;
-  /* justify-content: center; */
-  margin: 15% auto;
-
-  .desktop({
-    margin-top: 10%;
-  });
+  margin: 0 auto;
+  padding-top: 15%;
 }
 
 .time {
@@ -30,14 +25,15 @@
 .timer-buttons {
   width: 90%;
   margin-top: 20px;
-  /* padding: 0 10%; */
   display: flex;
   justify-content: space-between;
 
   button {
+    .fade;
     width: 48%;
     font-size: @medium-font-size;
-    .fade;
+    transform: none;
+    -webkit-transform: none;
 
     &:hover {
       .fade-hover;

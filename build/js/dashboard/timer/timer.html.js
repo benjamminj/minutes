@@ -1,4 +1,4 @@
-let utils = require('../utils')();
+let utils = require('../dashboard.utils')();
 
 module.exports = {
   timerHTML() {
