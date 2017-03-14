@@ -3,3 +3,4 @@ node_modules
 .notepad
 /coverage
 /logs
+**.DS_Store**
