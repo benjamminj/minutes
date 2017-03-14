@@ -1,9 +1,9 @@
 let mongoose = require('mongoose');
-let createError = require('../../utils/create.error');
 let bcrypt= require('bcrypt');
+let createError = require('../../utils/create.error');
 
 let UserSchema = new mongoose.Schema({
-  
+
   username: {
     type: String,
     required: true,
@@ -24,7 +24,7 @@ let UserSchema = new mongoose.Schema({
 UserSchema.methods.validatePassword = function(password) {
   let correctPassword = this.password;
   let user = this;
-  
+
   return new Promise(function(resolve, reject) {
     bcrypt.compare(password, correctPassword, function(err, isValid) {
       if (err) {
@@ -39,6 +39,3 @@ UserSchema.methods.validatePassword = function(password) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
-
-
-
