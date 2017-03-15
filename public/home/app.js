@@ -47,29 +47,19 @@
 
 	'use strict';
 	
-	__webpack_require__(30);
-	__webpack_require__(32)();
+	__webpack_require__(13)();
 
 /***/ },
 
-/***/ 30:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 32:
+/***/ 13:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var swapClasses = __webpack_require__(33);
+	var swapClasses = __webpack_require__(14);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
-	    console.log('Hey there');
-	
 	    $('.menu-icon').click(function () {
 	      var $this = $(this);
 	
@@ -81,7 +71,7 @@
 
 /***/ },
 
-/***/ 33:
+/***/ 14:
 /***/ function(module, exports) {
 
 	"use strict";
