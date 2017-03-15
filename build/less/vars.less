@@ -1,13 +1,24 @@
 // Colors
-@accent: #88484c;
+@accent: #29b6f6;
 @accent-dark: darken(@accent, 10%);
+@accent-darker: darken(@accent, 20%);
+
+
 @white: #fff;
 @black: #222;
 
+@light-gray: #efefef;
+@purple: #5a1139;
+@green: #0b5f46;
+
+// Overlays
 @hover-overlay: fade(@black, 5);
 
+@white-overlay-color: fade(@white, 30);
+@bg-overlay-white: linear-gradient(@white-overlay-color, @white-overlay-color);
+
 // Shadows
-@shadow-bottom: 0 4px 4px fade(@black, 10);
+@shadow-bottom: 0 9px 9px fade(@black, 10);
 
 // Fonts
 @font-secondary: 'Source Sans Pro', monospace;

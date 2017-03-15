@@ -9,6 +9,17 @@
 }
 
 .fullscreen-section {
-  height: 100vh;
+  min-height: 100vh;
+  position: relative;
   padding: @header-height;
+}
+
+.bg-img-overlay(@color, @src) {
+  background-image: linear-gradient(@color, @color), @src;
+}
+
+.bg-img-pos-fixed(@pos: initial) {
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: @pos;
 }

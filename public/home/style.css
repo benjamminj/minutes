@@ -596,12 +596,17 @@ textarea,
   align-items: center;
 }
 .fullscreen-section {
-  height: 100vh;
+  min-height: 100vh;
+  position: relative;
   padding: 2.75rem;
 }
 body {
   font-size: 18px;
   font-family: 'PT Sans', 'Helvetica', sans-serif;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 a {
   text-decoration: none;
@@ -614,7 +619,7 @@ label[for*="-toggler"]:hover {
   cursor: pointer;
 }
 .header {
-  background-color: #88484c;
+  background-color: #29b6f6;
   color: #fff;
   font-family: 'Source Sans Pro', monospace;
   height: 2.75rem;
@@ -627,7 +632,7 @@ label[for*="-toggler"]:hover {
   z-index: 999;
 }
 .header .menu-toggler-btn {
-  box-shadow: 0 4px 4px rgba(34, 34, 34, 0.1);
+  box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
   padding: 0.5rem 0;
 }
 .header .menu-toggler-btn h3 {
@@ -641,7 +646,7 @@ label[for*="-toggler"]:hover {
   background-color: rgba(34, 34, 34, 0.05);
 }
 .header .nav {
-  background-color: #673639;
+  background-color: #0a9fe2;
   color: rgba(255, 255, 255, 0.8);
   display: none;
 }
@@ -665,11 +670,16 @@ label[for*="-toggler"]:hover {
 }
 #menu-toggler:checked + .menu-toggler-btn + .nav {
   display: block;
-  box-shadow: 0 4px 4px rgba(34, 34, 34, 0.1);
+  box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
+}
+#banner,
+#description,
+#examples {
+  min-height: 100vh;
+  position: relative;
+  padding: 2.75rem;
 }
 #banner {
-  height: 100vh;
-  padding: 2.75rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -680,12 +690,69 @@ label[for*="-toggler"]:hover {
   background-position: 100% 0;
   color: #fff;
 }
+#banner h1 {
+  font-family: 'Source Sans Pro', monospace;
+}
 #banner h3 {
   margin: 0;
 }
 #banner .keep-reading-btn {
   position: absolute;
   bottom: 0;
+  opacity: 0.4;
+}
+#banner .keep-reading-btn:hover {
+  opacity: 0.6;
+}
+#description {
+  padding-top: 5.5rem;
+  background: #efefef;
+}
+.icon-suitcase-timer {
+  text-align: center;
+  display: block;
+}
+#examples {
+  background: #fff;
+  padding: 0;
+}
+.examples-heading {
+  margin: 0;
+  padding: 2rem 0;
+  text-align: center;
+}
+.example-cards {
+  margin: 0;
+}
+.example-card {
+  height: 250px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.example-card.exercise {
+  background-image: linear-gradient(rgba(7, 124, 178, 0.4), rgba(7, 124, 178, 0.4)), url('/img/running-bg.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: right;
+}
+.example-card.invoices {
+  background-image: linear-gradient(rgba(90, 17, 57, 0.3), rgba(90, 17, 57, 0.3)), url('/img/computer-bg.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: initial;
+}
+.example-card.puzzles {
+  background-image: linear-gradient(rgba(11, 95, 70, 0.4), rgba(11, 95, 70, 0.4)), url('/img/puzzle-bg.jpeg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+.example-card i svg {
+  height: 5rem;
+  width: 5rem;
 }
 
 /*# sourceMappingURL=style.css.map*/

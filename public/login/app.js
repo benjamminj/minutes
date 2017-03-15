@@ -47,16 +47,16 @@
 
 	'use strict';
 	
-	__webpack_require__(19)();
+	__webpack_require__(24)();
 
 /***/ },
 
-/***/ 19:
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var controller = __webpack_require__(20);
+	var controller = __webpack_require__(25);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
@@ -72,7 +72,7 @@
 
 /***/ },
 
-/***/ 20:
+/***/ 25:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
