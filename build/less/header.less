@@ -1,15 +1,16 @@
 // Closed state (default)
 .header {
-  text-align: center;
   background-color: @accent;
   color: @white;
   font-family: @font-secondary;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  line-height: @header-lh;
   height: @header-height;
+  left: 0;
+  line-height: @header-lh;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 999;
 
   .menu-toggler-btn {
     box-shadow: @shadow-bottom;
@@ -30,8 +31,8 @@
   }
 
   .nav {
-    color: fade(@white, 80);
     background-color: @accent-dark;
+    color: fade(@white, 80);
     // TODO: Make hidden in a different way to get animation when it is displayed
     display: none;
 

@@ -614,16 +614,17 @@ label[for*="-toggler"]:hover {
   cursor: pointer;
 }
 .header {
-  text-align: center;
-  background-color: #03a9f4;
+  background-color: #88484c;
   color: #fff;
   font-family: 'Source Sans Pro', monospace;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  line-height: 1.75rem;
   height: 2.75rem;
+  left: 0;
+  line-height: 1.75rem;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 999;
 }
 .header .menu-toggler-btn {
   box-shadow: 0 4px 4px rgba(34, 34, 34, 0.1);
@@ -640,8 +641,8 @@ label[for*="-toggler"]:hover {
   background-color: rgba(34, 34, 34, 0.05);
 }
 .header .nav {
+  background-color: #673639;
   color: rgba(255, 255, 255, 0.8);
-  background-color: #0286c2;
   display: none;
 }
 .header .nav ul {
