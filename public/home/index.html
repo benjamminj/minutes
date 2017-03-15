@@ -6,30 +6,102 @@
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
   <title>Time Tracker</title>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <header>
-    <h1>
-      <a href="/"><i class="fa fa-clock-o"></i> Time Tracker</a>
-    </h1>
-    <button class="menu-icon">
-      <i class="fa fa-bars" aria-label="Menu"></i>
-    </button>
-    <nav class="collapsed">
+  <header class='header'>
+    <input hidden id="menu-toggler" type="checkbox">
+
+    <label for="menu-toggler" class='menu-toggler-btn'>
+      <h3>
+        <span>Minutes</span>
+      </h3>
+    </label>
+
+    <nav class='menu'>
       <ul>
-        <li>
-          <a href="/login" class="login">Log in</a>
-        </li>
-        <li>
-          <a href="/signup" class="signup">Sign Up</a>
-        </li>
+        <li><a href="/login">Log In</a></li>
+        <li><a href="/signup">Sign Up</a></li>
+        <li><label for="menu-toggler">Close</label></li>
       </ul>
     </nav>
   </header>
-  <!-- Will insert a call to action here later -->
+
+  <main class='main'>
+    <section class="banner">
+      <h1>Something Pithy to Catch</h1>
+      <h3>Something even more catchy to pull in</h3>
+      <i>
+        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
+          <path d="M0-.75h24v24H0z" fill="none"/>
+        </svg>
+      </i>
+    </section>
+
+    <section class='description'>
+      <i>
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="100px" width="100px"
+        viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
+          <path d="M464,300.392V208v-48v-40c0-22.056-17.944-40-40-40H320V40c0-22.056-17.944-40-40-40h-96c-22.056,0-40,17.944-40,40v40H40 C17.944,80,0,97.944,0,120v16v72v192c0,22.056,17.944,40,40,40h230.808c21.984,24.488,53.768,40,89.192,40 c66.168,0,120-53.832,120-120C480,338.296,474.12,317.976,464,300.392z M160,40c0-13.232,10.768-24,24-24h96 c13.232,0,24,10.768,24,24v40h-16V40c0-4.416-3.576-8-8-8h-96c-4.424,0-8,3.584-8,8v40h-16V40z M272,48v32h-80V48H272z M16,136 v-16c0-13.232,10.768-24,24-24h384c13.232,0,24,10.768,24,24v40v48c0,22.056-17.944,40-40,40h-5.272 c-13.296-5.088-27.664-8-42.728-8c-15.064,0-29.432,2.912-42.728,8H280v-24c0-4.416-3.576-8-8-8h-80c-4.424,0-8,3.584-8,8v24h-80 H64h-8c-22.056,0-40-17.944-40-40V136z M448,247.112v31.576c-6.272-6.784-13.216-12.928-20.888-18.12 C435.064,257.664,442.192,253.056,448,247.112z M264,232v16h-64v-16H264z M96,264v24H72v-24H96z M40,424 c-13.232,0-24-10.768-24-24V247.112C26.176,257.52,40.336,264,56,264v32c0,4.416,3.576,8,8,8h40c4.424,0,8-3.584,8-8v-32h80h80 h16.304C259.048,285.904,240,320.728,240,360c0,23.536,6.912,45.448,18.672,64H40z M463.592,368 c-3.904,50.96-44.632,91.688-95.592,95.592V448h-16v15.592c-28.88-2.216-54.512-16.192-72-37.232V424h-1.808 c-12.304-15.696-20.176-34.96-21.792-56H272v-16h-15.592c3.904-50.96,44.632-91.688,95.592-95.592V272h16v-15.592 c50.96,3.904,91.688,44.632,95.592,95.592H448v16H463.592z"/>
+          <path d="M368,356.688V288h-16v72c0,2.12,0.84,4.16,2.344,5.656l48,48l11.312-11.312L368,356.688z"/>
+          <rect x="352" y="208" width="16" height="16"/>
+          <rect x="384" y="208" width="16" height="16"/>
+          <rect x="320" y="208" width="16" height="16"/>
+        </svg>
+      </i>
+
+      <div class="content">
+        <h1>Something a little longer</h1>
+        <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, repellendus deserunt commodi ipsum, magni nihil id, porro ullam optio doloremque tenetur perspiciatis.</h3>
+      </div>
+    </section>
+
+    <section class="examples">
+      <h2>Some example uses</h2>
+      <ul>
+        <li class="example-card">
+          <!-- TODO: Placholder icon -->
+          <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          <h3>Exercise</h3>
+          <p>Know how long you spent on that run so that you can beat your time tomorrow</p>
+        </li>
+        <li class="example-card">
+          <!-- TODO: Placholder icon -->
+          <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          <h3>Billable hours</h3>
+          <p>You need to know who you were working for and how long so you can get paid. Don't worry, we've got you covered</p>
+        </li>
+        <li class="example-card">
+          <!-- TODO: Placholder icon -->
+          <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          <h3>Games</h3>
+          <p>Perfect for seeing how long those Sudoku puzzles take or which one of your friends can hold their breath the longest</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="signup">
+      <form action="/user/signup" method="post" id="sign-up">
+        <input type="text" name="username" id="username" />
+        <input type="password" name="password" id="password" />
+        <button type="submit"></button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+
+  </footer>
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="app.js"></script>
 </body>

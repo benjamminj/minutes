@@ -21,7 +21,7 @@ Controller.signup = function(req, res, next) {
     })
     .catch(function(err) {
       next(err);
-    }); 
+    });
 };
 
 Controller.logout = function(req, res) {
