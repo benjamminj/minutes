@@ -47,16 +47,24 @@
 
 	'use strict';
 	
-	__webpack_require__(13)();
+	__webpack_require__(13);
+	__webpack_require__(17)();
 
 /***/ },
 
 /***/ 13:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 17:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var swapClasses = __webpack_require__(14);
+	var swapClasses = __webpack_require__(18);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
@@ -71,7 +79,7 @@
 
 /***/ },
 
-/***/ 14:
+/***/ 18:
 /***/ function(module, exports) {
 
 	"use strict";

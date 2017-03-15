@@ -1,0 +1,69 @@
+// Closed state (default)
+.header {
+  text-align: center;
+  background-color: @accent;
+  color: @white;
+  font-family: @font-secondary;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  line-height: @header-lh;
+  height: @header-height;
+
+  .menu-toggler-btn {
+    box-shadow: @shadow-bottom;
+    padding: @header-pad;
+
+    h3 {
+      margin: 0;
+    }
+
+    span::selection {
+      background-color: transparent;
+      color: @white;
+    }
+
+    &:hover {
+      background-color: @hover-overlay;
+    }
+  }
+
+  .nav {
+    color: fade(@white, 80);
+    background-color: @accent-dark;
+    // TODO: Make hidden in a different way to get animation when it is displayed
+    display: none;
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu-item {
+      a {
+        display: block;
+      }
+    }
+
+    .menu-toggler-close {
+      display: block;
+    }
+
+    .menu-item a, .menu-toggler-close {
+      padding: @menu-item-padding;
+
+      &:hover {
+        background: @hover-overlay;
+      }
+    }
+  }
+}
+
+// Open state
+#menu-toggler:checked {
+  + .menu-toggler-btn + .nav {
+    display: block;
+    box-shadow: @shadow-bottom;
+  }
+}

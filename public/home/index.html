@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
   <title>Time Tracker</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans|Source+Sans+Pro" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,17 +19,17 @@
       </h3>
     </label>
 
-    <nav class='menu'>
-      <ul>
-        <li><a href="/login">Log In</a></li>
-        <li><a href="/signup">Sign Up</a></li>
-        <li><label for="menu-toggler">Close</label></li>
+    <nav class='nav'>
+      <ul class='menu'>
+        <li class="menu-item"><a href="/login">Log In</a></li>
+        <li class="menu-item"><a href="#signup">Sign Up</a></li>
       </ul>
+      <label class="menu-toggler-close" for="menu-toggler">Close</label>
     </nav>
   </header>
 
   <main class='main'>
-    <section class="banner">
+    <section id="banner">
       <h1>Something Pithy to Catch</h1>
       <h3>Something even more catchy to pull in</h3>
       <i>
@@ -40,7 +40,7 @@
       </i>
     </section>
 
-    <section class='description'>
+    <section id='description'>
       <i>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="100px" width="100px"
         viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
@@ -58,7 +58,7 @@
       </div>
     </section>
 
-    <section class="examples">
+    <section id="examples">
       <h2>Some example uses</h2>
       <ul>
         <li class="example-card">
@@ -89,7 +89,7 @@
       </ul>
     </section>
 
-    <section class="signup">
+    <section id="signup">
       <h2>Get started today</h2>
       <form action="/user/signup" method="post" id="sign-up">
         <input type="text" name="username" id="username" />
