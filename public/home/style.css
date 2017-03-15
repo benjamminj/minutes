@@ -654,6 +654,14 @@ label[for*="-toggler"]:hover {
 .header .menu-toggler-btn h3 {
   margin: 0;
 }
+.header .menu-toggler-btn i {
+  position: absolute;
+  right: 0;
+  padding: 0.5rem;
+  line-height: 1;
+  top: 0;
+  color: inherit;
+}
 .header .menu-toggler-btn span::selection {
   background-color: transparent;
   color: #fff;
@@ -702,8 +710,10 @@ label[for*="-toggler"]:hover {
   align-items: center;
   text-align: center;
   background: url('/img/clock-bg.jpeg');
+  background-attachment: fixed;
+  background-position: initial;
+  background-position: right;
   background-size: cover;
-  background-position: 100% 0;
   color: #fff;
 }
 #banner h1 {
