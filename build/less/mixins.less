@@ -36,3 +36,33 @@
     background-color: @accent-darker;
   }
 }
+
+.btn-lrg {
+  margin-top: 1rem;
+  line-height: 1.75;
+  width: 100%;
+}
+
+.auth-input() {
+  label {
+    font-size: 0.75rem;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    @input-height: 2rem;
+
+    height: @input-height;
+    margin: 0.25rem 0;
+    width: 100%;
+    line-height: @input-height;
+    border-radius: @border-rad;
+    border: 1px solid @black;
+
+    &:focus {
+      border: 1px solid @accent;
+      outline: none;
+      box-shadow: 0 0 4px fade(@black, 20);
+    }
+  }
+}

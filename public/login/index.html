@@ -4,30 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-  <title>Time Tracker | Log In</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <title>Minutes | Log In</title>
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans|Source+Sans+Pro" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1 class="logo">
-    <a href="/"><i class="fa fa-clock-o"></i></a>
-  </h1>
   <header>
-    <h1>Log in to your account</h1>
-    <h3>Keep up the good work</h3>
+    <header class='header'>
+      <input hidden id="menu-toggler" type="checkbox">
+
+      <label for="menu-toggler" class='menu-toggler-btn'>
+        <h3>
+          <span>Minutes</span>
+        </h3>
+      </label>
+
+      <nav class='nav'>
+        <ul class='menu'>
+          <li class="menu-item"><a href="/">Home</a></li>
+          <li class="menu-item"><a href="/#signup">Sign Up</a></li>
+        </ul>
+        <label class="menu-toggler-close" for="menu-toggler">Close</label>
+      </nav>
+    </header>
   </header>
   <main>
+    <h1>Log In</h1>
     <form action="" id="login-form" class="form">
-      <input type="text" id="username" class="top" placeholder="&#xf007; Username">
-      <hr>
-      <input type="password" id="password" class="bottom" placeholder="&#xf023; Password">
-      <button type="submit">Log In</button>
+      <label for="username">Username</label>
+      <input type="text" id="username" class="top" placeholder="Username">
+      <label for="password">Password</label>
+      <input type="password" id="password" class="bottom" placeholder="Password">
+      <button type="submit" class="login-btn">Log In</button>
     </form>
-    <div class="sign-up-prompt">
-      <a href="/signup">Don't have an account? Sign up today.</a>
-    </div>
+    <a href="/signup" class="sign-up-prompt">Don't have an account? Sign up today.</a>
   </main>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="app.js"></script>

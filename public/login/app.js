@@ -47,6 +47,7 @@
 
 	'use strict';
 	
+	__webpack_require__(28);
 	__webpack_require__(24)();
 
 /***/ },
@@ -86,6 +87,13 @@
 	};
 	
 	module.exports = Controller;
+
+/***/ },
+
+/***/ 28:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 

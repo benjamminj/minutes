@@ -1,0 +1,34 @@
+@import '~sanitize.css';
+@import 'vars';
+@import 'mixins';
+@import 'base';
+
+@import 'header';
+
+main {
+  height: 100vh;
+  background: @light-gray;
+  padding-top: @header-height * 2;
+}
+
+h1 {
+  text-align: center;
+}
+
+#login-form {
+  .flex-column;
+  padding: 2.5rem;
+
+  .auth-input();
+}
+
+.login-btn {
+  .btn-accent;
+  .btn-lrg;
+}
+
+.sign-up-prompt {
+  display: block;
+  text-align: center;
+  font-size: 0.75rem;
+}
