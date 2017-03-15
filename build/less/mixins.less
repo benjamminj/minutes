@@ -23,3 +23,16 @@
   background-attachment: fixed;
   background-position: @pos;
 }
+
+.btn-accent {
+  background-color: @accent-dark;
+  color: @white;
+  border: none;
+  border-radius: @border-rad;
+  transition: background-color @transition-default;
+
+  &:hover {
+    cursor: pointer;
+    background-color: @accent-darker;
+  }
+}

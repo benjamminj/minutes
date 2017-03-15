@@ -600,6 +600,17 @@ textarea,
   position: relative;
   padding: 2.75rem;
 }
+.btn-accent {
+  background-color: #0a9fe2;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  transition: background-color 0.175s linear;
+}
+.btn-accent:hover {
+  cursor: pointer;
+  background-color: #077cb2;
+}
 body {
   font-size: 18px;
   font-family: 'PT Sans', 'Helvetica', sans-serif;
@@ -753,6 +764,43 @@ label[for*="-toggler"]:hover {
 .example-card i svg {
   height: 5rem;
   width: 5rem;
+}
+#signup {
+  background: #efefef;
+  padding: 2.75rem 1.5rem;
+}
+#signup h2 {
+  margin-top: 0;
+}
+#signup label {
+  font-size: 0.75rem;
+}
+#signup input {
+  height: 2rem;
+  margin: 0.25rem 0;
+  width: 100%;
+  line-height: 2rem;
+  border-radius: 2px;
+  border: 1px solid #222;
+}
+#signup input:focus {
+  border: 1px solid #29b6f6;
+  outline: none;
+  box-shadow: 0 0 4px rgba(34, 34, 34, 0.2);
+}
+#signup button {
+  background-color: #0a9fe2;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  transition: background-color 0.175s linear;
+  margin-top: 1rem;
+  line-height: 1.75;
+  width: 100%;
+}
+#signup button:hover {
+  cursor: pointer;
+  background-color: #077cb2;
 }
 
 /*# sourceMappingURL=style.css.map*/
