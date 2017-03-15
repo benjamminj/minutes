@@ -587,6 +587,18 @@ textarea,
 [aria-disabled] {
 	cursor: default;
 }
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.center-flex-column {
+  justify-content: center;
+  align-items: center;
+}
+.fullscreen-section {
+  height: 100vh;
+  padding: 2.75rem;
+}
 body {
   font-size: 18px;
   font-family: 'PT Sans', 'Helvetica', sans-serif;
@@ -653,6 +665,26 @@ label[for*="-toggler"]:hover {
 #menu-toggler:checked + .menu-toggler-btn + .nav {
   display: block;
   box-shadow: 0 4px 4px rgba(34, 34, 34, 0.1);
+}
+#banner {
+  height: 100vh;
+  padding: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: url('/img/clock-bg.jpeg');
+  background-size: cover;
+  background-position: 100% 0;
+  color: #fff;
+}
+#banner h3 {
+  margin: 0;
+}
+#banner .keep-reading-btn {
+  position: absolute;
+  bottom: 0;
 }
 
 /*# sourceMappingURL=style.css.map*/

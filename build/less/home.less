@@ -1,8 +1,29 @@
 @import '~sanitize.css';
 @import 'vars';
+@import 'mixins';
 @import 'base';
 
 @import 'header';
-// Header
 
-// Handle open / closed state
+// Handle individual button stylings for desktop
+
+// Banner
+#banner {
+  .fullscreen-section;
+  .flex-column;
+  .center-flex-column;
+  text-align: center;
+  background: url('/img/clock-bg.jpeg');
+  background-size: cover;
+  background-position: 100% 0;
+  color: @white;
+
+  h3 {
+    margin: 0;
+  }
+
+  .keep-reading-btn {
+    position: absolute;
+    bottom: 0;
+  }
+}
