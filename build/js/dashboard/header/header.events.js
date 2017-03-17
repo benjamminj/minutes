@@ -2,15 +2,12 @@ let timer = require('../timer/timer');
 let generate = require('../timer/timer.html');
 let utils = require('../utils')();
 
-
 module.exports = function(apiURL) {
   let getTasks = require('../tasks/tasks.ajax')(apiURL).getTasks;
 
   $('button.logout').click(function() {
-    let url = `${apiURL}user/logout`; 
-    console.log(url);
+    let url = `${apiURL}user/logout`;
 
-    console.log('button click');
     $.get(url)
       .done(() => {
         window.location = API_URL;

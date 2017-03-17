@@ -4,29 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-  <title>Time Tracker | Dashboard</title>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <title>Minutes | Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <header>
+  <header class='header'>
+    <input hidden id="menu-toggler" type="checkbox">
+
+    <label for="menu-toggler" class='menu-toggler-btn'>
+      <h3>
+        <span>Minutes</span>
+      </h3>
+      <i>
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+        </svg>
+      </i>
+    </label>
+
+    <nav class='nav'>
+      <ul class='menu nav-buttons'>
+        <li class="menu-item"><a href="#tasks-container">My Times</a></li>
+        <li class="menu-item"><a href="#timer-container">New</a></li>
+      </ul>
+      <label class="menu-toggler-close" for="menu-toggler">Close</label>
+    </nav>
+  </header>
+
+  <!-- <header>
     <h1><i class="fa fa-clock-o"></i> Time Tracker</h1>
 	  <div id="nav-buttons">
-	    <button class="my-tasks left current">History</button>
-	    <button class="new-task right">New</button>
+	    <a class="my-tasks current" href="#tasks-container">History</a>
+	    <a class="new-task" href="#timer-container">New</a>
 	  </div>
-  </header>
+  </header> -->
   <main>
     <section id="tasks-container"></section>
     <section id="timer-container"></section>
   </main>
-  <div class="logout-container">
+  <!-- <div class="logout-container">
     <button class="logout">
       <h4>Log Out</h4>
     </button>
-  </div>
+  </div> -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="app.js"></script>
 </body>
