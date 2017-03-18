@@ -75,7 +75,7 @@ module.exports = {
 
     return `
       <input hidden type="checkbox" class="info-toggler" id="info-${_id}" />
-      <input hidden type="checkbox" class="edit-item-toggler" id="edit-${_id}" />
+      <input hidden type="checkbox" class="edit-toggler" id="edit-${_id}" />
 
       <div class="task-content">
         <div class="task-default">
@@ -86,12 +86,14 @@ module.exports = {
           <h3 class="title">${title}</h3>
         </div>
         <div class="task-info" hidden>
+          <label for="info-${_id}">X</label>
           <h3 class="title">${title}</h3>
           <h4 class="date">${date}</h4>
           <h1 class="time">${timeHTML.divideTimeHTML(time)}</h4>
           <p class="description">${descriptionHTML}</p>
         </div>
         <div class="task-edit" hidden>
+          <label for="edit-${_id}">X</label>
           <input type="text" placeholder="Title" value="${title}" />
           <textarea name="description" placeholder="Description">${description || ''}</textarea>
         </div>

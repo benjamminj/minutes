@@ -6,9 +6,10 @@
 @import 'header';
 
 @main-padding: 0.75rem;
+@main-top-padding: @header-height + @main-padding;
 
 main {
-  padding: (@header-height + @main-padding) @main-padding @main-padding;
+  padding: @main-top-padding @main-padding @main-padding;
   background-color: @light-gray;
   min-height: 100vh;
 }
@@ -84,5 +85,32 @@ main section:target {
   .delete-btn {
     border: none;
     padding: 0;
+  }
+}
+
+// Task open / closed states
+.task .info-toggler:checked ~ .task-content {
+  // Breaks out into a modal window
+  .task-info {
+    .flex-column;
+    position: fixed;
+    left: @main-padding;
+    right: @main-padding;
+    top: @main-top-padding;
+    bottom: @main-padding;
+    background-color: @white;
+  }
+}
+
+.task .edit-toggler:checked + .task-content {
+  // Breaks out into a modal window too
+  .task-edit {
+    .flex-column;
+    position: fixed;
+    left: @main-padding;
+    right: @main-padding;
+    top: @main-top-padding;
+    bottom: @main-padding;
+    background-color: #fff;
   }
 }
