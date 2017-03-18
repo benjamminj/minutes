@@ -1,14 +1,9 @@
 let timeHTML = require('../timer/timer.html');
 
 const saveIcon = `
-  <svg version="1.1" width="24" height="24" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 49 49">
-    <path d="M39.914,0H37.5h-28h-9v49h7h33h8V8.586L39.914,0z M35.5,2v14h-24V2H35.5z M9.5,47V28h29v19H9.5z M46.5,47h-6V26h-33v21h-5
-      V2h7v16h28V2h1.586L46.5,9.414V47z"/>
-    <path d="M13.5,33h7c0.553,0,1-0.447,1-1s-0.447-1-1-1h-7c-0.553,0-1,0.447-1,1S12.947,33,13.5,33z"/>
-    <path d="M23.5,35h-10c-0.553,0-1,0.447-1,1s0.447,1,1,1h10c0.553,0,1-0.447,1-1S24.053,35,23.5,35z"/>
-    <path d="M25.79,35.29c-0.181,0.189-0.29,0.45-0.29,0.71s0.109,0.52,0.29,0.71C25.979,36.89,26.229,37,26.5,37
-      c0.26,0,0.52-0.11,0.71-0.29c0.18-0.19,0.29-0.45,0.29-0.71s-0.11-0.521-0.29-0.71C26.84,34.92,26.16,34.92,25.79,35.29z"/>
-    <path d="M33.5,4h-6v10h6V4z M31.5,12h-2V6h2V12z"/>
+  <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="none"/>
+      <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
   </svg>
 `;
 
@@ -30,6 +25,13 @@ const infoIcon = `
   <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h24v24H0z" fill="none"/>
     <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/>
+  </svg>
+`;
+
+const closeIcon = `
+  <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
   </svg>
 `;
 
@@ -85,17 +87,18 @@ module.exports = {
           </div>
           <h3 class="title">${title}</h3>
         </div>
-        <div class="task-info" hidden>
-          <label for="info-${_id}">X</label>
-          <h3 class="title">${title}</h3>
+        <div class="task-info task-modal" hidden>
           <h4 class="date">${date}</h4>
+          <label for="info-${_id}" class="close-icon">${closeIcon}</label>
           <h1 class="time">${timeHTML.divideTimeHTML(time)}</h4>
+          <h3 class="title">${title}</h3>
           <p class="description">${descriptionHTML}</p>
         </div>
-        <div class="task-edit" hidden>
-          <label for="edit-${_id}">X</label>
-          <input type="text" placeholder="Title" value="${title}" />
-          <textarea name="description" placeholder="Description">${description || ''}</textarea>
+        <div class="task-edit task-modal" hidden>
+          <button class="task-edit-save">${saveIcon}</button>
+          <label for="edit-${_id}" class="close-icon">${closeIcon}</label>
+          <input class="edit-title" type="text" placeholder="Title" value="${title}" />
+          <textarea class="edit-description" name="description" placeholder="Description">${description || ''}</textarea>
         </div>
       </div>
 

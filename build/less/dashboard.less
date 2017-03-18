@@ -35,6 +35,30 @@ main section:target {
     .flex-column;
     .center-flex-column;
     padding: 0.5rem;
+
+    .title, .date, .time {
+      margin: 0;
+    }
+
+    .date {
+      align-self: flex-start;
+      font-size: 1rem;
+      width: 49%
+    }
+
+    .time {
+      display: inline-flex;
+      width: 49%;
+      font-size: 1rem;
+      justify-content: flex-end;
+    }
+
+    .title {
+      display: inline;
+      margin: 1.75rem 0 0.5rem;
+      font-size: 1.5rem;
+      color: @accent-dark;
+    }
   }
 
   .task-default-header {
@@ -42,30 +66,7 @@ main section:target {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-  }
-
-  .title, .date, .time {
-    margin: 0;
-  }
-
-  .date {
-    align-self: flex-start;
-    font-size: 0.75rem;
-    width: 49%
-  }
-
-  .time {
-    display: inline-flex;
-    width: 49%;
-    font-size: 1rem;
-    justify-content: flex-end;
-  }
-
-  .title {
-    display: inline;
-    margin: 1rem 0 0.5rem;
-    font-size: 1.5rem;
-    color: @accent-dark;
+    color: fade(@black, 60);
   }
 }
 
@@ -112,5 +113,75 @@ main section:target {
     top: @main-top-padding;
     bottom: @main-padding;
     background-color: #fff;
+  }
+}
+
+.task-modal {
+  padding: 0.5rem;
+
+  .close-icon {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: fade(@black, 40);
+  }
+}
+
+.task-info {
+  .date {
+    display: inline;
+    line-height: 1.5;
+    margin: 0;
+    color: fade(@black, 40);
+  }
+
+  .time {
+    font-size: 2rem;
+    align-self: center;
+    color: @accent-dark;
+    margin: 2rem 0 1rem;
+  }
+
+  .title {
+    color: fade(@black, 60);
+    margin: 0;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 1rem;
+    margin: 1rem;
+    color: fade(@black, 50);
+    overflow-wrap: break-word;
+  }
+}
+
+.task-edit {
+  .task-edit-save {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0;
+    border: none;
+    color: fade(@black, 40);
+  }
+
+  .edit-title, .edit-description {
+    border: 1px solid darken(@light-gray, 5%);
+    padding: 0.5rem;
+    transition: border @transition-default;
+
+    &:focus {
+      outline: none;
+      border: 1px solid @accent-dark;
+    }
+  }
+
+  .edit-title {
+    margin-top: 2.5rem;
+  }
+
+  .edit-description {
+    height: 100%;
   }
 }
