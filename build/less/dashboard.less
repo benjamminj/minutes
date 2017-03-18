@@ -1,4 +1,88 @@
 @import '~sanitize.css';
 @import 'vars';
 @import 'mixins';
+@import 'base';
+
 @import 'header';
+
+@main-padding: 0.75rem;
+
+main {
+  padding: (@header-height + @main-padding) @main-padding @main-padding;
+  background-color: @light-gray;
+  min-height: 100vh;
+}
+
+main section {
+  display: none;
+}
+
+main section:target {
+  display: block;
+}
+
+.task {
+  background-color: @white;
+  border: 1px solid darken(@light-gray, 10%);
+  box-shadow: 0 0 4px fade(@black, 15);
+
+  & + .task {
+    margin-top: @main-padding;
+  }
+
+  .task-default {
+    .flex-column;
+    .center-flex-column;
+    padding: 0.5rem;
+  }
+
+  .task-default-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .title, .date, .time {
+    margin: 0;
+  }
+
+  .date {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    width: 49%
+  }
+
+  .time {
+    display: inline-flex;
+    width: 49%;
+    font-size: 1rem;
+    justify-content: flex-end;
+  }
+
+  .title {
+    display: inline;
+    margin: 1rem 0 0.5rem;
+    font-size: 1.5rem;
+    color: @accent-dark;
+  }
+}
+
+.action-buttons {
+  padding: 0.5rem;
+
+  label, button {
+    color: fade(@black, 30);
+    margin-right: 0.5rem;
+    transition: color @transition-default;
+
+    &:hover {
+      color: fade(@black, 50);
+    }
+  }
+
+  .delete-btn {
+    border: none;
+    padding: 0;
+  }
+}

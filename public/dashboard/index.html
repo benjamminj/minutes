@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
   <title>Minutes | Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans|Source+Sans+Pro" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -24,7 +25,7 @@
     </label>
 
     <nav class='nav'>
-      <ul class='menu nav-buttons'>
+      <ul class='menu'>
         <li class="menu-item"><a href="#tasks-container">My Times</a></li>
         <li class="menu-item"><a href="#timer-container">New</a></li>
       </ul>
@@ -32,16 +33,19 @@
     </nav>
   </header>
 
-  <!-- <header>
-    <h1><i class="fa fa-clock-o"></i> Time Tracker</h1>
-	  <div id="nav-buttons">
-	    <a class="my-tasks current" href="#tasks-container">History</a>
-	    <a class="new-task" href="#timer-container">New</a>
-	  </div>
-  </header> -->
   <main>
     <section id="tasks-container"></section>
-    <section id="timer-container"></section>
+    <section id="timer-container">
+      <div class="timer">
+        <h2 class="time">
+          <span class="hours">00</span>:<span class="minutes">00</span>:<span class="seconds">00</span>
+        </h2>
+        <div class="timer-buttons">
+          <button class="start">Start</button>
+          <button class="save">Save</button>
+        </div>
+      </div>
+    </section>
   </main>
   <!-- <div class="logout-container">
     <button class="logout">
