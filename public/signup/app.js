@@ -47,11 +47,11 @@
 
 	'use strict';
 	
-	__webpack_require__(26)();
+	__webpack_require__(30)();
 
 /***/ },
 
-/***/ 25:
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -60,7 +60,7 @@
 	
 	Controller.login = function (request) {
 	  $.post(('//localhost:5000/') + "user/login", request).done(function () {
-	    window.location = ('//localhost:5000/') + "dashboard";
+	    window.location = ('//localhost:5000/') + "dashboard/#tasks-container";
 	  });
 	};
 	
@@ -68,12 +68,12 @@
 
 /***/ },
 
-/***/ 26:
+/***/ 30:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var controller = __webpack_require__(27);
+	var controller = __webpack_require__(31);
 	
 	module.exports = function () {
 	
@@ -90,12 +90,12 @@
 
 /***/ },
 
-/***/ 27:
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var loginRequest = __webpack_require__(25).login;
+	var loginRequest = __webpack_require__(29).login;
 	
 	var Controller = {};
 	

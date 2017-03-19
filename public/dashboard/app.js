@@ -46,7 +46,8 @@
 
 	'use strict';
 	
-	__webpack_require__(5)();
+	__webpack_require__(5);
+	__webpack_require__(10)();
 
 /***/ },
 /* 1 */,
@@ -54,6 +55,16 @@
 /* 3 */,
 /* 4 */,
 /* 5 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61,30 +72,28 @@
 	module.exports = function () {
 	
 	  $(document).ready(function () {
-	    __webpack_require__(6)(('//localhost:5000/'));
-	    __webpack_require__(12)(('//localhost:5000/'));
-	    __webpack_require__(15)(('//localhost:5000/'));
+	    __webpack_require__(11)(('//localhost:5000/'));
+	    __webpack_require__(17)(('//localhost:5000/'));
+	    __webpack_require__(20)(('//localhost:5000/'));
 	  });
 	};
 
 /***/ },
-/* 6 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(7);
-	var generate = __webpack_require__(8);
-	var utils = __webpack_require__(9)();
+	var timer = __webpack_require__(12);
+	var generate = __webpack_require__(13);
+	var utils = __webpack_require__(14)();
 	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(10)(apiURL).getTasks;
+	  var getTasks = __webpack_require__(15)(apiURL).getTasks;
 	
 	  $('button.logout').click(function () {
 	    var url = apiURL + 'user/logout';
-	    console.log(url);
 	
-	    console.log('button click');
 	    $.get(url).done(function () {
 	      window.location = ('//localhost:5000/');
 	    });
@@ -107,7 +116,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -140,12 +149,12 @@
 	};
 
 /***/ },
-/* 8 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9)();
+	var utils = __webpack_require__(14)();
 	
 	module.exports = {
 	  timerHTML: function timerHTML() {
@@ -175,7 +184,7 @@
 	};
 
 /***/ },
-/* 9 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -205,15 +214,15 @@
 	};
 
 /***/ },
-/* 10 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(11);
+	var generate = __webpack_require__(16);
 	
 	module.exports = function (apiURL) {
-	  var utils = __webpack_require__(9)(apiURL);
+	  var utils = __webpack_require__(14)(apiURL);
 	
 	  return {
 	    getTasks: function getTasks() {
@@ -233,9 +242,8 @@
 	      });
 	    },
 	    editTask: function editTask(id, edits, callback) {
-	
-	      var title = edits.children('.title').val() || undefined;
-	      var description = edits.children('#edit-description').val() || undefined;
+	      var title = edits.children('.edit-title').val() || undefined;
+	      var description = edits.children('.edit-description').val() || undefined;
 	
 	      $.ajax({
 	        url: apiURL + 'tasks/edit/' + id,
@@ -261,59 +269,77 @@
 	};
 
 /***/ },
-/* 11 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timeHTML = __webpack_require__(8);
+	var timeHTML = __webpack_require__(13);
+	
+	var saveIcon = '\n  <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">\n      <path d="M0 0h24v24H0z" fill="none"/>\n      <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>\n  </svg>\n';
+	
+	var editIcon = '\n  <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">\n    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>\n    <path d="M0 0h24v24H0z" fill="none"/>\n  </svg>\n';
+	
+	var deleteIcon = '\n  <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">\n    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>\n    <path d="M0 0h24v24H0z" fill="none"/>\n  </svg>\n';
+	
+	var infoIcon = '\n  <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">\n    <path d="M0 0h24v24H0z" fill="none"/>\n    <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/>\n  </svg>\n';
+	
+	var closeIcon = '\n  <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">\n    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>\n    <path d="M0 0h24v24H0z" fill="none"/>\n  </svg>\n';
 	
 	module.exports = {
 	  editTaskHTML: function editTaskHTML(task) {
 	    var currentTitle = task.find('.title').html();
-	    var currentDescription = task.children('.description').html() || '';
+	    var currentDescription = task.find('.description').html() || '';
 	    var formattedDescription = currentDescription.replace('<br>', '\n');
-	    var time = task.children('.time').html();
+	    var time = task.find('.time').html();
 	    var date = task.find('.date').html();
 	
-	    return '\n      <input type="text" class="title" value="' + currentTitle + '" placeholder="Title">\n      <!-- <h4 class="date">' + date + '</h4> -->\n      <!-- <h4 class="time">' + time + '</h4> -->\n      <!-- <h4 class="description-heading">Description</h4> -->\n      <textarea name="" id="edit-description" cols="30" rows="4" placeholder="Add a Description">' + formattedDescription + '</textarea>  \n      <div class="edit-buttons">\n        <button class="cancel-changes">Cancel</button>\n        <button class="save-changes">Save</button>        \n      </div>  \n    ';
+	    return '\n      <input type="text" class="title" value="' + currentTitle + '" placeholder="Title">\n      <!-- <h4 class="date">' + date + '</h4> -->\n      <!-- <h4 class="time">' + time + '</h4> -->\n      <!-- <h4 class="description-heading">Description</h4> -->\n      <textarea name="" id="edit-description" cols="30" rows="4" placeholder="Add a Description">' + formattedDescription + '</textarea>\n      <div class="edit-buttons">\n        <button class="cancel-changes">Cancel</button>\n        <button class="save-changes">Save</button>\n      </div>\n    ';
 	  },
 	  taskHTML: function taskHTML(task) {
-	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task.title, task.date, task.time, task.description, task._id) + '\n      </div>\n    ';
+	    return '\n      <div class="task" id="' + task._id + '">\n        ' + this.innerTaskHTML(task) + '\n      </div>\n    ';
 	  },
 	
 	
 	  // TO DO -- refactor so that it only takes a single task as an arg.
-	  innerTaskHTML: function innerTaskHTML(title, date, time, description) {
+	  innerTaskHTML: function innerTaskHTML(_ref) {
+	    var title = _ref.title;
+	    var date = _ref.date;
+	    var time = _ref.time;
+	    var description = _ref.description;
+	    var _id = _ref._id;
+	
 	    date = new Date(date).toDateString();
+	
+	    var descriptionHTML = void 0;
 	    if (!description) {
-	      description = '';
+	      descriptionHTML = '';
 	    } else {
-	      description = description.replace(/\n/g, '<br>');
+	      descriptionHTML = description.replace(/\n/g, '<br>');
 	    }
 	
-	    return '\n      <div class="task-heading">\n        <h3 class="title">' + title + '</h3>\n        <button class="more"><i class="fa fa-angle-down" aria-label="More"></i></button>\n        <div class="more-actions">\n          <button class="edit"><i class="fa fa-pencil"></i> Edit</button>\n          <hr>\n          <button class="delete"><i class="fa fa-trash"></i> Delete</button>\n        </div>\n        <div class="page-overlay"></div>\n      </div>\n      <h4 class="date">' + date + '</h4>\n      <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n      <p class="description">' + description + '</p>\n    ';
+	    return '\n      <input hidden type="checkbox" class="info-toggler" id="info-' + _id + '" />\n      <input hidden type="checkbox" class="edit-toggler" id="edit-' + _id + '" />\n\n      <div class="task-content">\n        <div class="task-default">\n          <div class="task-default-header">\n            <h4 class="date">' + date + '</h4>\n            <h3 class="time">' + timeHTML.divideTimeHTML(time) + '</h3>\n          </div>\n          <h3 class="title">' + title + '</h3>\n        </div>\n        <div class="task-info task-modal" hidden>\n          <h4 class="date">' + date + '</h4>\n          <label for="info-' + _id + '" class="close-icon">' + closeIcon + '</label>\n          <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n          <h3 class="title">' + title + '</h3>\n          <p class="description">' + descriptionHTML + '</p>\n        </div>\n        <div class="task-edit task-modal" hidden>\n          <button class="task-edit-save">' + saveIcon + '</button>\n          <label for="edit-' + _id + '" class="close-icon">' + closeIcon + '</label>\n          <input class="edit-title" type="text" placeholder="Title" value="' + title + '" />\n          <textarea class="edit-description" name="description" placeholder="Description">' + (description || '') + '</textarea>\n        </div>\n      </div>\n\n      <div class="action-buttons">\n        <label for="info-' + _id + '">' + infoIcon + '</label>\n        <label for="edit-' + _id + '">' + editIcon + '</label>\n        <button class="delete-btn">' + deleteIcon + '</button>\n      </div>\n    ';
 	  }
 	};
 
 /***/ },
-/* 12 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var generate = __webpack_require__(11);
-	var onClick = __webpack_require__(13);
-	var toggleScroll = __webpack_require__(14);
+	var generate = __webpack_require__(16);
+	var onClick = __webpack_require__(18);
+	var toggleScroll = __webpack_require__(19);
 	
 	module.exports = function (apiURL) {
-	  var ajax = __webpack_require__(10)(apiURL);
+	  var ajax = __webpack_require__(15)(apiURL);
 	  var $container = $('#tasks-container');
 	
 	  ajax.getTasks();
 	
 	  containerClick('.more', function () {
-	    $(this).siblings('.more-actions, .page-overlay').toggleClass('open');
+	    $(this).siblings('.actions, .page-overlay').toggleClass('open');
 	    toggleScroll();
 	  });
 	
@@ -322,40 +348,33 @@
 	  }
 	
 	  containerClick('.page-overlay.open', function () {
-	    $(this).toggleClass('open').siblings('.more-actions').toggleClass('open');
+	    $(this).toggleClass('open').siblings('.actions').toggleClass('open');
 	    toggleScroll();
 	  });
 	
 	  containerClick('.edit', function () {
-	    var task = $(this).parents('.task');
-	    var html = generate.editTaskHTML(task);
+	    var $task = $(this).parents('.task');
+	    var html = generate.editTaskHTML($task);
 	
-	    $('.more-actions').html(html).toggleClass('editing');
+	    $task.find('.task-content').html(html);
+	    // $('.more-actions').html(html).toggleClass('editing');
 	  });
 	
-	  containerClick('.task .save-changes', function () {
+	  containerClick('.task .task-edit-save', function () {
 	    var $task = $(this).parents('.task');
-	    var $editContainer = $(this).parents('.more-actions');
+	    var $editContainer = $(this).parents('.task-edit');
 	    var id = $task.attr('id');
 	
 	    // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
 	    ajax.editTask(id, $editContainer, function (err, editedTask) {
 	      if (editedTask) {
-	        $task.html(generate.innerTaskHTML(editedTask.title, editedTask.date, editedTask.time, editedTask.description));
+	        $task.html(generate.innerTaskHTML(editedTask));
 	        toggleScroll();
 	      }
 	    });
 	  });
 	
-	  containerClick('.cancel-changes', function () {
-	    // let task = $(this).parent();
-	
-	    // TODO -- update ajax.getOneTask to utilize full callback
-	    ajax.getTasks();
-	    toggleScroll();
-	  });
-	
-	  containerClick('.delete', function () {
+	  containerClick('.delete-btn', function () {
 	    // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
 	    ajax.deleteTask($(this).parents('.task').attr('id'));
 	    toggleScroll();
@@ -363,7 +382,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -373,7 +392,7 @@
 	};
 
 /***/ },
-/* 14 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -383,18 +402,33 @@
 	};
 
 /***/ },
-/* 15 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var timer = __webpack_require__(7);
-	var utils = __webpack_require__(9)();
-	var generate = __webpack_require__(8);
+	var timer = __webpack_require__(12);
+	var utils = __webpack_require__(14)();
+	var generate = __webpack_require__(13);
+	
+	function goToTasksView() {
+	  window.location.hash = '#tasks-container';
+	}
+	
+	function removeTimerSaveHTML($container) {
+	  $container.find('.timer-save').remove();
+	}
+	
+	function resetClock($container) {
+	  timer.reset();
+	
+	  var $time = $container.find('.time');
+	  $time.find('.hours, .minutes, .seconds').html('00');
+	}
 	
 	module.exports = function (apiURL) {
 	  var $container = $('#timer-container');
-	  var createTask = __webpack_require__(16)(apiURL);
+	  var createTask = __webpack_require__(21)(apiURL);
 	
 	  $container.on('click', '.timer .start', function () {
 	
@@ -431,43 +465,38 @@
 	  $container.on('click', '.timer .save.active', function () {
 	    var seconds = timer.end();
 	
-	    $container.html(generate.timerSaveHTML(seconds));
+	    $container.append(generate.timerSaveHTML(seconds));
 	  });
 	
 	  $container.on('submit', '#save-task', function (event) {
 	    var timeInSeconds = timer.end();
-	    var getTasks = __webpack_require__(10)(apiURL).getTasks;
+	    var getTasks = __webpack_require__(15)(apiURL).getTasks;
 	
-	    timer.reset();
+	    resetClock($container);
 	    event.preventDefault();
 	
 	    createTask(timeInSeconds, function () {
-	      $container.hide().siblings('#tasks-container').show();
-	      toggleNav();
+	      removeTimerSaveHTML($container);
+	      goToTasksView();
 	      getTasks();
 	    });
 	  });
 	
-	  function toggleNav() {
-	    console.log('asdfasdfasdf');
-	    utils.toggleNav($('.my-tasks'));
-	  }
-	
 	  $container.on('click', '.cancel-save', function (event) {
 	    event.preventDefault();
-	    timer.reset();
-	    toggleNav();
-	    $container.hide().siblings('#tasks-container').show();
+	    resetClock($container);
+	    removeTimerSaveHTML($container);
+	    goToTasksView();
 	  });
 	};
 
 /***/ },
-/* 16 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9)();
+	var utils = __webpack_require__(14)();
 	
 	module.exports = function (apiURL) {
 	
@@ -475,8 +504,13 @@
 	    var url = apiURL + 'tasks/create';
 	    var title = utils.getValue('.timer-save .title') || undefined;
 	    var description = utils.getValue('.timer-save .description');
-	    // console.log(description.replace('/\n/g, <br>'));
-	    var data = { title: title, date: new Date(Date.now()), time: time, description: description };
+	
+	    var data = {
+	      title: title,
+	      date: new Date(Date.now()),
+	      time: time,
+	      description: description
+	    };
 	
 	    $.post(url, data).done(function (task) {
 	      callback(null, task);

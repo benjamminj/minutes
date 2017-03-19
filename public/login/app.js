@@ -47,17 +47,24 @@
 
 	'use strict';
 	
-	__webpack_require__(28);
-	__webpack_require__(24)();
+	__webpack_require__(26);
+	__webpack_require__(28)();
 
 /***/ },
 
-/***/ 24:
+/***/ 26:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var controller = __webpack_require__(25);
+	var controller = __webpack_require__(29);
 	
 	module.exports = function () {
 	  $(document).ready(function () {
@@ -73,7 +80,7 @@
 
 /***/ },
 
-/***/ 25:
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -82,18 +89,11 @@
 	
 	Controller.login = function (request) {
 	  $.post(('//localhost:5000/') + "user/login", request).done(function () {
-	    window.location = ('//localhost:5000/') + "dashboard";
+	    window.location = ('//localhost:5000/') + "dashboard/#tasks-container";
 	  });
 	};
 	
 	module.exports = Controller;
-
-/***/ },
-
-/***/ 28:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
 
 /***/ }
 

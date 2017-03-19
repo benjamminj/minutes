@@ -1,6 +1,6 @@
 {
   "name": "time-tracker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An app for keeping track of how long tasks take",
   "main": "server/server.js",
   "scripts": {

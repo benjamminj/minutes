@@ -600,17 +600,6 @@ textarea,
   position: relative;
   padding: 2.75rem;
 }
-.btn-accent {
-  background-color: #0a9fe2;
-  color: #fff;
-  border: none;
-  border-radius: 2px;
-  transition: background-color 0.175s linear;
-}
-.btn-accent:hover {
-  cursor: pointer;
-  background-color: #077cb2;
-}
 .btn-lrg {
   margin-top: 1rem;
   line-height: 1.75;
@@ -815,9 +804,11 @@ label[for*="-toggler"]:hover {
   line-height: 1.75;
   width: 100%;
 }
-#signup button:hover {
+#signup button:hover,
+#signup button:focus {
   cursor: pointer;
-  background-color: #077cb2;
+  background-color: #088eca;
+  outline: none;
 }
 
 /*# sourceMappingURL=style.css.map*/
