@@ -23,9 +23,8 @@ module.exports = (apiURL) => {
     },
 
     editTask(id, edits, callback) {
-      
-      let title = edits.children('.title').val() || undefined;
-      let description = edits.children('#edit-description').val() || undefined;
+      let title = edits.children('.edit-title').val() || undefined;
+      let description = edits.children('.edit-description').val() || undefined;
 
       $.ajax({
         url: `${apiURL}tasks/edit/${id}`,

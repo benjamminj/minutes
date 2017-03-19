@@ -30,9 +30,9 @@ module.exports = (apiURL) => {
     // $('.more-actions').html(html).toggleClass('editing');
   });
 
-  containerClick('.task .save-changes', function() {
+  containerClick('.task .task-edit-save', function() {
     let $task = $(this).parents('.task');
-    let $editContainer = $(this).parents('.task-content');
+    let $editContainer = $(this).parents('.task-edit');
     let id = $task.attr('id');
 
     // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
@@ -44,15 +44,7 @@ module.exports = (apiURL) => {
     });
   });
 
-  containerClick('.cancel-changes', function() {
-    // let task = $(this).parent();
-
-    // TODO -- update ajax.getOneTask to utilize full callback
-    ajax.getTasks();
-    toggleScroll();
-  });
-
-  containerClick('.delete', function() {
+  containerClick('.delete-btn', function() {
     // TODO -- refactor ajax.delete to separate the AJAX call from the DOM manipulation
     ajax.deleteTask($(this).parents('.task').attr('id'));
     toggleScroll();
