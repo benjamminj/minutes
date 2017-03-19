@@ -54,10 +54,14 @@ main section:target {
     }
 
     .title {
-      display: inline;
+      display: inline-block;
       margin: 1.75rem 0 0.5rem;
       font-size: 1.5rem;
       color: @accent-dark;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      width: 100%;
+      height: 2rem;
     }
   }
 
@@ -146,6 +150,7 @@ main section:target {
     color: fade(@black, 60);
     margin: 0;
     text-align: center;
+    overflow-wrap: break-word;
   }
 
   .description {
