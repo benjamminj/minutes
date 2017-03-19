@@ -29,25 +29,25 @@ module.exports = (apiURL) => {
 
   $container.on('click', '.timer .stop', function() {
     timer.stop();
-    
+
     // New
     if (timer.timeInSeconds > 0) {
       $('#timer-container .save').addClass('active');
     }
-    
+
     $(this).addClass('start').removeClass('stop').html('Start');
   });
 
   $container.on('click', '.timer .save.active', function() {
     var seconds = timer.end();
 
-    $container.html(generate.timerSaveHTML(seconds));
+    $container.append(generate.timerSaveHTML(seconds));
   });
 
   $container.on('submit', '#save-task', (event) => {
     let timeInSeconds = timer.end();
     let getTasks = require('../tasks/tasks.ajax')(apiURL).getTasks;
-    
+
     timer.reset();
     event.preventDefault();
 
@@ -59,8 +59,7 @@ module.exports = (apiURL) => {
   });
 
   function toggleNav() {
-    console.log('asdfasdfasdf');
-    utils.toggleNav($('.my-tasks')); 
+    utils.toggleNav($('.my-tasks'));
   }
 
   $container.on('click', '.cancel-save', (event) => {

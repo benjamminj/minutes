@@ -24,16 +24,33 @@
   background-position: @pos;
 }
 
-.btn-accent {
-  background-color: @accent-dark;
+.btn-accent(@color: @accent-dark) {
+  background-color: @color;
   color: @white;
   border: none;
   border-radius: @border-rad;
   transition: background-color @transition-default;
 
-  &:hover {
+  &:hover, &:focus {
     cursor: pointer;
-    background-color: @accent-darker;
+    background-color: darken(@color, 5%);
+    outline: none;
+  }
+}
+
+.btn-outline (@color: @accent) {
+  background-color: transparent;
+  color: @color;
+  border: 2px solid @color;
+  border-radius: @border-rad;
+  transition: all @transition-default;
+
+  &:hover, &:focus {
+    cursor: pointer;
+    border: 2px solid darken(@color, 10%);
+    color: darken(@color, 10%);
+    background-color: fade(@color, 10);
+    outline: none;
   }
 }
 
