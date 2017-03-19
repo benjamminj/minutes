@@ -2,6 +2,21 @@ let timer = require('./timer');
 let utils = require('../utils')();
 let generate = require('./timer.html');
 
+function goToTasksView () {
+  window.location.hash = '#tasks-container';
+}
+
+function removeTimerSaveHTML ($container) {
+  $container.find('.timer-save').remove();
+}
+
+function resetClock ($container) {
+  timer.reset();
+
+  const $time = $container.find('.time');
+  $time.find('.hours, .minutes, .seconds').html('00');
+}
+
 module.exports = (apiURL) => {
   let $container = $('#timer-container');
   let createTask = require('./timer.ajax')(apiURL);
@@ -48,24 +63,20 @@ module.exports = (apiURL) => {
     let timeInSeconds = timer.end();
     let getTasks = require('../tasks/tasks.ajax')(apiURL).getTasks;
 
-    timer.reset();
+    resetClock($container);
     event.preventDefault();
 
     createTask(timeInSeconds, () => {
-      $container.hide().siblings('#tasks-container').show();
-      toggleNav();
+      removeTimerSaveHTML($container);
+      goToTasksView();
       getTasks();
     });
   });
 
-  function toggleNav() {
-    utils.toggleNav($('.my-tasks'));
-  }
-
   $container.on('click', '.cancel-save', (event) => {
     event.preventDefault();
-    timer.reset();
-    toggleNav();
-    $container.hide().siblings('#tasks-container').show();
+    resetClock($container);
+    removeTimerSaveHTML($container);
+    goToTasksView();
   });
 };

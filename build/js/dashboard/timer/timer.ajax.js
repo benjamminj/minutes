@@ -6,8 +6,13 @@ module.exports = (apiURL) => {
     let url = apiURL + 'tasks/create';
     let title = utils.getValue('.timer-save .title') || undefined;
     let description = utils.getValue('.timer-save .description');
-    // console.log(description.replace('/\n/g, <br>'));
-    let data = { title: title, date: new Date(Date.now()), time: time, description: description };
+
+    let data = {
+      title,
+      date: new Date(Date.now()),
+      time,
+      description
+    };
 
     $.post(url, data)
       .done((task) => {
