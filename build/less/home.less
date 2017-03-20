@@ -118,8 +118,14 @@
   background: @light-gray;
   padding: 2.75rem 1.5rem;
 
+  .media-md-screen({
+    padding: 8rem 1.5rem;
+  });
+
   h2 {
-    margin-top: 0;
+    max-width: @breakpoint-md;
+    margin: 0 auto 1rem;
+
   }
 
   .auth-input();
@@ -127,5 +133,10 @@
   button {
     .btn-accent;
     .btn-lrg;
+  }
+
+  #sign-up-form {
+    max-width: @breakpoint-md;
+    margin: 0 auto;
   }
 }
