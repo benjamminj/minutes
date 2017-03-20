@@ -1,12 +1,13 @@
-let swapClasses = require('../utils/swap.classes');
+const { signup } = require('./home.controller');
 
 module.exports = () => {
   $(document).ready(() => {
-    $('.menu-icon').click(function() {
-      let $this = $(this);
+    $('#sign-up-form').submit((ev) => {
+      ev.preventDefault();
+      const username = $('#signup-username').val() || undefined;
+      const password = $('#signup-password').val() || undefined;
 
-      swapClasses($this.children('i'), 'fa-times', 'fa-bars');
-      $this.siblings('nav').toggleClass('collapsed');
+      signup({ username, password });
     });
   });
 };

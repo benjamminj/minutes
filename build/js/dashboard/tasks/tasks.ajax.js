@@ -11,10 +11,12 @@ module.exports = (apiURL) => {
           $('#tasks-container').html('');
 
           if (!tasks.length) {
-            $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. Click \'New\' to get started.</h3>');
+            $('#tasks-container').addClass('no-content');
+            $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. <a href="#timer-container">Create a new one today</a></h3>');
           }
 
           tasks.forEach(function(task) {
+            $('#tasks-container').removeClass('no-content');
             $('#tasks-container').prepend(generate.taskHTML(task));
           });
         }).fail(function() {

@@ -15,6 +15,23 @@
   });
 }
 
+.no-content {
+  align-self: center !important;
+
+  #no-tasks {
+    color: darken(@light-gray, 20%);
+    text-align: center;
+    padding: 1rem;
+    max-width: @breakpoint-md;
+    margin: 0 auto;
+
+    a {
+      color: fade(@accent, 50);
+    }
+  }
+}
+
+
 .task {
   background-color: @white;
   border: 1px solid darken(@light-gray, 10%);

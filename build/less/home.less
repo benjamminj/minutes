@@ -190,6 +190,14 @@
   #sign-up-form {
     max-width: @breakpoint-md;
     margin: 0 auto;
+
+    .error {
+      color: @red;
+    }
+
+    .error + input {
+      border: 1px solid @red;
+    }
   }
 }
 
