@@ -33,7 +33,7 @@ module.exports = {
             ${this.divideTimeHTML(seconds)}
           </h2>
           <input type="text" placeholder="Choose a Title" class="title top">
-          <textarea placeholder="Add a Description" class="description bottom" rows="3" cols="50"></textarea>
+          <textarea placeholder="Add a Description" class="description bottom" rows="10" cols="50"></textarea>
           <div class="timer-buttons">
             <button class="cancel-save">Cancel</button>
             <button type="submit" class="submit">Save</button>

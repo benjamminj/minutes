@@ -68,6 +68,9 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  max-width: @breakpoint-lg;
+  margin: 0 auto;
+  justify-content: center;
 
   .time {
     text-align: center;
@@ -92,6 +95,10 @@
 
   .description {
     flex-grow: 1;
+
+    .media-lg-screen({
+      flex-grow: 0;
+    });
   }
 
   .timer-buttons {
