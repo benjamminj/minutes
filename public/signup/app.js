@@ -52,15 +52,15 @@
 /***/ },
 
 /***/ 29:
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 	
 	var Controller = {};
 	
 	Controller.login = function (request) {
-	  $.post(('//localhost:5000/') + "user/login", request).done(function () {
-	    window.location = ('//localhost:5000/') + "dashboard/#tasks-container";
+	  $.post("/user/login", request).done(function () {
+	    window.location = "/dashboard/#tasks-container";
 	  });
 	};
 	

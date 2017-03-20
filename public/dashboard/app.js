@@ -70,7 +70,6 @@
 	'use strict';
 	
 	module.exports = function () {
-	
 	  $(document).ready(function () {
 	    __webpack_require__(11)(('//localhost:5000/'));
 	    __webpack_require__(17)(('//localhost:5000/'));
@@ -206,7 +205,7 @@
 	
 	  return {
 	    getTasks: function getTasks() {
-	      var url = apiURL + 'tasks/';
+	      var url = '/tasks/';
 	      $.getJSON(url).done(function (tasks) {
 	        $('#tasks-container').html('');
 	
@@ -224,11 +223,11 @@
 	      });
 	    },
 	    editTask: function editTask(id, edits, callback) {
-	      var title = edits.children('.edit-title').val() || undefined;
-	      var description = edits.children('.edit-description').val() || undefined;
+	      var title = edits.find('.edit-title').val();
+	      var description = edits.find('.edit-description').val();
 	
 	      $.ajax({
-	        url: apiURL + 'tasks/edit/' + id,
+	        url: '/tasks/edit/' + id,
 	        type: 'PUT',
 	        data: { title: title, description: description }
 	      }).done(function (editedTask) {
@@ -238,7 +237,7 @@
 	      });
 	    },
 	    deleteTask: function deleteTask(id) {
-	      var url = apiURL + 'tasks/delete/' + id;
+	      var url = '/tasks/delete/' + id;
 	
 	      $.ajax({
 	        url: url,
@@ -300,7 +299,7 @@
 	      descriptionHTML = description.replace(/\n/g, '<br>');
 	    }
 	
-	    return '\n      <input hidden type="checkbox" class="info-toggler" id="info-' + _id + '" />\n      <input hidden type="checkbox" class="edit-toggler" id="edit-' + _id + '" />\n\n      <div class="task-content">\n        <div class="task-default">\n          <div class="task-default-header">\n            <h4 class="date">' + date + '</h4>\n            <h3 class="time">' + timeHTML.divideTimeHTML(time) + '</h3>\n          </div>\n          <h3 class="title">' + title + '</h3>\n        </div>\n        <div class="task-info task-modal" hidden>\n          <div class="task-modal-content">\n            <h4 class="date">' + date + '</h4>\n            <label for="info-' + _id + '" class="close-icon">' + closeIcon + '</label>\n            <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n            <h3 class="title">' + title + '</h3>\n            <p class="description">' + descriptionHTML + '</p>\n          </div>\n        </div>\n        <div class="task-edit task-modal" hidden>\n          <div class="task-modal-content">\n            <button class="task-edit-save">' + saveIcon + '</button>\n            <label for="edit-' + _id + '" class="close-icon">' + closeIcon + '</label>\n            <input class="edit-title" type="text" placeholder="Title" value="' + title + '" />\n            <textarea class="edit-description" name="description" placeholder="Description">' + (description || '') + '</textarea>\n          </div>\n        </div>\n      </div>\n\n      <div class="action-buttons">\n        <label for="info-' + _id + '">' + infoIcon + '</label>\n        <label for="edit-' + _id + '">' + editIcon + '</label>\n        <button class="delete-btn">' + deleteIcon + '</button>\n      </div>\n    ';
+	    return '\n      <input hidden type="checkbox" class="info-toggler" id="info-' + _id + '" />\n      <input hidden type="checkbox" class="edit-toggler" id="edit-' + _id + '" />\n\n      <div class="task-content">\n        <div class="task-default">\n          <div class="task-default-header">\n            <h4 class="date">' + date + '</h4>\n            <h3 class="time">' + timeHTML.divideTimeHTML(time) + '</h3>\n          </div>\n          <h3 class="title">' + title + '</h3>\n        </div>\n        <div class="task-info task-modal" hidden>\n          <div class="task-modal-content">\n            <h4 class="date">' + date + '</h4>\n            <label for="info-' + _id + '" class="close-icon">' + closeIcon + '</label>\n            <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n            <h3 class="title">' + title + '</h3>\n            <p class="description">' + descriptionHTML + '</p>\n          </div>\n        </div>\n        <div class="task-edit task-modal" hidden>\n          <div class="task-modal-content">\n            <button class="task-edit-save">' + saveIcon + '</button>\n            <label for="edit-' + _id + '" class="close-icon">' + closeIcon + '</label>\n            <input required class="edit-title" type="text" placeholder="Title" value="' + title + '" />\n            <textarea class="edit-description" name="description" placeholder="Description">' + (description || '') + '</textarea>\n          </div>\n        </div>\n      </div>\n\n      <div class="action-buttons">\n        <label for="info-' + _id + '">' + infoIcon + '</label>\n        <label for="edit-' + _id + '">' + editIcon + '</label>\n        <button class="delete-btn">' + deleteIcon + '</button>\n      </div>\n    ';
 	  }
 	};
 
@@ -350,8 +349,13 @@
 	    // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
 	    ajax.editTask(id, $editContainer, function (err, editedTask) {
 	      if (editedTask) {
+	        console.log('it works?');
 	        $task.html(generate.innerTaskHTML(editedTask));
 	        toggleScroll();
+	      }
+	
+	      if (err) {
+	        console.log(err);
 	      }
 	    });
 	  });
@@ -480,10 +484,9 @@
 	
 	var utils = __webpack_require__(14)();
 	
-	module.exports = function (apiURL) {
-	
+	module.exports = function () {
 	  return function (time, callback) {
-	    var url = apiURL + 'tasks/create';
+	    var url = '/tasks/create';
 	    var title = utils.getValue('.timer-save .title') || undefined;
 	    var description = utils.getValue('.timer-save .description');
 	
