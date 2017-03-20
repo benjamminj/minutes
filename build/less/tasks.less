@@ -121,31 +121,28 @@
 .task .info-toggler:checked ~ .task-content {
   // Breaks out into a modal window
   .task-info {
-    .flex-column;
-    position: fixed;
-    left: @main-padding;
-    right: @main-padding;
-    top: @main-top-padding;
-    bottom: @main-padding;
-    background-color: @white;
+    .modal();
   }
 }
 
 .task .edit-toggler:checked + .task-content {
   // Breaks out into a modal window too
   .task-edit {
-    .flex-column;
-    position: fixed;
-    left: @main-padding;
-    right: @main-padding;
-    top: @main-top-padding;
-    bottom: @main-padding;
-    background-color: #fff;
+    .modal();
   }
 }
 
-.task-modal {
+.task-modal-content {
+  .flex-column;
   padding: 0.5rem;
+  position: relative;
+  background-color: @white;
+  box-shadow: 0 0 7px fade(@black, 50);
+
+  .media-md-screen({
+    width: @breakpoint-md;
+    align-self: center;
+  });
 
   .close-icon {
     position: absolute;

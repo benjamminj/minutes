@@ -88,17 +88,21 @@ module.exports = {
           <h3 class="title">${title}</h3>
         </div>
         <div class="task-info task-modal" hidden>
-          <h4 class="date">${date}</h4>
-          <label for="info-${_id}" class="close-icon">${closeIcon}</label>
-          <h1 class="time">${timeHTML.divideTimeHTML(time)}</h4>
-          <h3 class="title">${title}</h3>
-          <p class="description">${descriptionHTML}</p>
+          <div class="task-modal-content">
+            <h4 class="date">${date}</h4>
+            <label for="info-${_id}" class="close-icon">${closeIcon}</label>
+            <h1 class="time">${timeHTML.divideTimeHTML(time)}</h4>
+            <h3 class="title">${title}</h3>
+            <p class="description">${descriptionHTML}</p>
+          </div>
         </div>
         <div class="task-edit task-modal" hidden>
-          <button class="task-edit-save">${saveIcon}</button>
-          <label for="edit-${_id}" class="close-icon">${closeIcon}</label>
-          <input class="edit-title" type="text" placeholder="Title" value="${title}" />
-          <textarea class="edit-description" name="description" placeholder="Description">${description || ''}</textarea>
+          <div class="task-modal-content">
+            <button class="task-edit-save">${saveIcon}</button>
+            <label for="edit-${_id}" class="close-icon">${closeIcon}</label>
+            <input class="edit-title" type="text" placeholder="Title" value="${title}" />
+            <textarea class="edit-description" name="description" placeholder="Description">${description || ''}</textarea>
+          </div>
         </div>
       </div>
 
