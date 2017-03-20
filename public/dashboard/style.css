@@ -603,6 +603,7 @@ textarea,
 .btn-lrg {
   margin-top: 1rem;
   line-height: 1.75;
+  height: 3rem;
   width: 100%;
 }
 body {
@@ -640,8 +641,20 @@ label[for*="-toggler"]:hover {
   box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
   padding: 0.5rem 0;
 }
+@media (min-width: 450px) {
+  .header .menu-toggler-btn {
+    padding: 0;
+  }
+}
 .header .menu-toggler-btn h3 {
   margin: 0;
+}
+@media (min-width: 450px) {
+  .header .menu-toggler-btn h3 {
+    position: absolute;
+    padding: 0.5rem;
+    cursor: default;
+  }
 }
 .header .menu-toggler-btn i {
   position: absolute;
@@ -650,6 +663,11 @@ label[for*="-toggler"]:hover {
   line-height: 1;
   top: 0;
   color: inherit;
+}
+@media (min-width: 450px) {
+  .header .menu-toggler-btn i {
+    display: none;
+  }
 }
 .header .menu-toggler-btn span::selection {
   background-color: transparent;
@@ -663,15 +681,33 @@ label[for*="-toggler"]:hover {
   color: rgba(255, 255, 255, 0.8);
   display: none;
 }
+@media (min-width: 450px) {
+  .header .nav {
+    background-color: transparent;
+    display: flex;
+    position: absolute;
+    right: 0;
+  }
+}
 .header .nav ul {
   margin: 0;
   padding: 0;
+}
+@media (min-width: 450px) {
+  .header .nav ul {
+    display: flex;
+  }
 }
 .header .nav .menu-item a {
   display: block;
 }
 .header .nav .menu-toggler-close {
   display: block;
+}
+@media (min-width: 450px) {
+  .header .nav .menu-toggler-close {
+    display: none;
+  }
 }
 .header .nav .menu-item a,
 .header .nav .menu-toggler-close {
@@ -681,29 +717,82 @@ label[for*="-toggler"]:hover {
 .header .nav .menu-toggler-close:hover {
   background: rgba(34, 34, 34, 0.05);
 }
+@media (min-width: 450px) {
+  .header .nav .menu-item a,
+  .header .nav .menu-toggler-close {
+    padding: 0.5rem 1rem;
+  }
+}
 #menu-toggler:checked + .menu-toggler-btn + .nav {
   display: block;
   box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
 }
-main {
-  padding: 3.5rem 0.75rem 0.75rem;
-  background-color: #efefef;
-  min-height: 100vh;
-  height: 100vh;
+@media (min-width: 450px) {
+  #menu-toggler:checked + .menu-toggler-btn + .nav {
+    box-shadow: none;
+  }
 }
-main section {
-  display: none;
+@media (min-width: 450px) {
+  #tasks-container:target {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
-main section:target {
-  display: block;
+@media (min-width: 632px) {
+  #tasks-container:target {
+    width: 600px;
+    align-self: flex-start;
+  }
+}
+@media (min-width: 900px) {
+  #tasks-container:target {
+    max-width: 900px;
+    width: 100%;
+  }
+}
+.no-content {
+  align-self: center !important;
+}
+.no-content #no-tasks {
+  color: #bcbcbc;
+  text-align: center;
+  padding: 1rem;
+  max-width: 450px;
+  margin: 0 auto;
+}
+.no-content #no-tasks a {
+  color: rgba(41, 182, 246, 0.5);
 }
 .task {
   background-color: #fff;
   border: 1px solid #d6d6d6;
   box-shadow: 0 0 4px rgba(34, 34, 34, 0.15);
 }
+@media (min-width: 450px) {
+  .task {
+    width: 49%;
+    margin: 0.5%;
+  }
+}
+@media (min-width: 632px) {
+  .task {
+    width: 294px;
+    margin: 3px;
+    height: 150px;
+  }
+}
 .task + .task {
   margin-top: 0.75rem;
+}
+@media (min-width: 450px) {
+  .task + .task {
+    margin-top: 0.5%;
+  }
+}
+@media (min-width: 632px) {
+  .task + .task {
+    margin-top: 3px;
+  }
 }
 .task .task-default {
   display: flex;
@@ -766,26 +855,39 @@ main section:target {
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: 0.75rem;
-  right: 0.75rem;
-  top: 3.5rem;
-  bottom: 0.75rem;
-  background-color: #fff;
+  left: 0;
+  right: 0;
+  top: 2.75rem;
+  bottom: 0;
+  padding: 0.75rem;
+  background-color: rgba(34, 34, 34, 0.2);
 }
 .task .edit-toggler:checked + .task-content .task-edit {
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: 0.75rem;
-  right: 0.75rem;
-  top: 3.5rem;
-  bottom: 0.75rem;
-  background-color: #fff;
+  left: 0;
+  right: 0;
+  top: 2.75rem;
+  bottom: 0;
+  padding: 0.75rem;
+  background-color: rgba(34, 34, 34, 0.2);
 }
-.task-modal {
+.task-modal-content {
+  display: flex;
+  flex-direction: column;
   padding: 0.5rem;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 0 7px rgba(34, 34, 34, 0.5);
 }
-.task-modal .close-icon {
+@media (min-width: 450px) {
+  .task-modal-content {
+    width: 450px;
+    align-self: center;
+  }
+}
+.task-modal-content .close-icon {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
@@ -854,6 +956,11 @@ main section:target {
   font-size: 3.5rem;
   color: #29b6f6;
   text-align: center;
+}
+@media (min-width: 632px) {
+  .timer .time {
+    font-size: 5rem;
+  }
 }
 .timer .timer-buttons {
   display: flex;
@@ -930,6 +1037,9 @@ main section:target {
   width: 100%;
   display: flex;
   flex-direction: column;
+  max-width: 632px;
+  margin: 0 auto;
+  justify-content: center;
 }
 #save-task .time {
   text-align: center;
@@ -953,6 +1063,11 @@ main section:target {
 }
 #save-task .description {
   flex-grow: 1;
+}
+@media (min-width: 632px) {
+  #save-task .description {
+    flex-grow: 0;
+  }
 }
 #save-task .timer-buttons {
   width: 100%;
@@ -992,6 +1107,21 @@ main section:target {
   cursor: pointer;
   background-color: #088eca;
   outline: none;
+}
+main {
+  padding: 3.5rem 0.75rem 0.75rem;
+  background-color: #efefef;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main section {
+  display: none;
+}
+main section:target {
+  display: block;
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map*/

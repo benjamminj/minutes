@@ -603,6 +603,7 @@ textarea,
 .btn-lrg {
   margin-top: 1rem;
   line-height: 1.75;
+  height: 3rem;
   width: 100%;
 }
 body {
@@ -640,8 +641,20 @@ label[for*="-toggler"]:hover {
   box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
   padding: 0.5rem 0;
 }
+@media (min-width: 450px) {
+  .header .menu-toggler-btn {
+    padding: 0;
+  }
+}
 .header .menu-toggler-btn h3 {
   margin: 0;
+}
+@media (min-width: 450px) {
+  .header .menu-toggler-btn h3 {
+    position: absolute;
+    padding: 0.5rem;
+    cursor: default;
+  }
 }
 .header .menu-toggler-btn i {
   position: absolute;
@@ -650,6 +663,11 @@ label[for*="-toggler"]:hover {
   line-height: 1;
   top: 0;
   color: inherit;
+}
+@media (min-width: 450px) {
+  .header .menu-toggler-btn i {
+    display: none;
+  }
 }
 .header .menu-toggler-btn span::selection {
   background-color: transparent;
@@ -663,15 +681,33 @@ label[for*="-toggler"]:hover {
   color: rgba(255, 255, 255, 0.8);
   display: none;
 }
+@media (min-width: 450px) {
+  .header .nav {
+    background-color: transparent;
+    display: flex;
+    position: absolute;
+    right: 0;
+  }
+}
 .header .nav ul {
   margin: 0;
   padding: 0;
+}
+@media (min-width: 450px) {
+  .header .nav ul {
+    display: flex;
+  }
 }
 .header .nav .menu-item a {
   display: block;
 }
 .header .nav .menu-toggler-close {
   display: block;
+}
+@media (min-width: 450px) {
+  .header .nav .menu-toggler-close {
+    display: none;
+  }
 }
 .header .nav .menu-item a,
 .header .nav .menu-toggler-close {
@@ -681,9 +717,20 @@ label[for*="-toggler"]:hover {
 .header .nav .menu-toggler-close:hover {
   background: rgba(34, 34, 34, 0.05);
 }
+@media (min-width: 450px) {
+  .header .nav .menu-item a,
+  .header .nav .menu-toggler-close {
+    padding: 0.5rem 1rem;
+  }
+}
 #menu-toggler:checked + .menu-toggler-btn + .nav {
   display: block;
   box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
+}
+@media (min-width: 450px) {
+  #menu-toggler:checked + .menu-toggler-btn + .nav {
+    box-shadow: none;
+  }
 }
 main {
   height: 100vh;
@@ -697,16 +744,18 @@ h1 {
   display: flex;
   flex-direction: column;
   padding: 2.5rem;
+  max-width: 450px;
+  margin: 0 auto;
 }
 #login-form label {
   font-size: 0.75rem;
 }
 #login-form input[type="text"],
 #login-form input[type="password"] {
-  height: 2rem;
+  height: 2.5rem;
   margin: 0.25rem 0;
   width: 100%;
-  line-height: 2rem;
+  line-height: 2.5rem;
   border-radius: 2px;
   border: 1px solid #222;
 }
@@ -724,6 +773,7 @@ h1 {
   transition: background-color 0.175s linear;
   margin-top: 1rem;
   line-height: 1.75;
+  height: 3rem;
   width: 100%;
 }
 .login-btn:hover,

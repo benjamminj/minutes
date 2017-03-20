@@ -84,34 +84,14 @@
 
 	'use strict';
 	
-	var timer = __webpack_require__(12);
-	var generate = __webpack_require__(13);
-	var utils = __webpack_require__(14)();
-	
 	module.exports = function (apiURL) {
-	  var getTasks = __webpack_require__(15)(apiURL).getTasks;
-	
-	  $('button.logout').click(function () {
+	  $('.logout').click(function (ev) {
+	    ev.preventDefault();
 	    var url = apiURL + 'user/logout';
 	
 	    $.get(url).done(function () {
 	      window.location = ('//localhost:5000/');
 	    });
-	  });
-	
-	  $('#nav-buttons .my-tasks').click(function () {
-	    // TO DO -- add the close prompt if the timer is running. Otherwise just load the page.
-	    timer.reset();
-	    getTasks();
-	    utils.toggleNav($(this));
-	    $('#timer-container').hide().siblings('#tasks-container').show();
-	  });
-	
-	  // header
-	  $('#nav-buttons .new-task').click(function () {
-	    $('#tasks-container').hide();
-	    utils.toggleNav($(this));
-	    $('#timer-container').show().html(generate.timerHTML());
 	  });
 	};
 
@@ -164,7 +144,7 @@
 	    return '\n      <div class="timer-close-prompt">\n        <h2>Are you sure you want to end the timer? You will lose any time currently on the clock</h2>\n        <button class="yes">Yes, I would like to cancel this timer</button>\n        <button class="no">No, I want to keep running the timer</button>\n      </div>\n    ';
 	  },
 	  timerSaveHTML: function timerSaveHTML(seconds) {
-	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <h2 class="time">\n            ' + this.divideTimeHTML(seconds) + '\n          </h2>\n          <input type="text" placeholder="Choose a Title" class="title top">\n          <textarea placeholder="Add a Description" class="description bottom" rows="3" cols="50"></textarea>\n          <div class="timer-buttons">\n            <button class="cancel-save">Cancel</button>\n            <button type="submit" class="submit">Save</button>\n          </div>\n        </form>\n      </div>\n    ';
+	    return '\n      <div class="timer-save">\n        <form action="" id="save-task">\n          <h2 class="time">\n            ' + this.divideTimeHTML(seconds) + '\n          </h2>\n          <input type="text" placeholder="Choose a Title" class="title top">\n          <textarea placeholder="Add a Description" class="description bottom" rows="10" cols="50"></textarea>\n          <div class="timer-buttons">\n            <button class="cancel-save">Cancel</button>\n            <button type="submit" class="submit">Save</button>\n          </div>\n        </form>\n      </div>\n    ';
 	  },
 	  divideTimeHTML: function divideTimeHTML(time) {
 	    var pad = utils.addLeadingZeroes;
@@ -231,10 +211,12 @@
 	        $('#tasks-container').html('');
 	
 	        if (!tasks.length) {
-	          $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. Click \'New\' to get started.</h3>');
+	          $('#tasks-container').addClass('no-content');
+	          $('#tasks-container').append('<h3 id="no-tasks">It looks like you haven\'t created any tasks yet. <a href="#timer-container">Create a new one today</a></h3>');
 	        }
 	
 	        tasks.forEach(function (task) {
+	          $('#tasks-container').removeClass('no-content');
 	          $('#tasks-container').prepend(generate.taskHTML(task));
 	        });
 	      }).fail(function () {
@@ -318,7 +300,7 @@
 	      descriptionHTML = description.replace(/\n/g, '<br>');
 	    }
 	
-	    return '\n      <input hidden type="checkbox" class="info-toggler" id="info-' + _id + '" />\n      <input hidden type="checkbox" class="edit-toggler" id="edit-' + _id + '" />\n\n      <div class="task-content">\n        <div class="task-default">\n          <div class="task-default-header">\n            <h4 class="date">' + date + '</h4>\n            <h3 class="time">' + timeHTML.divideTimeHTML(time) + '</h3>\n          </div>\n          <h3 class="title">' + title + '</h3>\n        </div>\n        <div class="task-info task-modal" hidden>\n          <h4 class="date">' + date + '</h4>\n          <label for="info-' + _id + '" class="close-icon">' + closeIcon + '</label>\n          <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n          <h3 class="title">' + title + '</h3>\n          <p class="description">' + descriptionHTML + '</p>\n        </div>\n        <div class="task-edit task-modal" hidden>\n          <button class="task-edit-save">' + saveIcon + '</button>\n          <label for="edit-' + _id + '" class="close-icon">' + closeIcon + '</label>\n          <input class="edit-title" type="text" placeholder="Title" value="' + title + '" />\n          <textarea class="edit-description" name="description" placeholder="Description">' + (description || '') + '</textarea>\n        </div>\n      </div>\n\n      <div class="action-buttons">\n        <label for="info-' + _id + '">' + infoIcon + '</label>\n        <label for="edit-' + _id + '">' + editIcon + '</label>\n        <button class="delete-btn">' + deleteIcon + '</button>\n      </div>\n    ';
+	    return '\n      <input hidden type="checkbox" class="info-toggler" id="info-' + _id + '" />\n      <input hidden type="checkbox" class="edit-toggler" id="edit-' + _id + '" />\n\n      <div class="task-content">\n        <div class="task-default">\n          <div class="task-default-header">\n            <h4 class="date">' + date + '</h4>\n            <h3 class="time">' + timeHTML.divideTimeHTML(time) + '</h3>\n          </div>\n          <h3 class="title">' + title + '</h3>\n        </div>\n        <div class="task-info task-modal" hidden>\n          <div class="task-modal-content">\n            <h4 class="date">' + date + '</h4>\n            <label for="info-' + _id + '" class="close-icon">' + closeIcon + '</label>\n            <h1 class="time">' + timeHTML.divideTimeHTML(time) + '</h4>\n            <h3 class="title">' + title + '</h3>\n            <p class="description">' + descriptionHTML + '</p>\n          </div>\n        </div>\n        <div class="task-edit task-modal" hidden>\n          <div class="task-modal-content">\n            <button class="task-edit-save">' + saveIcon + '</button>\n            <label for="edit-' + _id + '" class="close-icon">' + closeIcon + '</label>\n            <input class="edit-title" type="text" placeholder="Title" value="' + title + '" />\n            <textarea class="edit-description" name="description" placeholder="Description">' + (description || '') + '</textarea>\n          </div>\n        </div>\n      </div>\n\n      <div class="action-buttons">\n        <label for="info-' + _id + '">' + infoIcon + '</label>\n        <label for="edit-' + _id + '">' + editIcon + '</label>\n        <button class="delete-btn">' + deleteIcon + '</button>\n      </div>\n    ';
 	  }
 	};
 

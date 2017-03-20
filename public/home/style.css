@@ -603,6 +603,7 @@ textarea,
 .btn-lrg {
   margin-top: 1rem;
   line-height: 1.75;
+  height: 3rem;
   width: 100%;
 }
 body {
@@ -640,8 +641,20 @@ label[for*="-toggler"]:hover {
   box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
   padding: 0.5rem 0;
 }
+@media (min-width: 450px) {
+  .header .menu-toggler-btn {
+    padding: 0;
+  }
+}
 .header .menu-toggler-btn h3 {
   margin: 0;
+}
+@media (min-width: 450px) {
+  .header .menu-toggler-btn h3 {
+    position: absolute;
+    padding: 0.5rem;
+    cursor: default;
+  }
 }
 .header .menu-toggler-btn i {
   position: absolute;
@@ -650,6 +663,11 @@ label[for*="-toggler"]:hover {
   line-height: 1;
   top: 0;
   color: inherit;
+}
+@media (min-width: 450px) {
+  .header .menu-toggler-btn i {
+    display: none;
+  }
 }
 .header .menu-toggler-btn span::selection {
   background-color: transparent;
@@ -663,15 +681,33 @@ label[for*="-toggler"]:hover {
   color: rgba(255, 255, 255, 0.8);
   display: none;
 }
+@media (min-width: 450px) {
+  .header .nav {
+    background-color: transparent;
+    display: flex;
+    position: absolute;
+    right: 0;
+  }
+}
 .header .nav ul {
   margin: 0;
   padding: 0;
+}
+@media (min-width: 450px) {
+  .header .nav ul {
+    display: flex;
+  }
 }
 .header .nav .menu-item a {
   display: block;
 }
 .header .nav .menu-toggler-close {
   display: block;
+}
+@media (min-width: 450px) {
+  .header .nav .menu-toggler-close {
+    display: none;
+  }
 }
 .header .nav .menu-item a,
 .header .nav .menu-toggler-close {
@@ -681,12 +717,22 @@ label[for*="-toggler"]:hover {
 .header .nav .menu-toggler-close:hover {
   background: rgba(34, 34, 34, 0.05);
 }
+@media (min-width: 450px) {
+  .header .nav .menu-item a,
+  .header .nav .menu-toggler-close {
+    padding: 0.5rem 1rem;
+  }
+}
 #menu-toggler:checked + .menu-toggler-btn + .nav {
   display: block;
   box-shadow: 0 9px 9px rgba(34, 34, 34, 0.1);
 }
+@media (min-width: 450px) {
+  #menu-toggler:checked + .menu-toggler-btn + .nav {
+    box-shadow: none;
+  }
+}
 #banner,
-#description,
 #examples {
   min-height: 100vh;
   position: relative;
@@ -708,8 +754,28 @@ label[for*="-toggler"]:hover {
 #banner h1 {
   font-family: 'Source Sans Pro', monospace;
 }
+@media (min-width: 450px) {
+  #banner h1 {
+    font-size: 3rem;
+  }
+}
+@media (min-width: 900px) {
+  #banner h1 {
+    font-size: 4rem;
+  }
+}
 #banner h3 {
   margin: 0;
+}
+@media (min-width: 632px) {
+  #banner h3 {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 900px) {
+  #banner h3 {
+    font-size: 2rem;
+  }
 }
 #banner .keep-reading-btn {
   position: absolute;
@@ -720,16 +786,50 @@ label[for*="-toggler"]:hover {
   opacity: 0.6;
 }
 #description {
-  padding-top: 5.5rem;
+  padding: 5.5rem 2.75rem;
   background: #efefef;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  #description {
+    flex-direction: row;
+  }
+}
+#description .content {
+  max-width: 450px;
+}
+@media (min-width: 900px) {
+  #description .content {
+    margin-left: 3rem;
+  }
+}
+#description .content h3 {
+  font-size: 1.5rem;
+}
+#description .content h4 {
+  font-size: 1.25rem;
 }
 .icon-suitcase-timer {
   text-align: center;
   display: block;
 }
+@media (min-width: 900px) {
+  .icon-suitcase-timer svg {
+    height: 150px;
+    width: 150px;
+  }
+}
 #examples {
   background: #fff;
   padding: 0;
+}
+@media (min-width: 632px) {
+  #examples {
+    min-height: auto;
+  }
 }
 .examples-heading {
   margin: 0;
@@ -739,6 +839,11 @@ label[for*="-toggler"]:hover {
 .example-cards {
   margin: 0;
 }
+@media (min-width: 900px) {
+  .example-cards {
+    display: flex;
+  }
+}
 .example-card {
   height: 250px;
   color: #fff;
@@ -747,8 +852,14 @@ label[for*="-toggler"]:hover {
   justify-content: center;
   align-items: center;
 }
+@media (min-width: 900px) {
+  .example-card {
+    height: 600px;
+    width: 33.3333%;
+  }
+}
 .example-card.exercise {
-  background-image: linear-gradient(rgba(7, 124, 178, 0.4), rgba(7, 124, 178, 0.4)), url('/img/running-bg.jpg');
+  background-image: linear-gradient(rgba(7, 124, 178, 0.4), rgba(7, 124, 178, 0.4)), url('/img/parking-freeway-jogger.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-position: right;
@@ -760,7 +871,7 @@ label[for*="-toggler"]:hover {
   background-position: initial;
 }
 .example-card.puzzles {
-  background-image: linear-gradient(rgba(11, 95, 70, 0.4), rgba(11, 95, 70, 0.4)), url('/img/puzzle-bg.jpeg');
+  background-image: linear-gradient(rgba(11, 95, 70, 0.4), rgba(11, 95, 70, 0.4)), url('/img/crossword.jpeg');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -769,22 +880,39 @@ label[for*="-toggler"]:hover {
   height: 5rem;
   width: 5rem;
 }
+@media (min-width: 900px) {
+  .example-card i svg {
+    height: 7rem;
+    width: 7rem;
+  }
+}
+@media (min-width: 900px) {
+  .example-card h3 {
+    font-size: 1.75rem;
+  }
+}
 #signup {
   background: #efefef;
   padding: 2.75rem 1.5rem;
 }
+@media (min-width: 450px) {
+  #signup {
+    padding: 8rem 1.5rem;
+  }
+}
 #signup h2 {
-  margin-top: 0;
+  max-width: 450px;
+  margin: 0 auto 1rem;
 }
 #signup label {
   font-size: 0.75rem;
 }
 #signup input[type="text"],
 #signup input[type="password"] {
-  height: 2rem;
+  height: 2.5rem;
   margin: 0.25rem 0;
   width: 100%;
-  line-height: 2rem;
+  line-height: 2.5rem;
   border-radius: 2px;
   border: 1px solid #222;
 }
@@ -802,6 +930,7 @@ label[for*="-toggler"]:hover {
   transition: background-color 0.175s linear;
   margin-top: 1rem;
   line-height: 1.75;
+  height: 3rem;
   width: 100%;
 }
 #signup button:hover,
@@ -809,6 +938,37 @@ label[for*="-toggler"]:hover {
   cursor: pointer;
   background-color: #088eca;
   outline: none;
+}
+#signup #sign-up-form {
+  max-width: 450px;
+  margin: 0 auto;
+}
+#signup #sign-up-form .error {
+  color: #ef5350;
+}
+#signup #sign-up-form .error + input {
+  border: 1px solid #ef5350;
+}
+footer {
+  background-color: #efefef;
+  border-top: 1px solid #e2e2e2;
+  padding: 1rem;
+}
+footer h5,
+footer h6 {
+  margin: 0;
+  text-align: center;
+}
+footer h5 a,
+footer h6 a {
+  font-weight: bold;
+  color: #29b6f6;
+}
+footer h5 {
+  margin-bottom: 0.5rem;
+}
+footer h6 {
+  font-size: 0.5rem;
 }
 
 /*# sourceMappingURL=style.css.map*/
