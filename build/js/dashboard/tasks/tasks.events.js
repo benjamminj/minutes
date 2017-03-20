@@ -38,8 +38,13 @@ module.exports = (apiURL) => {
     // TO DO -- refactor so that takes an object as second arg. { title: ___, desc: ____ }
     ajax.editTask(id, $editContainer, function(err, editedTask) {
       if (editedTask) {
+        console.log('it works?');
         $task.html(generate.innerTaskHTML(editedTask));
         toggleScroll();
+      }
+
+      if (err) {
+        console.log(err);
       }
     });
   });

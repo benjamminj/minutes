@@ -5,7 +5,7 @@ module.exports = (apiURL) => {
 
   return {
     getTasks() {
-      let url = apiURL + 'tasks/';
+      let url = '/tasks/';
       $.getJSON(url)
         .done(function(tasks) {
           $('#tasks-container').html('');
@@ -25,13 +25,13 @@ module.exports = (apiURL) => {
     },
 
     editTask(id, edits, callback) {
-      let title = edits.children('.edit-title').val() || undefined;
-      let description = edits.children('.edit-description').val() || undefined;
+      let title = edits.find('.edit-title').val();
+      let description = edits.find('.edit-description').val();
 
       $.ajax({
-        url: `${apiURL}tasks/edit/${id}`,
+        url: `/tasks/edit/${id}`,
         type: 'PUT',
-        data: { title: title, description: description }
+        data: { title, description }
       }).done(function(editedTask) {
         callback(null, editedTask);
       }).fail(function(err) {
@@ -40,7 +40,7 @@ module.exports = (apiURL) => {
     },
 
     deleteTask(id) {
-      var url = `${apiURL}tasks/delete/${id}`;
+      var url = `/tasks/delete/${id}`;
 
       $.ajax({
         url: url,

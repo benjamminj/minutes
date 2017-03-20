@@ -100,7 +100,7 @@ module.exports = {
           <div class="task-modal-content">
             <button class="task-edit-save">${saveIcon}</button>
             <label for="edit-${_id}" class="close-icon">${closeIcon}</label>
-            <input class="edit-title" type="text" placeholder="Title" value="${title}" />
+            <input required class="edit-title" type="text" placeholder="Title" value="${title}" />
             <textarea class="edit-description" name="description" placeholder="Description">${description || ''}</textarea>
           </div>
         </div>

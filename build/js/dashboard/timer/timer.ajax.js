@@ -1,9 +1,8 @@
 let utils = require('../utils')();
 
-module.exports = (apiURL) => {
-
+module.exports = () => {
   return (time, callback) => {
-    let url = apiURL + 'tasks/create';
+    let url = '/tasks/create';
     let title = utils.getValue('.timer-save .title') || undefined;
     let description = utils.getValue('.timer-save .description');
 
