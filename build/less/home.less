@@ -69,7 +69,7 @@
 .example-cards {
   margin: 0;
 
-  .media-lg-screen({
+  .media-xl-screen({
     display: flex;
   });
 }
@@ -80,7 +80,7 @@
   .flex-column;
   .center-flex-column;
 
-  .media-lg-screen({
+  .media-xl-screen({
     height: 600px;
     width: 33.3333%;
   });
@@ -96,12 +96,8 @@
   }
 
   &.puzzles {
-    .bg-img-overlay(fade(@green, 40), url('/img/puzzle-bg.jpeg'));
+    .bg-img-overlay(fade(@green, 40), url('/img/crossword.jpeg'));
     .bg-img-pos-fixed(center);
-
-    .media-lg-screen({
-      .bg-img-overlay(fade(@green, 40), url('/img/crossword.jpeg'));
-    });
   }
 
   i {
@@ -110,7 +106,19 @@
 
       height: @example-card-svg-size;
       width: @example-card-svg-size;
+
+      .media-xl-screen({
+        @md-screen-svg-size: 7rem;
+        height: @md-screen-svg-size;
+        width: @md-screen-svg-size;
+      });
     }
+  }
+
+  h3 {
+    .media-xl-screen({
+      font-size: 1.75rem;
+    });
   }
 }
 
@@ -125,7 +133,6 @@
   h2 {
     max-width: @breakpoint-md;
     margin: 0 auto 1rem;
-
   }
 
   .auth-input();
