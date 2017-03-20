@@ -83,3 +83,21 @@
     }
   }
 }
+
+.media-md-screen(@rules) {
+  @media (min-width: @breakpoint-md) {
+    @rules();
+  }
+}
+
+.media-lg-screen(@rules) {
+  @media (min-width: @breakpoint-lg) {
+    @rules();
+  }
+}
+
+.media-xl-screen(@rules) {
+  @media (min-width: @breakpoint-xl) {
+    @rules();
+  }
+}
