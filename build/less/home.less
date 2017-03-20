@@ -7,7 +7,7 @@
 
 // Handle individual button stylings for desktop
 
-#banner, #description, #examples {
+#banner, #examples {
   .fullscreen-section;
 }
 
@@ -24,10 +24,26 @@
 
   h1 {
     font-family: @font-secondary;
+
+    .media-md-screen({
+      font-size: 3rem;
+    });
+
+    .media-xl-screen({
+      font-size: 4rem;
+    });
   }
 
   h3 {
     margin: 0;
+
+    .media-lg-screen({
+      font-size: 1.5rem;
+    });
+
+    .media-xl-screen({
+      font-size: 2rem;
+    });
   }
 
   .keep-reading-btn {
@@ -42,13 +58,42 @@
 }
 
 #description {
-  padding-top: @header-height * 2;
+  padding: (@header-height * 2) @header-height;
   background: @light-gray;
+  .flex-column;
+  .center-flex-column;
+
+  .media-xl-screen({
+    flex-direction: row;
+  });
+
+  .content {
+    max-width: @breakpoint-md;
+
+    .media-xl-screen({
+      margin-left: 3rem;
+    });
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+    }
+  }
 }
 
 .icon-suitcase-timer {
   text-align: center;
   display: block;
+
+  svg {
+    .media-xl-screen({
+      height: 150px;
+      width: 150px;
+    });
+  }
 }
 
 #examples {
@@ -145,5 +190,29 @@
   #sign-up-form {
     max-width: @breakpoint-md;
     margin: 0 auto;
+  }
+}
+
+footer {
+  background-color: @light-gray;
+  border-top: 1px solid darken(@light-gray, 5%);
+  padding: 1rem;
+
+  h5, h6 {
+    margin: 0;
+    text-align: center;
+
+    a {
+      font-weight: bold;
+      color: @accent;
+    }
+  }
+
+  h5 {
+    margin-bottom: 0.5rem;
+  }
+
+  h6 {
+    font-size: 0.5rem;
   }
 }
