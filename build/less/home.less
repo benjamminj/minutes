@@ -54,6 +54,10 @@
 #examples {
   background: @white;
   padding: 0;
+
+  .media-lg-screen({
+    min-height: auto;
+  });
 }
 
 .examples-heading {
@@ -64,6 +68,10 @@
 
 .example-cards {
   margin: 0;
+
+  .media-lg-screen({
+    display: flex;
+  });
 }
 
 .example-card {
@@ -72,8 +80,13 @@
   .flex-column;
   .center-flex-column;
 
+  .media-lg-screen({
+    height: 600px;
+    width: 33.3333%;
+  });
+
   &.exercise {
-    .bg-img-overlay(fade(@accent-darker, 40), url('/img/running-bg.jpg'));
+    .bg-img-overlay(fade(@accent-darker, 40), url('/img/parking-freeway-jogger.jpg'));
     .bg-img-pos-fixed(right);
   }
 
@@ -85,6 +98,10 @@
   &.puzzles {
     .bg-img-overlay(fade(@green, 40), url('/img/puzzle-bg.jpeg'));
     .bg-img-pos-fixed(center);
+
+    .media-lg-screen({
+      .bg-img-overlay(fade(@green, 40), url('/img/crossword.jpeg'));
+    });
   }
 
   i {
