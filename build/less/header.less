@@ -16,17 +16,31 @@
     box-shadow: @shadow-bottom;
     padding: @header-pad;
 
+    .media-md-screen({
+      padding: 0;
+    });
+
     h3 {
       margin: 0;
+
+      .media-md-screen({
+        position: absolute;
+        padding: @header-pad-vert;
+        cursor: default;
+      });
     }
 
     i {
       position: absolute;
       right: 0;
-      padding: 0.5rem;
+      padding: @header-pad-vert;
       line-height: 1;
       top: 0;
       color: inherit;
+
+      .media-md-screen({
+        display: none;
+      });
     }
 
     span::selection {
@@ -45,9 +59,20 @@
     // TODO: Make hidden in a different way to get animation when it is displayed
     display: none;
 
+    .media-md-screen({
+      background-color: transparent;
+      display: flex;
+      position: absolute;
+      right: 0;
+    });
+
     ul {
       margin: 0;
       padding: 0;
+
+      .media-md-screen({
+        display: flex;
+      });
     }
 
     .menu-item {
@@ -58,6 +83,10 @@
 
     .menu-toggler-close {
       display: block;
+
+      .media-md-screen({
+        display: none;
+      });
     }
 
     .menu-item a, .menu-toggler-close {
@@ -66,6 +95,10 @@
       &:hover {
         background: @hover-overlay;
       }
+
+      .media-md-screen({
+        padding: @header-pad-vert 1rem;
+      });
     }
   }
 }
@@ -75,5 +108,9 @@
   + .menu-toggler-btn + .nav {
     display: block;
     box-shadow: @shadow-bottom;
+
+    .media-md-screen({
+      box-shadow: none;
+    });
   }
 }
