@@ -1,11 +1,11 @@
-module.exports = function(apiURL) {
+module.exports = function() {
   $('.logout').click(function(ev) {
     ev.preventDefault();
-    let url = `${apiURL}user/logout`;
+    let url = `/user/logout`;
 
     $.get(url)
       .done(() => {
-        window.location = API_URL;
+        window.location = '/';
       });
   });
 };

@@ -81,17 +81,17 @@
 
 /***/ },
 /* 13 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 	
-	module.exports = function (apiURL) {
+	module.exports = function () {
 	  $('.logout').click(function (ev) {
 	    ev.preventDefault();
-	    var url = apiURL + 'user/logout';
+	    var url = '/user/logout';
 	
 	    $.get(url).done(function () {
-	      window.location = ('//localhost:5000/');
+	      window.location = '/';
 	    });
 	  });
 	};
