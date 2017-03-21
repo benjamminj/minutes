@@ -47,11 +47,11 @@
 
 	'use strict';
 	
-	__webpack_require__(30)();
+	__webpack_require__(32)();
 
 /***/ },
 
-/***/ 29:
+/***/ 28:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -68,12 +68,12 @@
 
 /***/ },
 
-/***/ 30:
+/***/ 32:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var controller = __webpack_require__(31);
+	var controller = __webpack_require__(33);
 	
 	module.exports = function () {
 	
@@ -90,12 +90,12 @@
 
 /***/ },
 
-/***/ 31:
+/***/ 33:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var loginRequest = __webpack_require__(29).login;
+	var loginRequest = __webpack_require__(28).login;
 	
 	var Controller = {};
 	

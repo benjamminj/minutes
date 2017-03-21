@@ -47,40 +47,12 @@
 
 	'use strict';
 	
-	__webpack_require__(26);
-	__webpack_require__(28)();
-
-/***/ },
-
-/***/ 26:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
+	__webpack_require__(29);
+	__webpack_require__(31)();
 
 /***/ },
 
 /***/ 28:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var controller = __webpack_require__(29);
-	
-	module.exports = function () {
-	  $(document).ready(function () {
-	    $('#login-form').submit(function (event) {
-	      event.preventDefault();
-	      var request = { username: $('#username').val(), password: $('#password').val() };
-	
-	      controller.login(request);
-	      // loginRequest(request);
-	    });
-	  });
-	};
-
-/***/ },
-
-/***/ 29:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -94,6 +66,34 @@
 	};
 	
 	module.exports = Controller;
+
+/***/ },
+
+/***/ 29:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 31:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var controller = __webpack_require__(28);
+	
+	module.exports = function () {
+	  $(document).ready(function () {
+	    $('#login-form').submit(function (event) {
+	      event.preventDefault();
+	      var request = { username: $('#username').val(), password: $('#password').val() };
+	
+	      controller.login(request);
+	      // loginRequest(request);
+	    });
+	  });
+	};
 
 /***/ }
 

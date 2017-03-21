@@ -26,10 +26,12 @@ module.exports = (apiURL) => {
     $('#timer-container .start').addClass('stop').removeClass('start').html('Stop');
 
     timer.start(function(currentTime) {
-
-      if (currentTime % 360 === 0) {
+      if (currentTime % (60 * 60) === 0) {
+        $('.timer .minutes').html('00');
+        $('.timer .seconds').html('00');
         increaseTimerHTML('.timer .hours');
       } else if (currentTime % 60 === 0) {
+        $('.timer .seconds').html('00');
         increaseTimerHTML('.timer .minutes');
       } else {
         increaseTimerHTML('.timer .seconds');

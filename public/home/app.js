@@ -47,24 +47,24 @@
 
 	'use strict';
 	
-	__webpack_require__(22);
-	__webpack_require__(24)();
+	__webpack_require__(24);
+	__webpack_require__(26)();
 
 /***/ },
 
-/***/ 22:
+/***/ 24:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 24:
+/***/ 26:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _require = __webpack_require__(34);
+	var _require = __webpack_require__(27);
 	
 	var signup = _require.signup;
 	
@@ -83,29 +83,12 @@
 
 /***/ },
 
-/***/ 29:
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var Controller = {};
-	
-	Controller.login = function (request) {
-	  $.post("/user/login", request).done(function () {
-	    window.location = "/dashboard/#tasks-container";
-	  });
-	};
-	
-	module.exports = Controller;
-
-/***/ },
-
-/***/ 34:
+/***/ 27:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _require = __webpack_require__(29);
+	var _require = __webpack_require__(28);
 	
 	var login = _require.login;
 	
@@ -154,6 +137,23 @@
 	    });
 	  }
 	};
+
+/***/ },
+
+/***/ 28:
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var Controller = {};
+	
+	Controller.login = function (request) {
+	  $.post("/user/login", request).done(function () {
+	    window.location = "/dashboard/#tasks-container";
+	  });
+	};
+	
+	module.exports = Controller;
 
 /***/ }
 

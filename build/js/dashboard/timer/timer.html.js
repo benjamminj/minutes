@@ -46,9 +46,9 @@ module.exports = {
   divideTimeHTML(time) {
     let pad = utils.addLeadingZeroes;
 
-    let hours = pad(divideTime(time, 360));
-    let minutes = pad(divideTime(time - (hours * 360), 60));
-    let seconds = pad(divideTime(time - (hours * 360) - (minutes * 60)));
+    let hours = pad(divideTime(time, (60 * 60)));
+    let minutes = pad(divideTime(time - (hours * (60 * 60)), 60));
+    let seconds = pad(divideTime(time - (hours * (60 * 60)) - (minutes * 60)));
 
     function divideTime(initialTime, division = 1) {
       return Math.floor(initialTime / division);
