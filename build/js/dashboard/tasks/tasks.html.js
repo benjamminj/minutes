@@ -101,7 +101,7 @@ module.exports = {
             <button class="task-edit-save">${saveIcon}</button>
             <label for="edit-${_id}" class="close-icon">${closeIcon}</label>
             <input required class="edit-title" type="text" placeholder="Title" value="${title}" />
-            <textarea class="edit-description" name="description" placeholder="Description">${description || ''}</textarea>
+            <textarea class="edit-description" name="description" placeholder="Description" cols="50" rows="12">${description || ''}</textarea>
           </div>
         </div>
       </div>
