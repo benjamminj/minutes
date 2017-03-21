@@ -884,6 +884,7 @@ label[for*="-toggler"]:hover {
 @media (min-width: 450px) {
   .task-modal-content {
     width: 450px;
+    height: 300px;
     align-self: center;
   }
 }
