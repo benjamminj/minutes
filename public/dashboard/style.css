@@ -953,22 +953,29 @@ label[for*="-toggler"]:hover {
   padding-bottom: 2.75rem;
 }
 .timer .time {
-  font-size: 3.5rem;
+  font-size: 5rem;
   color: #29b6f6;
   text-align: center;
+  margin: 2rem 0;
 }
 @media (min-width: 632px) {
   .timer .time {
-    font-size: 5rem;
+    font-size: 7rem;
   }
 }
 .timer .timer-buttons {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
 }
 .timer .timer-buttons button {
-  width: 50%;
-  padding: 0.75rem;
+  width: 100%;
+  padding: 1.25rem;
+  font-size: 1.5rem;
+}
+@media (min-width: 632px) {
+  .timer .timer-buttons button {
+    width: 50%;
+  }
 }
 .timer .timer-buttons button.start {
   background-color: transparent;
@@ -976,6 +983,7 @@ label[for*="-toggler"]:hover {
   border: 2px solid #29b6f6;
   border-radius: 2px;
   transition: all 0.175s linear;
+  border-radius: 2px 2px 0 0;
 }
 .timer .timer-buttons button.start:hover,
 .timer .timer-buttons button.start:focus {
@@ -991,6 +999,7 @@ label[for*="-toggler"]:hover {
   border: 2px solid #29b6f6;
   border-radius: 2px;
   transition: all 0.175s linear;
+  border-radius: 0 0 2px 2px;
 }
 .timer .timer-buttons button.stop:hover,
 .timer .timer-buttons button.stop:focus {
@@ -1086,6 +1095,7 @@ label[for*="-toggler"]:hover {
   border: 2px solid #29b6f6;
   border-radius: 2px;
   transition: all 0.175s linear;
+  border-radius: 2px 0 0 2px;
 }
 #save-task .timer-buttons button.cancel-save:hover,
 #save-task .timer-buttons button.cancel-save:focus {
@@ -1101,6 +1111,7 @@ label[for*="-toggler"]:hover {
   border: none;
   border-radius: 2px;
   transition: background-color 0.175s linear;
+  border-radius: 0 2px 2px 0;
 }
 #save-task .timer-buttons button[type="submit"]:hover,
 #save-task .timer-buttons button[type="submit"]:focus {

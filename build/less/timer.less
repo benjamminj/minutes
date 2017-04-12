@@ -8,29 +8,37 @@
   padding-bottom: @header-height;
 
   .time {
-    font-size: 3.5rem;
+    font-size: 5rem;
     color: @accent;
     text-align: center;
+    margin: 2rem 0;
 
     .media-lg-screen({
-      font-size: 5rem;
+      font-size: 7rem;
     });
   }
 
   .timer-buttons {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
 
     button {
-      width: 50%;
-      padding: 0.75rem;
+      width: 100%;
+      padding: 1.25rem;
+      font-size: 1.5rem;
+
+      .media-lg-screen({
+        width: 50%;
+      });
 
       &.start {
         .btn-outline;
+        border-radius: @border-rad @border-rad 0 0;
       }
 
       &.stop {
-        .btn-outline
+        .btn-outline;
+        border-radius: 0 0 @border-rad @border-rad;
       }
 
       &.save {
@@ -114,10 +122,12 @@
 
       &.cancel-save {
         .btn-outline(@accent);
+        border-radius: @border-rad 0 0 @border-rad;
       }
 
       &[type="submit"] {
         .btn-accent;
+        border-radius: 0 @border-rad @border-rad 0;
       }
     }
   }

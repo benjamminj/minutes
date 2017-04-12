@@ -374,6 +374,10 @@
 	  $container.find('.timer-save').remove();
 	}
 	
+	function removeTimerActiveClass($container) {
+	  $container.find('.save').removeClass('active');
+	}
+	
 	function resetClock($container) {
 	  timer.reset();
 	
@@ -433,6 +437,7 @@
 	    event.preventDefault();
 	
 	    createTask(timeInSeconds, function () {
+	      removeTimerActiveClass($container);
 	      removeTimerSaveHTML($container);
 	      goToTasksView();
 	      getTasks();
@@ -441,6 +446,7 @@
 	
 	  $container.on('click', '.cancel-save', function (event) {
 	    event.preventDefault();
+	    removeTimerActiveClass($container);
 	    resetClock($container);
 	    removeTimerSaveHTML($container);
 	    goToTasksView();

@@ -10,6 +10,10 @@ function removeTimerSaveHTML ($container) {
   $container.find('.timer-save').remove();
 }
 
+function removeTimerActiveClass ($container) {
+  $container.find('.save').removeClass('active')
+}
+
 function resetClock ($container) {
   timer.reset();
 
@@ -69,6 +73,7 @@ module.exports = (apiURL) => {
     event.preventDefault();
 
     createTask(timeInSeconds, () => {
+      removeTimerActiveClass($container);
       removeTimerSaveHTML($container);
       goToTasksView();
       getTasks();
@@ -77,6 +82,7 @@ module.exports = (apiURL) => {
 
   $container.on('click', '.cancel-save', (event) => {
     event.preventDefault();
+    removeTimerActiveClass($container);
     resetClock($container);
     removeTimerSaveHTML($container);
     goToTasksView();
