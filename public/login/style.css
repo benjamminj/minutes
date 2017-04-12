@@ -787,5 +787,8 @@ h1 {
   text-align: center;
   font-size: 0.75rem;
 }
+.error {
+  color: #ef5350;
+}
 
 /*# sourceMappingURL=style.css.map*/

@@ -6,7 +6,7 @@ Controller.signup = (request) => {
   $.post(`${API_URL}user/signup`, request)
     .done(() => {
       loginRequest(request);
-    });
+    })
 };
 
 module.exports = Controller;

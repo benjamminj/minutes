@@ -143,13 +143,17 @@
 /***/ 28:
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	var Controller = {};
 	
 	Controller.login = function (request) {
-	  $.post("/user/login", request).done(function () {
-	    window.location = "/dashboard/#tasks-container";
+	  $.post('/user/login', request).done(function () {
+	    window.location = '/dashboard/#tasks-container';
+	  }).fail(function () {
+	    var $usernameLabel = $('label[for="username"]');
+	    $usernameLabel.addClass('error');
+	    $usernameLabel.html('Invalid username or password. Please try logging in again');
 	  });
 	};
 	
