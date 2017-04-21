@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "nodemon server/server.js",
+    "dev": "npm run watch & npm run start",
     "test": "NODE_ENV=testing mocha \"server/**/*.test.js\"",
     "coverage": "NODE_ENV=testing istanbul cover _mocha \"server/**/*.test.js\" -- -R spec",
     "build": "webpack",
